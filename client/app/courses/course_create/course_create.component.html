@@ -1,0 +1,77 @@
+﻿	<div class="col-md-6 col-md-offset-3">
+		<div class="naboo-course-container">
+			<div class="naboo-course-create-wrapper">
+				<h2>Create Course</h2>
+				<form (ngSubmit)="isValid() && createCourse()">
+					<fieldset>
+						<app-input field="name" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [label]="'Name' | translate" placeholder="Course Name"
+						></app-input>
+					</fieldset>
+					<fieldset>
+						<select2 [data]="categories" [options]="options"></select2>
+					</fieldset>
+					<fieldset>
+						<app-input field="description" type="textarea" [tabindex]="11" [form]="createCourseForm" [horizontal]="true"
+								   [label]="'Description' | translate" placeholder="Course Description"
+						></app-input>
+					</fieldset>
+					<fieldset>
+						<app-input field="link" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [label]="'External Link' | translate" placeholder="External Link"
+						></app-input>
+					</fieldset>
+					<fieldset>
+						<app-input field="date" type="date" [tabindex]="10" [form]="createCourseForm" [horizontal]="true"
+								   [label]="'Date' | translate" placeholder="Course Date"
+						></app-input>
+						<app-input field="duration" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [label]="'Duration' | translate" placeholder="Course Duration"
+						></app-input>
+					</fieldset>
+					<fieldset>
+						<app-map></app-map>
+						<app-input field="address_name" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="street" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="district" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="city" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="country" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="latitude" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="longitude" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+					</fieldset>
+					<fieldset>
+						<app-input field="file_image" type="file" [tabindex]="5" [horizontal]="true" [form]="createCourseForm" (change)="setImage($event)"
+								   [label]="'Course Image' | translate" [errorText]="'Bitte Titel eingeben!' | translate"
+						></app-input>
+						<app-input field="default_image" type="checkbox" [tabindex]="4" [form]="createCourseForm" (click)="setDefaultImage()"
+								   [label]="'Use Default' | translate"
+						></app-input>
+						<img id="preview-image" class="image-preview" [src]="" />
+					</fieldset>
+					<fieldset>			
+						<app-input field="pictures" type="file" [tabindex]="12" [form]="createCourseForm" [horizontal]="true" [multiple]="true"
+								   [label]="'Course-Images' | translate" (change)="setPictures()"
+						></app-input>
+						<div id="filelist"></div>
+					</fieldset>
+					<fieldset>
+						<app-button [disabled]="!isValid()" [tabindex]="13">{{ 'Create' | translate}}</app-button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>

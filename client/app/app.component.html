@@ -1,0 +1,21 @@
+﻿<!-- main app container -->
+<header *ngIf="isLoggedIn()">
+	<a [routerLink]="['/']"><img class="naboo-logo" src="app/_assets/images/logo.png" /></a>
+	<div>
+		<div (click)="showPanel()">
+			<img class="naboo-headbar-user-avatar" [src]="currentUser.avatar" />
+		</div>
+		<div id="naboo-user-panel" class="naboo-user-panel">
+			<p><a [routerLink]="['/users', currentUser._id]">Profile</a></p>
+			<p><button (click)="logout()">Logout</button></p>
+		</div>
+	</div>
+</header>
+<div id="naboo-content" class="naboo-content">
+    <div class="naboo-container">
+        <div>
+			<alert></alert>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

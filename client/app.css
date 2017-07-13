@@ -1,0 +1,303 @@
+﻿/* Import Home Styles */
+@import url("app/home/home.css");
+
+/* Import User Styles */
+@import url("app/users/login/login.css");
+@import url("app/users/register/register.css");
+@import url("app/users/user_confirmation/user_confirmation.css");
+@import url("app/users/user/user.css");
+
+/* Import Course Styles */
+@import url("app/courses/course/course.css");
+@import url("app/courses/course_create/course_create.css");
+
+/* General */
+html, body {
+	font-family: 'GlacialIndifferenceRegular'; 
+	font-weight: normal; 
+	font-style: normal;
+	overflow-x: hidden;
+	margin: 0px;
+}
+
+h1,h2,h3,h4,p,a,label,span {
+	font-family: 'GlacialIndifferenceRegular'; 
+	font-weight: normal; 
+	font-style: normal; 
+	color: #CCC;
+	float: none;
+}
+
+h1 {
+	font-size: 30px;
+	margin: 5px 0px;
+}
+h2 {
+	font-size: 25px;
+	margin: 5px 0px;
+}
+h3 {
+	font-size: 22px;
+	margin: 5px 0px;
+}
+h4 {
+	font-size: 20px;
+	margin: 5px 0px;
+}
+label {
+	font-size: 18px;
+	margin: 5px 0px;
+}
+p, a, span {
+	font-size: 16px;
+	text-decoration: none;
+}
+
+input,select {
+	width: 320px;
+	height: 30px;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'GlacialIndifferenceRegular'; 
+	font-size: 18px;
+	font-weight: normal; 
+	font-style: normal; 
+	color: #fff;
+	background: transparent;
+	border-left: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+}
+
+textarea {
+	width: 320px;
+	height: 100px;
+	padding: 5px;
+	margin: 2px;
+	font-family: 'GlacialIndifferenceRegular'; 
+	font-size: 18px;
+	font-weight: normal; 
+	font-style: normal; 
+	color: #333;
+	border: 1px solid #CCC;
+}
+
+button {
+	width: 100px;
+	height: 35px;
+	padding: 5px;
+	font-family: 'GlacialIndifferenceRegular'; 
+	font-size: 18px;
+	font-weight: normal; 
+	font-style: normal;
+	text-align: center;
+	vertical-align: middle;
+	color: #fff;
+	background: #0094FF;
+	cursor: pointer;
+	border: 1px solid #CCC;
+}
+
+/* Checkbox */
+.cb-outer-wrapper {
+	display: table;
+	margin-right: 10px;
+	float: left;
+}
+
+.cb-wrapper {
+	width: 20px;
+	height: 20px;
+	background: transparent;
+	border-radius: 0px;
+	position: relative;
+}
+
+.cb-wrapper .cb-label {
+	display: block;
+	width: 19px;
+	height: 19px;
+	margin: 0px;
+	border: 1px solid #CCC;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background: #222222;
+}
+
+.cb-wrapper input[type=checkbox]:checked + label {
+	background-color: #0094FF;
+}
+
+.cb-wrapper [type="checkbox"]:checked + label:after {
+	content: '\2714';
+    color: #CCC;
+    font-size: 18px;
+	margin: -14px 0px 0px 2px;
+    position: absolute;
+    left: 0;
+}
+
+/* Scrollbar */
+body::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: #fff;
+	border-radius: 10px;
+}
+
+body::-webkit-scrollbar,
+div::-webkit-scrollbar
+{
+	width: 7px;
+	background-color: #fff;
+}
+
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #AAA;
+}
+
+/* Main */
+header {
+	position: fixed;
+	width: 100%;
+	height: 70px;
+	background: #222222;
+	border-bottom: 3px solid #fff;
+	margin: 0px;
+	z-index: 100;
+}
+
+.naboo-content {
+	width: 100%;
+	min-height: 100vh;
+	padding: 100px 30px 30px;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: url('app/_assets/images/bg.png');
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.naboo-container {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.naboo-logo {
+	position: fixed;
+	width: 180px;
+	height: auto;
+	margin: 15px 10px;
+	z-index: 100;
+}
+
+.naboo-headbar-user-avatar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 50px;
+	height: auto;
+	margin: 10px;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	z-index: 100;
+}
+
+.naboo-user-panel {
+	position: fixed;
+	display: none;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: auto;
+	padding: 10px;
+	margin: 70px 4px;
+	text-align: center;
+	background: #222;
+}
+
+.naboo-user-panel.active {
+	display: block;
+}
+
+.naboo-user-panel p a {
+	color: #fff;
+	text-decoration: none;
+	transition: color 0.35s;
+	-webkit-transition: color 0.35s;
+}
+
+.naboo-user-panel p a:hover {
+	color: #DDD;
+	transition: color 0.35s;
+	-webkit-transition: color 0.35s;
+}
+
+/* Container Navigation */
+.container-nav ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+.container-nav .nav-item {
+	display: inline-block;
+	width: 20%;
+	padding: 10px;
+	float: left;
+	text-align: center;
+	list-style: none;
+	background: rgba(0,0,0,0.8);
+	border-right: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+}
+
+.container-nav .nav-item {
+	color: #CCC;
+	font-size: 18px;
+}
+
+.container-nav .nav-item.active {
+	border-bottom: 1px solid #333;
+}
+
+.container-nav .nav-item.active a {
+	color: #fff;
+	font-weight: bold;
+}
+
+/* Other */
+input.address {
+	display: none;
+}
+
+/* Alerts */
+.form-control-feedback {
+	width: 100%;
+	line-height: 20px;
+	color: #F00000;
+}
+
+.alert {
+	margin: 0px 350px;
+    padding: 10px;
+}
+.alert-success {
+	background: rgba(223, 242, 191, 21);
+}
+.alert-error,
+.alert-danger {
+	background: rgba(255, 186, 186, 27);
+}
+
+/* Custom labels */
+.no-label,
+.no-input {
+	display: none !important;
+}

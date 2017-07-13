@@ -1,0 +1,107 @@
+﻿<div class="col-md-6 col-md-offset-3" *ngFor="let user of users">
+	<div class="naboo-user-container" *ngIf="user._id == userId">
+		<div class="naboo-user-profile">
+			<div class="naboo-user-profile-head">
+				<img class="naboo-user-titleImage" [src]="user.titleImage" />
+				<img class="naboo-user-avatar" [src]="user.avatar" />
+				<button class="naboo-user-edit" (click)="edit()">
+					<i class="fa fa-pencil-square-o"></i>
+				</button>
+			</div>
+			<div class="naboo-user-element">
+				
+				<label>Name</label>
+				<p>{{user.name}}</p>
+				<button *ngIf="user._id != currentUser._id && user.friendRequests.indexOf(currentUser._id) == -1 && user.friends.indexOf(currentUser._id) == -1" (click)="sendFriendRequest(user)" class="btn btn-primary naboo-request">
+					<i class="fa fa-user-plus"></i>
+				</button>
+				<button *ngIf="user._id != currentUser._id && user.friendRequests.indexOf(currentUser._id) != -1 && user.friends.indexOf(currentUser._id) == -1" (click)="cancelFriendRequest(user)" class="btn btn-primary naboo-request">
+					<i class="fa fa-ban"></i>
+				</button>
+			</div>
+			<div class="naboo-user-profile-body">
+				<div class="naboo-user-element">
+					<label>Description</label>
+					<p>{{user.description}}</p>
+				</div>
+				<div class="naboo-user-element" *ngIf="user._id == currentUser._id && user.friendRequests.length > 0">
+					<ul>
+						<li *ngFor="let request of user.friendRequests">
+							<a [routerLink]="['/users/', request]">
+								<img class="naboo-user-avatar small" [src]="getUserById(request).avatar" title="{{getUserById(request).username}}" />
+							</a>
+							<button (click)="acceptFriendRequest(request)" class="btn btn-primary naboo-request">
+								<i class="fa fa-check"></i>
+							</button>
+							<button (click)="refuseFriendRequest(request)" class="btn btn-primary naboo-request">
+								<i class="fa fa-times"></i>
+							</button>
+						</li>
+					</ul>
+				</div>
+				<div class="naboo-user-element">
+					<label>Friends</label>
+					<ul *ngIf="user.friends.length > 0">
+						<li *ngFor="let friend of user.friends">
+							<a [routerLink]="['/users/', friend]">
+								<img class="naboo-user-avatar small" [src]="getUserById(friend).avatar" title="{{getUserById(friend).username}}"/>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="naboo-user-element">
+					<label>Courses</label>
+					<ul *ngIf="user.courses.length > 0">
+						<li *ngFor="let course of user.courses">
+							<a [routerLink]="['/courses/', course]">
+								<img class="naboo-user-course small" [src]="getCourseById(course).image" title="{{getCourseById(course).coursename}}"/>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div id="profile-update" class="naboo-user-profile-update" *ngIf="user._id == currentUser._id">
+				<button class="close" (click)="close()">
+					<i class="fa fa-times"></i>
+				</button>
+				<div class="naboo-user-profile-update-wrapper">
+					<h2>Update User</h2>
+					<form (ngSubmit)="isValid() && updateUser()">
+						<fieldset>
+							<app-input field="name" type="text" [tabindex]="5" [form]="userForm" [horizontal]="true"
+									   [label]="'Name' | translate"
+							></app-input>
+						</fieldset>
+						<fieldset>
+							<app-input field="description" type="textarea" [tabindex]="11" [form]="userForm" [horizontal]="true"
+									   [label]="'Description' | translate"
+							></app-input>
+						</fieldset>
+						<fieldset>
+							<app-input field="file_avatar" type="file" [tabindex]="5" [horizontal]="true" [form]="userForm" (change)="setAvatar($event)"
+									   [label]="'Avatar' | translate"
+							></app-input>
+							<app-input field="default_avatar" type="checkbox" [tabindex]="4" [form]="userForm" (click)="setDefaultAvatar()"
+									   [label]="'Use Default' | translate"
+							></app-input>
+							<img id="preview-avatar" class="image-preview" [src]="user.avatar" />
+						</fieldset>
+						<fieldset>
+							<app-input field="file_titleImage" type="file" [tabindex]="5" [horizontal]="true" [form]="userForm" (change)="setTitleImage($event)"
+									   [label]="'Title Image' | translate" [errorText]="'Bitte Titel eingeben!' | translate"
+							></app-input>
+							<app-input field="default_titleImage" type="checkbox" [tabindex]="4" [form]="userForm" (click)="setDefaultTitleImage()"
+									   [label]="'Use Default' | translate"
+							></app-input>
+							<img id="preview-titleImage" class="image-preview" [src]="user.titleImage" />
+						</fieldset>
+						<fieldset>
+							<app-button [tabindex]="13">{{ 'Update' | translate}}</app-button>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

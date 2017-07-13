@@ -1,0 +1,259 @@
+/* Users */
+.naboo-user-container {
+	display: table;
+	width: 100%;
+	padding: 30px 200px;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile {
+	position: relative;	
+}
+
+.naboo-user-profile label {
+	display: table;
+	width: 100%;
+	color: #DDD;
+	margin: 0px 0px 10px;
+	border-bottom: 1px solid #DDD;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile-head {
+	display: table;
+	position: relative;
+	width: 100%;
+	height: auto;
+	border: 1px solid #222;
+	background: #222;
+	box-sizing: border-box;
+}
+
+.naboo-user-avatar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 150px;
+	height: auto;
+	margin: 10px;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	background: #222;
+	z-index: 5;
+}
+
+.naboo-user-titleImage {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.naboo-user-edit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 35px;
+	height: 35px;
+	padding: 5px;
+	margin: 5px;
+	background: rgba(0,0,0,0.8);
+	border: 1px solid #222;
+	border-radius: 50%;
+	color: #fff;
+	cursor: pointer;
+	outline: 0 none;
+	z-index:5;
+}
+
+.naboo-request {
+	position: relative;
+	width: 30px;
+	height: 30px;
+	margin: 20px 5px;
+	vertical-align: middle;
+	cursor: pointer;
+	transition: background 0.25s;
+	-webkit-transition: background 0.25s;
+}
+
+.naboo-request:hover {
+	background: #42B0FF;
+	transition: background 0.25s;
+	-webkit-transition: background 0.25s;
+}
+
+.naboo-user-element {
+	position: relative;
+	display: table;
+	width: 100%;
+	height: 100px;
+	padding: 20px 30px;
+	margin: 5px 0px; 
+	background: #222;
+	box-sizing: border-box;
+}
+
+.naboo-user-element p {
+	position: relative;
+	margin: 0px;
+	float: none;
+	text-align: justify;
+	font-size: 20px;
+	color: #fff;
+}
+
+.naboo-user-element ul {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.naboo-user-element ul li {
+	width: 100%;
+	height: 70px;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.naboo-user-element ul li .naboo-user-avatar.small {
+	position: relative;
+	width: 50px;
+	height: auto;
+	float: left;
+	border: 1px solid #fff;
+	border-radius: 50%;
+}
+
+.naboo-user-element ul li .naboo-user-course.small {
+	position: relative;
+	width: 300px;
+	height: auto;
+	margin: 10px;
+	float: left;
+	border: 1px solid #fff;
+	border-radius: 0px;
+}
+
+/* User Update Form */
+.naboo-user-profile-update {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	max-height: 0px;
+	z-index: 50;
+	background: #222;
+	color: #fff;
+	overflow: hidden;
+	transition: max-height 0.75s;
+	-webkit-transition: max-height 0.75s;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile-update.active {
+	max-height: 5000px;
+	transition: max-height 0.75s;
+	-webkit-transition: max-height 0.75s;
+}
+
+.naboo-user-profile-update-wrapper {
+	width: 100%;
+	padding: 0px 150px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile-update-wrapper fieldset {
+	width: 100%;
+	border: 1px solid #555;
+	margin: 10px 0px;
+	padding: 20px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile-update-wrapper h2 {
+	width: 100%;
+	color: #fff;
+	margin: 5px 0px;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile-update-wrapper p,
+.naboo-user-profile-update-wrapper span {
+	color: #fff;
+}
+
+.naboo-user-profile-update-wrapper fieldset label {
+	width: 100%;
+	color: #fff;
+	margin: 5px 0px;
+	padding: 5px 0px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #fff;
+}
+
+.naboo-user-profile-update-wrapper fieldset input {
+	width: 100%;
+	height: 40px;
+	color: #CCC;
+	margin: 10px 0px;
+	padding: 5px 10px;
+	border-top: none;
+	border-right: none;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	box-sizing: border-box;
+}
+
+.naboo-user-profile-update-wrapper fieldset input[type=file] {
+	padding: 0px;
+	border: none;
+}
+
+.naboo-user-profile-update-wrapper fieldset input[type=checkbox] {
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+	vertical-align: middle;
+}
+
+.naboo-user-profile-update-wrapper fieldset textarea {
+	width: 100%;
+	height: 300px;
+	margin: 10px 0px;
+	padding: 5px 10px;
+	border-top: none;
+	border-right: none;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	color: #CCC;
+	text-align: justify;
+	background: #222;
+	box-sizing: border-box;
+}
+
+.close {
+	position: relative;
+	width: 35px;
+	height: 35px;
+	float: right;
+	margin: 10px;
+	background: transparent;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	outline: 0 none;
+}
+
+.base64 {
+	display: none;
+}
+
+.image-preview {
+	height: 150px;
+	width: auto;
+	border: 1px solid #CCC;
+}

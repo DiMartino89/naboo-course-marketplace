@@ -1,0 +1,84 @@
+<!-- Input when attached to a form -->
+<div *ngIf="form" class="form-group" [ngClass]="{'has-danger': form.controls[field].touched && !form.controls[field].valid, 'row': !multipleInputs && horizontal}" [formGroup]="form">
+
+    <!-- Multiple Custom inputs -->
+    <fieldset *ngIf="isCustomType() && multipleInputs" [ngClass]="{'custom-controls-stacked': stacked, 'row': horizontal}">
+        <legend class="form-control-label custom-controls-legend" [ngClass]="{'col-sm-3 col-form-label': horizontal}">{{ legend }}:</legend>
+
+        <div [ngClass]="{'col-sm-9': horizontal}">
+            <!-- Custom inputs -->
+            <label *ngFor="let singleLabel of label; let i = index" [ngClass]="{'custom-control': true, 'custom-checkbox': type === 'checkbox', 'custom-radio': type === 'radio'}">
+                <input value="{{value[i]}}" type="{{type}}" tabindex="{{tabindex + i}}" name="{{field}}" class="custom-control-input" [ngClass]="{'no-input': inputHidden}">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description" [innerHtml]="singleLabel | safe"></span>
+            </label>
+        </div>
+    </fieldset>
+
+    <!-- Custom inputs -->
+    <label *ngIf="isCustomType() && !multipleInputs" [ngClass]="{'custom-control': true, 'custom-checkbox': type === 'checkbox', 'custom-radio': type === 'radio', 'col-sm-12': horizontal}">
+        <input [formControlName]="field" type="{{type}}" tabindex="{{tabindex}}" name="{{field}}" class="custom-control-input" [ngClass]="{'no-input': inputHidden}">
+        <span class="custom-control-indicator"></span>
+        <span *ngIf="!renderTOSText" class="custom-control-description" [innerHtml]="label | safe"></span>
+        <span *ngIf="renderTOSText" class="custom-control-description">
+             {{ 'Ich habe die' | translate }} <app-modal-link [modal]="'tos-modal'">{{'Nutzungsbedingungen' | translate}}</app-modal-link> & <app-modal-link [modal]="'privacy-modal'">{{'Datenschutzhinweise' | translate}}</app-modal-link> {{ 'gelesen und erkläre mich damit einverstanden.' | translate }}"
+        </span>
+    </label>
+
+    <!-- Label for non custom inputs -->
+    <label *ngIf="!isCustomType() && !isHiddenType()" class="form-control-label" [ngClass]="{'col-sm-3 col-form-label': horizontal, 'no-label': labelHidden}" [for]="id || name">
+        {{ label }}:
+
+        <!-- Forgot password link for password fields -->
+        <a *ngIf="showForgotPasswordLink" [routerLink]="['/forgot-password']"><small>{{ 'Passwort vergessen?' | translate }}</small></a>
+    </label>
+
+    <div [ngClass]="{'col-sm-9': horizontal}">
+        <!-- Text area -->
+        <textarea *ngIf="isTextareaType()" [formControlName]="field" name="{{ field }}" tabindex="{{tabindex}}" id="{{id || field}}" class="form-control" placeholder="{{placeholder}}"></textarea>
+
+        <!-- Select -->
+        <select *ngIf="isSelectType()" [formControlName]="field" name="{{ field }}" tabindex="{{tabindex}}" id="{{id || field}}" class="form-control">
+            <ng-content></ng-content>
+        </select>
+
+        <!-- Input-->
+        <input *ngIf="isRegularType()" [formControlName]="field" name="{{ field }}" type="{{type}}" tabindex="{{tabindex}}" id="{{ id || field}}" class="form-control" placeholder="{{placeholder}}" [ngClass]="{'no-input': inputHidden}">
+
+        <!-- File input -->
+        <input *ngIf="isFileType()" name="{{ field }}" type="file" tabindex="{{tabindex}}" id="{{ id || field}}" class="form-control-file" multiple="{{multiple}}">
+
+        <span *ngIf="errorText && form.controls[field].touched && !form.controls[field].valid" class="form-control-feedback"><small>{{ errorText }}</small></span>
+    </div>
+</div>
+
+
+<!-- Input when not attached to a form -->
+<div *ngIf="!form" class="form-group">
+
+    <!-- Custom inputs -->
+    <label *ngIf="isCustomType()" [ngClass]="{'custom-control': true, 'custom-checkbox': type === 'checkbox', 'custom-radio': type === 'radio'}">
+        <input [type]="type" [name]="name" [tabindex]="tabindex" class="custom-control-input" [ngClass]="{'no-input': inputHidden}">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">{{ label }}</span>
+    </label>
+
+    <!-- Label for non custom inputs -->
+    <label *ngIf="!isCustomType()" class="form-control-label" [for]="id || name">
+        {{ label }}:
+
+        <!-- Forgot password link for password fields -->
+        <a *ngIf="type === 'password'" [routerLink]="['/forget_password']"><small>{{ 'Passwort vergessen?' | translate }}</small></a>
+    </label>
+
+    <!-- Text area -->
+    <textarea *ngIf="isTextareaType()" [tabindex]="tabindex" [id]="id || name" class="form-control" [placeholder]="placeholder || label"></textarea>
+
+    <!-- Select -->
+    <select *ngIf="isSelectType()" [tabindex]="tabindex" [id]="id || name" class="form-control">
+        <!--<ng-content></ng-content>-->
+    </select>
+
+    <!-- Input-->
+    <input *ngIf="isRegularType() || isFileType()" [type]="type"  [tabindex]="tabindex" [id]="id || name" [ngClass]="{ 'form-control': isRegularType(), 'form-control-file': isFileType() }" [placeholder]="placeholder || label" [ngClass]="{'no-input': inputHidden}">
+</div>

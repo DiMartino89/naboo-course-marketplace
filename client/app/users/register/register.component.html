@@ -1,0 +1,33 @@
+﻿<div class="naboo-registration-content">
+	<div class="container-nav">
+		<ul>
+			<li class="nav-item"><a [routerLink]="['/login']">Login</a></li>
+			<li class="nav-item active"><a [routerLink]="['/register']">Registration</a></li>
+		</ul>
+	</div>
+	<div class="naboo-registration-container">
+		<form (ngSubmit)="isValid() && register()">
+			<fieldset>
+				<app-input field="email" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true" placeholder="Your Email"
+						   [label]="'Email' | translate" [errorText]="'Please enter your Email!' | translate"
+				></app-input>
+				<br>
+				<app-input field="email_repeat" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true" placeholder="Repeat your Email"
+						   [label]="'Email Repeat' | translate" [errorText]="'Please enter your Email again!' | translate"
+				></app-input>
+				<br>
+				<app-input field="name" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true" placeholder="Your Username"
+						   [label]="'Username' | translate" [errorText]="'Please enter a Username!' | translate"
+				></app-input>
+				<br>
+				<app-input field="password" type="password" [tabindex]="5" [form]="registrationForm" [horizontal]="true" placeholder="Your Password"
+						   [label]="'Password' | translate" [showForgotPasswordLink]="true" [errorText]="'Please enter a Password!' | translate"
+				></app-input>
+				<br>
+			</fieldset>
+			<fieldset>
+				<app-button [disabled]="!isValid()" [tabindex]="13">{{ 'Register' | translate}}</app-button>
+			</fieldset>
+		</form>
+	</div>
+</div>

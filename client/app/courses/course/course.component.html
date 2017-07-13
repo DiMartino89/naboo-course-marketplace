@@ -1,0 +1,317 @@
+﻿<div id="naboo-course-profile" class="col-md-6 col-md-offset-3" *ngFor="let course of courses">
+	<div class="naboo-course-container">
+		<div class="naboo-course-profile" *ngIf="course._id == courseId">
+			<div class="naboo-course-profile-head">
+				<img class="naboo-course-titleImage" [src]="course.image" />
+				<button class="naboo-course-edit" (click)="edit()">
+					<i class="fa fa-pencil-square-o"></i>
+				</button>
+				<div class="naboo-course-name">{{course.name}}</div>
+				<div class="naboo-course-rating" (click)="showRatingPanel()">
+					<p *ngIf="course.rating <= 0.24">
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 0.25 && course.rating <= 0.74">
+						<i class="fa fa-star-half-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 0.75 && course.rating <= 1.24">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 1.25 && course.rating <= 1.74">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-half-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 1.75 && course.rating <= 2.24">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 2.25 && course.rating <= 2.74">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-half-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 2.75 && course.rating <= 3.24">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 3.25 && course.rating <= 3.74">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-half-o"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 3.75 && course.rating <= 4.24">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 4.25 && course.rating <= 4.74">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-half-o"></i>
+					</p>
+					<p *ngIf="course.rating >= 4.74">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</p>
+					<p>{{course.rating}}/5 ({{course.reviews.length}} <span *ngIf="course.reviews.length == 1">Review</span>
+																	  <span *ngIf="course.reviews.length == 0 || course.reviews.length > 1">Reviews</span>)</p>
+				</div>
+				<div id="naboo-rating-panel">
+					<h2>Rate this Course</h2>
+					<form name="form" (ngSubmit)="fo.form.valid && setRating()" #fo="ngForm" novalidate>
+						<div class="form-group" [ngClass]="{ 'has-error': fo.submitted && !rating.valid }">
+							<label for="rating">Rating</label>	
+							<input type="number" class="form-control" name="rating" id="rating" [(ngModel)]="review.rating" #rating="ngModel" min="0" max="5"/>
+							<div *ngIf="fo.submitted && !rating.valid" class="help-block">Rating is required</div>
+						</div>
+						<div class="form-group">
+							<label for="rating-description">Description (optional)</label>
+							<textarea type="text" class="form-control" name="rating-description" id="rating-description" [(ngModel)]="review.description" #description="ngModel" rows="4" cols="50"></textarea>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Rate</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="naboo-course-profile-body">
+				<div class="naboo-course-element">
+					<label>Category</label>
+					<p>{{getCategoryById(course.category).name}}</p>
+				</div>
+				<div class="naboo-course-element">
+					<label>Description</label>
+					<p>{{course.description}}</p>
+				</div>
+				<div class="naboo-course-element">
+					<label>Date</label>
+					<p>{{course.date}} Uhr</p>
+				</div>
+				<div class="naboo-course-element">
+					<label>Duration</label>
+					<p>{{course.duration}} Hours</p>
+				</div>
+				<div class="naboo-course-element">
+					<label>Address</label>
+					<div id="course-map"></div>
+					<input type="text" class="form-control address" id="address-latitude" value="{{course.latitude}}" readonly />
+					<input type="text" class="form-control address" id="address-longitude" value="{{course.longitude}}" readonly />
+					<p *ngIf="course.name != ''">{{course.name}}</p>
+					<p *ngIf="course.street != ''">{{course.street}}</p>
+					<p *ngIf="course.city != ''">{{course.city}}</p>
+					<p *ngIf="course.country != ''">{{course.country}}</p>
+				</div>
+				<div class="naboo-course-element">
+					<label>Link or URL</label>
+					<p *ngIf="course.link != ''"><a href="{{course.link}}">{{course.link}}</a></p>
+				</div>
+				<div class="naboo-course-element">
+					<label>Current Participants</label>
+					<ul>
+						<li *ngFor="let member of course.members"><a [routerLink]="['/users', member]">{{member}}</a></li>
+					</ul>
+				</div>
+				<div class="naboo-course-element">
+					<label>Pictures</label>
+					<ul>
+						<li *ngFor="let picture of course.pictures" class="pictures-item">
+							<img [src]="picture" />
+						</li>
+					</ul>
+				</div>
+				<div class="naboo-course-element">
+					<label>Reviews</label>
+					<ul>
+						<li *ngFor="let review of course.reviews" class="review-item">
+							<div class="review-item-head">
+								<a [routerLink]="['/users', review.user]">
+									<img class="review-avatar" [src]="getUserById(review.user).avatar" />
+								</a>, {{review.updatedAt}}
+							</div>
+							<div class="review-rating">
+								<p *ngIf="review.rating <= 0.24">
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 0.25 && review.rating <= 0.74">
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 0.75 && review.rating <= 1.24">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 1.25 && review.rating <= 1.74">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 1.75 && review.rating <= 2.24">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 2.25 && review.rating <= 2.74">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 2.75 && review.rating <= 3.24">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 3.25 && review.rating <= 3.74">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 3.75 && review.rating <= 4.24">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 4.25 && review.rating <= 4.74">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+								</p>
+								<p *ngIf="review.rating >= 4.74">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</p>
+							</div>
+							<div class="review-description">
+								<p>{{review.description}}</p>
+							</div>
+						</li>
+					</ul>
+				</div>		
+			</div>
+	   
+			<div id="course-update" class="naboo-course-profile-update" *ngIf="course._id == courseId">
+				<button class="close" (click)="close()">
+					<i class="fa fa-times"></i>
+				</button>
+				<div class="naboo-course-profile-update-wrapper">
+					<h2>Update Course</h2>
+					<form name="form" (ngSubmit)="f.form.valid && createCourse()" #f="ngForm" novalidate>
+						<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !coursename.valid }">
+							<label for="coursename">Coursename</label>
+							<input type="text" id="coursename" class="form-control" name="coursename" [(ngModel)]="course.name" #name="ngModel" required />
+							<div *ngIf="f.submitted && !coursename.valid" class="help-block">Coursename is required</div>
+						</div>
+						<div class="form-group">
+							<label for="description">Description</label>
+							<textarea type="text" id="description" class="form-control" name="description" [(ngModel)]="course.description" #description="ngModel" rows="4" cols="50" maxlength="50"></textarea>
+						</div>
+						<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
+							<label for="category">Category</label>
+							<select type="text" id="category" class="form-control" name="category" [(ngModel)]="course.category" #category="ngModel" required>			
+								<option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+							</select>
+							<div *ngIf="f.submitted && !category.valid" class="help-block">Category is required</div>
+						</div>
+						<div class="form-group">
+							<label for="search-address">Address</label>
+							<input type="text" id="search-address" class="form-control" name="search-address" placeholder="Address" required />
+							<div id="map"></div>
+							<input type="text" id="address_name" class="form-control address" name="name" [(ngModel)]="course.address_name" #address_name="ngModel" readonly />
+							<input type="text" id="street" class="form-control address" name="street" [(ngModel)]="course.street" #street="ngModel" readonly />
+							<input type="text" id="city" class="form-control address" name="city" [(ngModel)]="course.city" #city="ngModel" readonly />
+							<input type="text" id="country" class="form-control address" name="country" [(ngModel)]="course.country" #country="ngModel" readonly />
+							<input type="text" id="latitude" class="form-control address" name="latitude" [(ngModel)]="course.latitude" #latitude="ngModel" readonly />
+							<input type="text" id="longitude" class="form-control address" name="longitude" [(ngModel)]="course.longitude" #longitude="ngModel" readonly />
+						</div>
+						<div class="form-group">
+							<label for="link">Link or URL</label>
+							<input type="text" id="link" class="form-control" name="link" [(ngModel)]="course.link" #link="ngModel" />
+							
+						</div>
+						<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !date.valid }">
+							<label for="date">Date</label>
+							<input type="datetime-local" id="date" class="form-control" name="date" [(ngModel)]="course.date" #date="ngModel" required />
+							<div *ngIf="f.submitted && !date.valid" class="help-block">Date is required</div>
+						</div>
+						<div class="form-group">
+							<label for="duration">Duration</label>
+							<input type="number" id="duration" class="form-control" name="duration" [(ngModel)]="course.duration" #duration="ngModel" />
+						</div>
+						<div class="form-group">
+							<label for="image">Course-Image</label>
+							<p><input type="file" id="image" class="form-control file" (change)="setImage($event)"/>
+							Use Default: <input type="checkbox" id="default-image" class="form-control checkbox" (click)="setDefaultImage()" /></p>
+							<input type="text" class="form-control base64" name="image" id="image" [(ngModel)]="course.image" #image="ngModel" readonly />
+						</div>
+						<div class="form-group">
+							<label for="pictures">Course-Pictures</label>
+							<p><input type="file" id="pictures" class="form-control file" (change)="getPictures()" multiple /></p>
+							<div id="filelist"></div>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Create</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

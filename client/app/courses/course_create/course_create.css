@@ -1,0 +1,160 @@
+.naboo-course-container {
+	display: table;
+	width: 100%;
+	padding: 30px 200px;
+	box-sizing: border-box;
+}
+
+.naboo-course-create-wrapper {
+	display: table;
+	width: 100%;
+	padding: 0px 150px;
+	overflow: hidden;
+	background: #222;
+	box-sizing: border-box;
+}
+
+.naboo-course-create-wrapper fieldset {
+	width: 100%;
+	border: 1px solid #555;
+	margin: 10px 0px;
+	padding: 20px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.naboo-course-create-wrapper h2 {
+	width: 100%;
+	color: #fff;
+	margin: 5px 0px;
+	box-sizing: border-box;
+}
+
+.naboo-course-create-wrapper p,
+.naboo-course-create-wrapper span {
+	color: #fff;
+}
+
+.naboo-course-create-wrapper fieldset label {
+	display: table;
+	width: 100%;
+	color: #DDD;
+	margin: 0px 0px 10px;
+	padding: 5px 0px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #fff;
+}
+
+.naboo-course-create-wrapper fieldset input {
+	width: 100%;
+	height: 40px;
+	color: #CCC;
+	margin: 10px 0px;
+	padding: 5px 10px;
+	border-top: none;
+	border-right: none;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	box-sizing: border-box;
+}
+
+.select2-container {
+	width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+	background: transparent !important;
+	border-top: none !important;
+	border-right: none !important;
+	border-left: 1px solid #555 !important;
+	border-bottom: 1px solid #555 !important;
+
+}
+.naboo-course-create-wrapper fieldset  .select2-search__field {
+	color: #CCC !important;
+	margin: 0px !important;
+}
+
+.select2-results__option {
+	color: #222 !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	color: #fff !important;
+}
+
+.select2-selection__choice {
+	background-color: transparent !important;
+    border: 1px solid #555 !important;
+	line-height: 40px !important;
+	color: #CCC !important;
+}
+
+.select2-selection__choice__remove {
+	font-size: 22px !important;
+}
+
+.select2-selection__choice__remove:hover {
+	color: #E50300 !important;
+}
+
+.naboo-course-create-wrapper fieldset input[type=file] {
+	padding: 0px;
+	border: none;
+}
+
+.naboo-course-create-wrapper fieldset input[type=checkbox] {
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+	vertical-align: middle;
+}
+
+.naboo-course-create-wrapper fieldset textarea {
+	width: 100%;
+	height: 300px;
+	margin: 10px 0px;
+	padding: 5px 10px;
+	border-top: none;
+	border-right: none;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	color: #CCC;
+	text-align: justify;
+	background: transparent;
+	box-sizing: border-box;
+}
+
+.image-wrapper {
+	display: table;
+	position: relative;
+	margin: 5px;
+	box-sizing: border-box;
+	float: left;
+}
+
+.image-preview {
+	height: 150px;
+	width: auto;
+	border: 1px solid #CCC;
+}
+
+.image-delete {
+	display: table;
+	position: absolute;
+	width: auto;
+	height: auto;
+	top: 0;
+	right: 0;
+	padding: 5px 8px;
+	background: #222;
+	border: none;
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+}
+
+agm-map {
+	width: 100%;
+	height: 300px;
+}

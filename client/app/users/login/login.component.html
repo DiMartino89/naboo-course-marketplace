@@ -1,0 +1,28 @@
+﻿<div class="naboo-login-content">
+	<div class="container-nav">
+		<ul>
+			<li class="nav-item active"><a [routerLink]="['/login']">Login</a></li>
+			<li class="nav-item"><a [routerLink]="['/register']">Registration</a></li>
+		</ul>
+	</div>
+	<div class="naboo-login-container">
+		<form (ngSubmit)="isValid() && login()">
+			<fieldset>
+				<app-input field="email" type="text" [tabindex]="5" [form]="loginForm" [horizontal]="true" placeholder="Your Email"
+						   [label]="'Email' | translate" [errorText]="'Email is not valid!' | translate"
+				></app-input>
+				<br>
+				<app-input field="password" type="password" [tabindex]="5" [form]="loginForm" [horizontal]="true" placeholder="Your Password"
+						   [label]="'Password' | translate" [showForgotPasswordLink]="true" [errorText]="'Password needs at minimum 8 letters!' | translate"
+				></app-input>
+				<br>
+				<app-input field="stay_loggedIn" type="checkbox" [tabindex]="4" [form]="loginForm"
+						   [label]="'Stay Logged-In' | translate"
+				></app-input>
+			</fieldset>
+			<fieldset>
+				<app-button [disabled]="!isValid()" [tabindex]="13">{{ 'Login' | translate}}</app-button>
+			</fieldset>
+		</form>
+	</div>
+</div>

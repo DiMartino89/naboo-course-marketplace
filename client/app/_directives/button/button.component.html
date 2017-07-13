@@ -1,0 +1,16 @@
+<button
+    [type]="htmlType"
+    [ngClass]="{
+        'btn': true,
+        'btn-primary': !type || type === 'primary',
+        'btn-secondary': type === 'secondary',
+        'btn-danger': type === 'danger',
+        'btn-warning': type === 'warning',
+        'btn-info': type === 'info',
+        'btn-success': type === 'success',
+        'btn-sm': size === 'sm',
+        'btn-lg': size === 'lg'
+        }"
+    [disabled]="disabled"
+    [tabindex]="tabindex"
+><ng-content></ng-content></button>

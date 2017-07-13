@@ -1,0 +1,18 @@
+﻿	<h2>Create Category</h2>
+	<p *ngIf="currentUser.role != 'admin'">This Function is only available for Adminstrators!</p>
+	<div id="naboo-create-category" *ngIf="currentUser.role == 'admin'">
+		<form name="form" (ngSubmit)="caf.form.valid && createCategory()" #caf="ngForm" novalidate>
+			<div class="form-group" [ngClass]="{ 'has-error': caf.submitted && !name.valid }">
+				<label for="categoryname">Categoryname</label>
+				<input type="text" class="form-control" name="categoryname" [(ngModel)]="category.name" #name="ngModel" required />
+				<div *ngIf="caf.submitted && !name.valid" class="help-block">Categoryname is required</div>
+			</div>
+			<div class="form-group">
+				<label for="description">Description</label>
+				<textarea type="text" class="form-control" name="description" id="category-description" [(ngModel)]="category.description" #description="ngModel" rows="4" cols="50"></textarea>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary">Create</button>
+			</div>
+		</form>
+	</div>

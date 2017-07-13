@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<base href="/" />
+        <title>Naboo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- 1. Load Stylesheets -->
+        <link href="app.css" rel="stylesheet" />
+		<link href="app/_assets/css/font-awesome.min.css" rel="stylesheet">
+		<link href="https://fontlibrary.org/face/glacial-indifference" rel="stylesheet" media="screen" />
+		
+		<!-- 2. Load external Scripts -->
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+		
+        <!-- Polyfill(s) for older browsers -->
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+		
+		<!-- 3. Include Other Sources -->
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>		
+		<script src="node_modules/select2/dist/js/select2.min.js"></script>
+		
+        <!-- 4. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
+        <script>
+            System.import('app').catch(function(err){ console.error(err); });
+        </script>
+    </head>
+    <body>
+        <app></app>
+    </body>
+</html>

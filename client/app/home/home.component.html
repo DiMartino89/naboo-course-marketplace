@@ -1,0 +1,79 @@
+﻿<div class="naboo-home-container">
+	<nav class="main-navigation">
+		<ul>
+			<li class="col-sm-4" (click)="showContainer('top-rated-teachers')">Top Rated Teachers</li>
+			<li class="col-sm-4" (click)="showContainer('top-rated-courses')">Top Rated Courses</li>
+			<li class="col-sm-4" (click)="showContainer('categories')">Categories</li>
+		</ul>
+	</nav>
+	<div id="top-rated-courses" class="top-rated-courses">
+		<div class="courses-container" *ngFor="let course of courses | orderBy : ['rating', 'reviews.length']; let i=index">
+			<a [routerLink]="['/courses', course._id]">
+			<li class="course-container" *ngIf="i < 5">
+				<div class="col-sm-9 course-image">
+					<img src="{{course.image}}">
+				</div>
+				<div class="col-sm-9 course-info">
+					<h2>{{course.name}} ({{getCategoryById(course.category).name}})</h2>
+					<a [routerLink]="['/users', course.owner._id]"><div><img class="owner-avatar" src="{{course.owner.avatar}}" /> {{course.owner.name}}</div></a>
+					<p>{{course.date}} Uhr</p>
+					<p>{{course.description | truncate : 20}}</p>
+				</div>
+			</li>
+			</a>
+		</div>
+	</div>
+	<div class="top-rated-teachers">
+		<div class="teachers-container" *ngFor="let user of users | orderBy : ['rating', 'reviews.length']; let i=index">
+			<a [routerLink]="['/users', user._id]">
+				<li class="teacher-container" *ngIf="i < 5">
+					<div class="col-sm-9 teacher-image">
+						<img src="{{user.titleImage}}">
+					</div>
+					<div class="col-sm-9 teacher-info">
+						<div>
+							<a [routerLink]="['/users', user._id]">
+								<img class="teacher-avatar" src="{{user.avatar}}" />
+								<h2>{{user.name}}</h2>
+							</a>
+						</div>
+						<div>
+							<p>{{user.description | truncate : 20}}</p>
+						</div>
+					</div>
+				</li>
+			</a>
+		</div>
+	</div>
+	<div class="categories">
+		<p>Categories</p>
+	</div>
+</div>
+
+<app-map></app-map>
+
+<div class="col-md-6 col-md-offset-3">
+    <h1>Hi {{currentUser.name}}!</h1>
+    <p>You're logged in with the MEAN Stack & Angular 2!!</p>
+	 <p><a [routerLink]="['/course/create']">Create Course</a></p>
+	 <p><a [routerLink]="['/categories/create']">Create Category</a></p>
+    <h3>All registered users:</h3>
+    <ul class="naboo-users-list">
+        <li *ngFor="let user of users">
+            <a [routerLink]="['/users', user._id]">{{user.name}} ({{user.email}})</a><button class="btn btn-primary" (click)="deleteUser(user._id)">Delete</button>
+        </li>
+	</ul>
+	<h3>All registered courses:</h3>
+	<ul class="naboo-courses-list">
+		<li *ngFor="let course of courses">
+            <a [routerLink]="['/courses', course._id]">{{course.name}}</a><button class="btn btn-primary" (click)="deleteCourse(course._id)">Delete</button>
+        </li>
+    </ul>
+	<h3>All registered categories:</h3>
+	<ul class="naboo-categories-list">
+		<li *ngFor="let category of categories">
+            <a [routerLink]="['/categories', category._id]">{{category.name}}</a><button class="btn btn-primary" (click)="deleteCategory(category._id)">Delete</button>
+        </li>
+    </ul>
+    <p><a [routerLink]="['/login']">Logout</a></p>
+</div>
