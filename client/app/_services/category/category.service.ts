@@ -2,49 +2,86 @@
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Select2OptionData } from 'ng2-select2';
 import { AppConfig } from '../../app.config';
-import { Category } from '../../_models/index';
-import { AuthenticationService } from '../index';
 
 @Injectable()
 export class CategoryService {
     constructor(private http: Http, 
-				private config: AppConfig
-				private authenticationService: AuthenticationService) { }
-
-    getAll() {
-        return this.http.get(this.config.apiUrl + '/categories', this.authenticationService.jwt()).map((response: Response) => response.json());
-    }
-
-    getById(_id: string) {
-        return this.http.get(this.config.apiUrl + '/categories/' + _id, this.authenticationService.jwt()).map((response: Response) => response.json());
-    }
-
-    create(category: Category) {
-        return this.http.post(this.config.apiUrl + '/categories/create', category, this.authenticationService.jwt());
-    }
-
-    update(category: Category) {
-        return this.http.put(this.config.apiUrl + '/categories/' + category._id, category, this.authenticationService.jwt());
-    }
-
-    delete(_id: string) {
-        return this.http.delete(this.config.apiUrl + '/categories/' + _id, this.authenticationService.jwt());
-    }
+				private config: AppConfig) { }
 	
     getCategoriesList(): Select2OptionData[] {
         return [
+            {
+                id: 'music',
+                text: 'Music',
+                children: [
+                    {
+                        id: 'band',
+                        text: 'Band'
+                    },
+					{
+						id: 'instruments',
+						text: 'Instrumente'
+					},
+					{
+						id: 'vocals',
+						text: 'Vocals'
+					}
+				]
+            },
 			{
-				id: 'art',
-				text: 'Art'
-			},
+                id: 'arts',
+                text: 'Arts',
+                children: [
+                    {
+                        id: 'drawing',
+                        text: 'Drawing'
+                    },
+					{
+						id: 'mosaic',
+						text: 'Mosaic'
+					},
+					{
+						id: 'woodwork',
+						text: 'Woodwork'
+					}
+				]
+            },
 			{
-				id: 'music',
-				text: 'Music'
-			},
+                id: 'cooking',
+                text: 'Cooking',
+                children: [
+                    {
+                        id: 'mediterran',
+                        text: 'Mediterran'
+                    },
+					{
+						id: 'vegetarian',
+						text: 'Vegetarian'
+					},
+					{
+						id: 'grecian',
+						text: 'Grecian'
+					}
+				]
+            },
 			{
-				id: 'sport',
-				text: 'Sport'
-			}
+                id: 'sports',
+                text: 'Sports',
+                children: [
+                    {
+                        id: 'football',
+                        text: 'Football'
+                    },
+					{
+						id: 'tennis',
+						text: 'Tennis'
+					},
+					{
+						id: 'volleyball',
+						text: 'Volleyball'
+					}
+				]
+            }
 		];
 	}
 }

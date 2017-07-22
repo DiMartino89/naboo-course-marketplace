@@ -14,7 +14,7 @@
 					<img src="{{course.image}}">
 				</div>
 				<div class="col-sm-9 course-info">
-					<h2>{{course.name}} ({{getCategoryById(course.category).name}})</h2>
+					<h2>{{course.name}}</h2>
 					<a [routerLink]="['/users', course.owner._id]"><div><img class="owner-avatar" src="{{course.owner.avatar}}" /> {{course.owner.name}}</div></a>
 					<p>{{course.date}} Uhr</p>
 					<p>{{course.description | truncate : 20}}</p>

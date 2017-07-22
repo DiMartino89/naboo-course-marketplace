@@ -24,9 +24,6 @@ export class MapComponent implements OnInit {
 
     ngOnInit() {
 		this.searchControl = new FormControl();
-		this.zoom = 13;
-		this.latitude = 52.520006599;
-		this.longitude = 13.40495399;
 		
 		this.setCurrentPosition();
 	
@@ -36,15 +33,10 @@ export class MapComponent implements OnInit {
 			});
 			autocomplete.addListener("place_changed", () => {
 				this.ngZone.run(() => {
-					//get the place result
 					let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-					//verify result
 					if (place.geometry === undefined || place.geometry === null) {
 						return;
 					}
-
-					//set latitude, longitude and zoom
 					this.latitude = place.geometry.location.lat();
 					this.longitude = place.geometry.location.lng();
 					this.zoom = 12;

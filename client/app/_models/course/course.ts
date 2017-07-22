@@ -6,11 +6,6 @@ export class Course {
 	description: string;
 	categories: string[];
 	image: string;
-	address_name: string;
-	street: string;
-	district: string;
-    city: string;
-	country: string;
 	latitude: number;
 	longitude: number;	
 	members: User[] = [];

@@ -18,7 +18,6 @@
 	// routes
 	app.use('/users', require('./controllers/users.controller'));
 	app.use('/courses', require('./controllers/courses.controller'));
-	app.use('/categories', require('./controllers/categories.controller'));
 	app.use('/reviews', require('./controllers/reviews.controller'));
 
     app.listen('3001', function(){

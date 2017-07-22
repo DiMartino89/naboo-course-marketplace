@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, Course, Category, Review } from '../_models/index';
-import { AuthenticationService, AlertService, UserService, CourseService, CategoryService, ReviewService } from '../_services/index';
+import { User, Course, Review } from '../_models/index';
+import { AuthenticationService, AlertService, UserService, CourseService, ReviewService } from '../_services/index';
 import { OrderByPipe, TruncatePipe } from '../_helpers/index';
 
 declare var $: any;
@@ -23,10 +23,6 @@ export class HomeComponent implements OnInit {
 	courses: Course[] = [];
 	course: any = {};
 	
-	/* CATEGORY-COMPONENTS */
-	categories: Category[] = [];
-	category: any = {};
-	
 	/* REVIEW-COMPONENTS */
 	reviews: Review[] = [];
 	review: any = {};
@@ -35,7 +31,6 @@ export class HomeComponent implements OnInit {
 				private authenticationService: AuthenticationService,
 				private userService: UserService, 
 				private courseService: CourseService,
-				private categoryService: CategoryService,
 				private reviewService: ReviewService,					
 				private alertService: AlertService) {
 					if (this.authenticationService.userLoggedIn("user_token") != null) {
@@ -45,8 +40,11 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.loadAllUsers();
-		this.loadAllCourses();
-		this.loadAllCategories();
+		 this.courseService.getAll().subscribe(
+			courses => { 
+				this.courses = courses; 
+			}
+		);
 		this.loadAllReviews();
     }
 	
@@ -64,9 +62,7 @@ export class HomeComponent implements OnInit {
     }
 	
 	/* COURSE STUFF */
-	private loadAllCourses() {
-        this.courseService.getAll().subscribe(courses => { this.courses = courses; });
-    }
+	private loadAllCourses() {}
 	
 	private getCourseById(courseId: string) {
 		this.courseService.getById(courseId).subscribe(course => { this.course = course; });
@@ -74,22 +70,7 @@ export class HomeComponent implements OnInit {
 	
 	deleteCourse(courseId: string) {
         this.courseService.delete(courseId).subscribe(() => { this.loadAllCourses(); });
-    }
-	
-	
-	/* CATEGORY STUFF */
-	private loadAllCategories() {
-        this.categoryService.getAll().subscribe(categories => { this.categories = categories; });
-    }
-	
-	private getCategoryById(categoryId: string) {
-		this.categoryService.getById(categoryId).subscribe(category => { this.category = category; });
-	}
-	
-	deleteCategory(categoryId: string) {
-        this.categoryService.delete(categoryId).subscribe(() => { this.loadAllCategories(); });
-    }
-	
+    }	
 	
 	/* REVIEW STUFF */
 	private loadAllReviews() {

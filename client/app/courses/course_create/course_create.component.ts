@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Select2OptionData } from 'ng2-select2';
-import { User, Course, Category } from '../../_models/index';
+import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
+import { User, Course } from '../../_models/index';
 import { AuthenticationService, UserService, CourseService, CategoryService, AlertService } from '../../_services/index';
 
 @Component({
@@ -13,18 +13,20 @@ import { AuthenticationService, UserService, CourseService, CategoryService, Ale
 
 export class CreateCourseComponent implements OnInit {	
 	createCourseForm: FormGroup;
-
+	
 	currentUser: any = {};
 	users: User[] = [];
 	
 	public categories: Array<Select2OptionData>;
 	public options: Select2Options;
+	public value: string[];
+	public current: string;
 	
 	constructor(private formBuilder: FormBuilder,
 				private router: Router,
 				private userService: UserService, 
 				private courseService: CourseService,
-				private categoryService: CategoryService,					
+				private categoryService: CategoryService, 				
 				private alertService: AlertService,
 				private authenticationService: AuthenticationService) {
 					if (this.authenticationService.userLoggedIn("user_token") != null) {
@@ -36,22 +38,15 @@ export class CreateCourseComponent implements OnInit {
 		this.loadAllUsers();
 		
 		this.createCourseForm = this.formBuilder.group({
-            name: ['', Validators.required, [Validators.minLength(3), Validators.maxLength(63)]],
+            name: ['', [Validators.required, Validators.maxLength(63)]],
             description: ['', [Validators.maxLength(500)]],
 			categories: ['', Validators.required],
 			file_image: '',
 			default_image: '',
-			address_name: ['', Validators.required],
-			street: '',
-			district: '',
-			city: '',
-			country: '',
-			latitude: ['', Validators.required],
-			longitude: ['', Validators.required],
 			link: '',
 			date: ['', Validators.required],
 			duration: '',
-			pictures: ''
+			pictures: ['']
         });
 		
 		this.categories = this.categoryService.getCategoriesList();
@@ -60,7 +55,7 @@ export class CreateCourseComponent implements OnInit {
 			multiple: true,
 			closeOnSelect: false
 		};
-		
+
 		(<HTMLInputElement>document.getElementById('preview-image')).src = 'app/_assets/images/default-titleImage.png';
     }
 	
@@ -69,22 +64,37 @@ export class CreateCourseComponent implements OnInit {
 		this.createCourseForm.get('categories').setValue(this.current);
 	}
 	
+	getCategories() {
+		let categories = this.createCourseForm.get('categories').value.split('|');
+		let searchCategories = [];
+		for(var i = 0; i < categories.length; i++) {
+			searchCategories.push(categories[i]);
+		}
+		return searchCategories;
+	}
+	
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }		
 	
 	createCourse() {	
-		var course: any = {};
-		
-		course = this.createCourseForm.value;
+		const course = this.createCourseForm.value;
 		
 		delete course.file_image;
 		delete course.default_image;
 		
-		offer.categories = this.getCategories();
+		course.categories = [];
+		course.categories = this.getCategories();
+		
+		course.latitude = parseFloat((<HTMLInputElement>document.getElementById('latitude')).value);
+		course.longitude = parseFloat((<HTMLInputElement>document.getElementById('longitude')).value);
 		
 		course.image = (<HTMLInputElement>document.getElementById('preview-image')).src;
 		course.pictures = this.getPictures();
+
+		course.reviews = [];
+		
+		course.owner = this.currentUser;
 		
 		var date = new Date();
 		course.createdAt = ('0' + date.getDate()).slice(-2) + "." + ('0' + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear() + " " + ('0' + date.getHours()).slice(-2) + ":" + 						('0' + date.getMinutes()).slice(-2);
@@ -98,17 +108,8 @@ export class CreateCourseComponent implements OnInit {
 			},
 			error => {
                 this.alertService.error(error._body);
-            });	
+            });
     }
-	
-	getCategory() {
-		let categories = this.createCourseForm.get('categories').value.split('|');
-		let courseCategories = [];
-		for(var i = 0; i < categories.length; i++) {
-			courseCategories.push(categories[i]);
-		}
-		return courseCategories;
-	}
 	
 	setImage(event: EventTarget) {
 		let eventObj: MSInputMethodContext = <MSInputMethodContext> event;

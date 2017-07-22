@@ -1,9 +1,0 @@
-﻿<div class="col-md-6 col-md-offset-3" *ngFor="let user of users">
-   <div class="vm-user-profile" *ngIf="user._id == userId">
-    <div class="vm-user-profile-head">
-		<img class="vm-user-avatar" src="#" />
-		<p>{{user.username}} , {{user._id}}</p>
-	</div>
-    <p><a [routerLink]="['/login']">Logout</a></p>
-   </div>
-</div>

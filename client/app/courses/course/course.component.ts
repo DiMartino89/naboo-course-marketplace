@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User, Course, Category, Review } from '../../_models/index';
+import { User, Course, Review } from '../../_models/index';
 import { AuthenticationService, UserService, CourseService, CategoryService, ReviewService, AlertService } from '../../_services/index';
 
 @Component({
@@ -16,7 +16,6 @@ export class CourseComponent implements OnInit {
 	currentUser: any = {};
 	users: User[] = [];
 	courses: Course[] = [];
-	categories: Category[] = [];
 	reviews: Review[] = [];
 	
 	courseId: string;
@@ -38,7 +37,7 @@ export class CourseComponent implements OnInit {
     ngOnInit() {
         this.loadAllUsers();
 		this.loadAllCourses();
-		this.loadAllCategories();
+		this.loadAllReviews();
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.courseId = params['id'];
 		});
@@ -75,11 +74,6 @@ export class CourseComponent implements OnInit {
 
 	deleteCourse(_id: string) {
         this.courseService.delete(_id).subscribe(() => { this.loadAllCourses() });
-    }
-	
-	/* Category Stuff */
-	private loadAllCategories() {
-        this.categoryService.getAll().subscribe(categories => { this.categories = categories; });
     }
 	
 	/* Review Stuff */

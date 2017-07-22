@@ -17,7 +17,6 @@ import { AlertService, AuthenticationService, UserService, CourseService, Catego
 import { HomeComponent } from './home/index';
 import { UserComponent, UserConfirmationComponent, LoginComponent, RegisterComponent } from './users/index';
 import { CourseComponent, CreateCourseComponent } from './courses/index';
-import { CategoryComponent, CreateCategoryComponent } from './categories/index';
 import { ReviewComponent } from './reviews/index';
 
 @NgModule({
@@ -47,8 +46,6 @@ import { ReviewComponent } from './reviews/index';
 		UserConfirmationComponent,
 		CourseComponent,
 		CreateCourseComponent,
-		CategoryComponent,
-		CreateCategoryComponent,
 		ReviewComponent,
         LoginComponent,
         RegisterComponent,

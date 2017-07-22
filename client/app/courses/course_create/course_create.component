@@ -9,15 +9,7 @@
 						></app-input>
 					</fieldset>
 					<fieldset>
-						<label class="form-control-label col-sm-3 col-form-label">Kategorie:</label>
-						<select2 [data]="categories"
-								 [options]="options"
-								 [value]="value"
-								 (valueChanged)="changed($event)"
-						></select2>
-						<app-input field="categories" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-								   [labelHidden]="true" [inputHidden]="true"
-						></app-input>
+						<select2 [data]="categories" [options]="options"></select2>
 					</fieldset>
 					<fieldset>
 						<app-input field="description" type="textarea" [tabindex]="11" [form]="createCourseForm" [horizontal]="true"
@@ -30,7 +22,7 @@
 						></app-input>
 					</fieldset>
 					<fieldset>
-						<app-input field="date" type="datetime-local" [tabindex]="10" [form]="createCourseForm" [horizontal]="true"
+						<app-input field="date" type="date" [tabindex]="10" [form]="createCourseForm" [horizontal]="true"
 								   [label]="'Date' | translate" placeholder="Course Date"
 						></app-input>
 						<app-input field="duration" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
@@ -39,6 +31,27 @@
 					</fieldset>
 					<fieldset>
 						<app-map></app-map>
+						<app-input field="address_name" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="street" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="district" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="city" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="country" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="latitude" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
+						<app-input field="longitude" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+								   [labelHidden]="true" [inputHidden]="true"
+						></app-input>
 					</fieldset>
 					<fieldset>
 						<app-input field="file_image" type="file" [tabindex]="5" [horizontal]="true" [form]="createCourseForm" (change)="setImage($event)"
