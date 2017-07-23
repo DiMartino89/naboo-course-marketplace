@@ -65,7 +65,7 @@ function create(userParam) {
         db.users.insert(user, function (err, doc) {
             if (err) { deferred.reject(err.name + ': ' + err.message); }
 			var id = doc["ops"][0]["_id"];
-			user._id = id;					
+			user._id = id;
 			deferred.resolve(_.omit(user, 'hash'));
         });
     }

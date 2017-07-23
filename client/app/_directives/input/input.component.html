@@ -27,7 +27,7 @@
 
     <!-- Label for non custom inputs -->
     <label *ngIf="!isCustomType() && !isHiddenType()" class="form-control-label" [ngClass]="{'col-sm-3 col-form-label': horizontal, 'no-label': labelHidden}" [for]="id || name">
-        {{ label }}:
+        {{ label }}
 
         <!-- Forgot password link for password fields -->
         <a *ngIf="showForgotPasswordLink" [routerLink]="['/forgot-password']"><small>{{ 'Passwort vergessen?' | translate }}</small></a>
@@ -65,7 +65,7 @@
 
     <!-- Label for non custom inputs -->
     <label *ngIf="!isCustomType()" class="form-control-label" [for]="id || name">
-        {{ label }}:
+        {{ label }}
 
         <!-- Forgot password link for password fields -->
         <a *ngIf="type === 'password'" [routerLink]="['/forget_password']"><small>{{ 'Passwort vergessen?' | translate }}</small></a>

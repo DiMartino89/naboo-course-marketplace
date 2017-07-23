@@ -33,8 +33,7 @@ export class UserConfirmationComponent implements OnInit {
 		var date = new Date();
 		user.updatedAt = ('0' + date.getDate()).slice(-2) + "." + ('0' + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear() + " " + ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2);
 		this.userService.update(user).subscribe(
-			user => { 
-				//this.authenticationService.setUserParam("user_id", JSON.stringify(user._id), false);
+			user => {
 				this.alertService.success('Account successfully activated', true);
 				this.router.navigate(['/']);
 			},

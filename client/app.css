@@ -97,7 +97,12 @@ button {
 	border: 1px solid #CCC;
 }
 
-/* Checkbox */
+button:disabled {
+	color:grey;
+	background: rgba(0, 148, 255, 0.5);
+}
+
+						  /* Checkbox */
 .cb-outer-wrapper {
 	display: table;
 	margin-right: 10px;

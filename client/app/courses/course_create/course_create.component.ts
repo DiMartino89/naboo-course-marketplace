@@ -105,6 +105,7 @@ export class CreateCourseComponent implements OnInit {
 				this.alertService.success('Course successfully created', true);
 				this.currentUser.courses.push(course);
 				this.userService.update(this.currentUser).subscribe(() => { this.loadAllUsers(); });
+				this.router.navigate(['/course', course._id]);
 			},
 			error => {
                 this.alertService.error(error._body);

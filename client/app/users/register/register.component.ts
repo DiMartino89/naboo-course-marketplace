@@ -54,7 +54,17 @@ export class RegisterComponent implements OnInit {
             .subscribe(
                 data => {
 					this.alertService.success('Registration successful! To use course features please confirm your email!', true);
-					this.router.navigate(['/login']);
+					this.authenticationService.login(user.email, user.password, false)
+                        .subscribe(
+							data => {
+								this.router.navigate(['/']);
+								location.reload();
+							},
+							error => {
+								if(error.status == 404) {
+									this.alertService.error('Email or Password is incorrect.');
+								}
+							});
                 },
                 error => {
                     this.alertService.error('Registration failed! A user with email ' + user.email + ' may already exist!');

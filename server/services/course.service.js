@@ -23,13 +23,13 @@ function create(courseParam) {
 
     function createCourse() {
         var course = _.omit(courseParam, '');
-
         db.courses.insert(course, function (err, doc) {
             if (err) { deferred.reject(err.name + ': ' + err.message); }
 			var id = doc["ops"][0]["_id"];
-			course._id = id;					
+			course._id = id;
 			deferred.resolve(_.omit(course, ''));
         });
+        deferred.resolve();
     }
 
     return deferred.promise;
