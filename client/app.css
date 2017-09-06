@@ -1,4 +1,7 @@
-﻿/* Import Home Styles */
+﻿/* Import Bootstrap */
+@import url("app/_assets/css/bootstrap.css");
+
+/* Import Home Styles */
 @import url("app/home/home.css");
 
 /* Import User Styles */
@@ -11,138 +14,28 @@
 @import url("app/courses/course/course.css");
 @import url("app/courses/course_create/course_create.css");
 
-/* General */
-html, body {
-	font-family: 'GlacialIndifferenceRegular'; 
-	font-weight: normal; 
+/* Calendar */
+@import url("node_modules/fullcalendar/dist/fullcalendar.css");
+
+/* AOS */
+@import url("node_modules/aos/dist/aos.css");
+
+@font-face {
+	font-family: 'GlacialIndifferenceRegular';
+	src: url("app/_assets/fonts/glacialIndifference-regular.otf") format("opentype");
 	font-style: normal;
-	overflow-x: hidden;
-	margin: 0px;
+}
+@font-face {
+	font-family: 'GlacialIndifferenceRegular';
+	src: url("app/_assets/fonts/glacialIndifference-italic.otf") format("opentype");
+	font-style: italic;
+}
+@font-face {
+	font-family: 'GlacialIndifferenceRegular';
+	src: url("app/_assets/fonts/glacialIndifference-bold.otf") format("opentype");
+	font-weight: bold;
 }
 
-h1,h2,h3,h4,p,a,label,span {
-	font-family: 'GlacialIndifferenceRegular'; 
-	font-weight: normal; 
-	font-style: normal; 
-	color: #CCC;
-	float: none;
-}
-
-h1 {
-	font-size: 30px;
-	margin: 5px 0px;
-}
-h2 {
-	font-size: 25px;
-	margin: 5px 0px;
-}
-h3 {
-	font-size: 22px;
-	margin: 5px 0px;
-}
-h4 {
-	font-size: 20px;
-	margin: 5px 0px;
-}
-label {
-	font-size: 18px;
-	margin: 5px 0px;
-}
-p, a, span {
-	font-size: 16px;
-	text-decoration: none;
-}
-
-input,select {
-	width: 320px;
-	height: 30px;
-	padding: 5px;
-	margin: 5px;
-	font-family: 'GlacialIndifferenceRegular'; 
-	font-size: 18px;
-	font-weight: normal; 
-	font-style: normal; 
-	color: #fff;
-	background: transparent;
-	border-left: 1px solid #CCC;
-	border-bottom: 1px solid #CCC;
-}
-
-textarea {
-	width: 320px;
-	height: 100px;
-	padding: 5px;
-	margin: 2px;
-	font-family: 'GlacialIndifferenceRegular'; 
-	font-size: 18px;
-	font-weight: normal; 
-	font-style: normal; 
-	color: #333;
-	border: 1px solid #CCC;
-}
-
-button {
-	width: 100px;
-	height: 35px;
-	padding: 5px;
-	font-family: 'GlacialIndifferenceRegular'; 
-	font-size: 18px;
-	font-weight: normal; 
-	font-style: normal;
-	text-align: center;
-	vertical-align: middle;
-	color: #fff;
-	background: #0094FF;
-	cursor: pointer;
-	border: 1px solid #CCC;
-}
-
-button:disabled {
-	color:grey;
-	background: rgba(0, 148, 255, 0.5);
-}
-
-						  /* Checkbox */
-.cb-outer-wrapper {
-	display: table;
-	margin-right: 10px;
-	float: left;
-}
-
-.cb-wrapper {
-	width: 20px;
-	height: 20px;
-	background: transparent;
-	border-radius: 0px;
-	position: relative;
-}
-
-.cb-wrapper .cb-label {
-	display: block;
-	width: 19px;
-	height: 19px;
-	margin: 0px;
-	border: 1px solid #CCC;
-	cursor: pointer;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
-	background: #222222;
-}
-
-.cb-wrapper input[type=checkbox]:checked + label {
-	background-color: #0094FF;
-}
-
-.cb-wrapper [type="checkbox"]:checked + label:after {
-	content: '\2714';
-    color: #CCC;
-    font-size: 18px;
-	margin: -14px 0px 0px 2px;
-    position: absolute;
-    left: 0;
-}
 
 /* Scrollbar */
 body::-webkit-scrollbar-track,
@@ -167,27 +60,216 @@ div::-webkit-scrollbar-thumb
 	background-color: #AAA;
 }
 
+/* General */
+html, body {
+	font-family: 'GlacialIndifferenceRegular', serif;
+	font-weight: normal; 
+	font-style: normal;
+	overflow-x: hidden;
+	margin: 0;
+	background: url('app/_assets/images/sky-bg.jpg') no-repeat center center;
+	background-size: cover;
+}
+
+h1,h2,h3,h4,p,a,label,span,div {
+	font-family: 'GlacialIndifferenceRegular', serif;
+	font-weight: normal !important;
+	font-style: normal; 
+	color: #FFF;
+	float: none;
+}
+
+h1 {
+	font-size: 30px;
+	margin: 5px 0;
+}
+h2 {
+	font-size: 25px;
+	margin: 5px 0;
+}
+h3 {
+	font-size: 22px;
+	margin: 5px 0;
+}
+h4 {
+	font-size: 20px;
+	margin: 5px 0;
+}
+label {
+	font-size: 16px;
+	margin: 5px 0;
+	padding: 10px 0px 0px !important;
+}
+
+p, a, span {
+	font-size: 16px;
+	text-decoration: none;
+	margin: 0;
+}
+
+div {
+	display: table;
+	box-sizing: border-box;
+	overflow: visible;
+	font-size: 18px;
+}
+
+input,select {
+	width: 100%;
+	height: 40px;
+	padding: 5px;
+	margin: 5px 0px;
+	font-family: 'GlacialIndifferenceRegular', serif;
+	font-size: 18px;
+	font-weight: normal; 
+	font-style: normal; 
+	color: #0C1724;
+	background: transparent;
+	border-left: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+}
+
+textarea {
+	width: 320px;
+	height: 100px;
+	padding: 5px;
+	margin: 2px;
+	font-family: 'GlacialIndifferenceRegular', serif;
+	font-size: 18px;
+	font-weight: normal; 
+	font-style: normal; 
+	color: #0C1724;
+	border: 1px solid #CCC;
+}
+
+button {
+	display: table;
+	width: auto;
+	height: 35px;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'GlacialIndifferenceRegular', serif;
+	font-size: 18px;
+	font-weight: normal; 
+	font-style: normal;
+	text-align: center;
+	vertical-align: middle;
+	color: #fff;
+	background: #0094FF;
+	cursor: pointer;
+	border: 1px solid #CCC;
+}
+
+button:disabled {
+	color: #fff;
+	background: rgba(0, 148, 255, 0.5);
+}
+
 /* Main */
 header {
 	position: fixed;
 	width: 100%;
-	height: 70px;
-	background: #222222;
-	border-bottom: 3px solid #fff;
-	margin: 0px;
-	z-index: 100;
+	height: 80px;
+	margin: 0;
+	background: #0C1724;
+	box-shadow: 2px 0 3px rgba(0,0,0,0.5);
+	z-index: 10;
+}
+
+.naboo-sidebar {
+	position: fixed;
+	width: 15%;
+	height: calc(100vh - 80px);
+	left: 0;
+	float: left;
+	margin-top: 80px;
+	padding: 30px 10px;
+	background: #0C1724;
+	box-shadow: 2px 0 3px rgba(0,0,0,0.5);
+	z-index: 10;
+}
+
+.naboo-sidebar ul {
+	padding-left: 20px;
+	margin: 0 0 10px;
+}
+
+.naboo-sidebar ul li {
+	display: table;
+	width: 100%;
+	height: 35px;
+	padding: 5px;
+	list-style: none;
+}
+
+.naboo-sidebar ul li i {
+	display: table;
+	width: 25%;
+	float: left;
+	font-size: 18px;
+	line-height: 25px;
+}
+
+.naboo-sidebar ul li span {
+	display: table;
+	width: 63%;
+	float: left;
+	font-size: 18px;
+	line-height: 25px;
+}
+
+.naboo-sidebar ul li .fa-angle-up {
+	display: table;
+	width: 12%;
+	float: right;
+	text-align: right;
+	font-size: 18px;
+	line-height: 25px;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
+	transition: transform 0.5s;
+}
+
+.naboo-sidebar ul li .fa-angle-up.active {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+	transition: transform 0.5s;
+}
+
+.naboo-sidebar ul ul li i {
+	font-size: 16px;
+	line-height: 25px;
+	color: #AAA;
+}
+
+.naboo-sidebar ul ul li span {
+	font-size: 16px;
+	line-height: 25px;
+	color: #AAA;
 }
 
 .naboo-content {
-	width: 100%;
-	min-height: 100vh;
-	padding: 100px 30px 30px;
+	width: 85.1%;
+	min-height: calc(100vh - 80px);
+	float: right;
+	padding: 1%;
+	margin: 80px auto;
 	box-sizing: border-box;
 	overflow: hidden;
-	background: url('app/_assets/images/bg.png');
-	background-attachment: fixed;
-	background-size: cover;
-	background-repeat: no-repeat;
+	z-index: 0;
+}
+
+.naboo-content-header {
+	display: table;
+	width: 100%;
+	background-color: rgba(255,255,255,0.1);
+	border: 0;
+	border-radius: 7px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
 }
 
 .naboo-container {
@@ -197,22 +279,20 @@ header {
 
 .naboo-logo {
 	position: fixed;
-	width: 180px;
+	width: 100px;
 	height: auto;
-	margin: 15px 10px;
-	z-index: 100;
+	margin: 10px 35px;
 }
 
 .naboo-headbar-user-avatar {
 	position: fixed;
 	top: 0;
 	right: 0;
-	width: 50px;
+	width: 60px;
 	height: auto;
 	margin: 10px;
 	border: 1px solid #fff;
 	border-radius: 50%;
-	z-index: 100;
 }
 
 .naboo-user-panel {
@@ -225,7 +305,7 @@ header {
 	padding: 10px;
 	margin: 70px 4px;
 	text-align: center;
-	background: #222;
+	background: #0C1724;
 }
 
 .naboo-user-panel.active {
@@ -247,8 +327,8 @@ header {
 
 /* Container Navigation */
 .container-nav ul {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 .container-nav .nav-item {
@@ -269,7 +349,7 @@ header {
 }
 
 .container-nav .nav-item.active {
-	border-bottom: 1px solid #333;
+	border-bottom: 1px solid #0C1724;
 }
 
 .container-nav .nav-item.active a {
@@ -290,7 +370,7 @@ input.address {
 }
 
 .alert {
-	margin: 0px 350px;
+	margin: 0 350px;
     padding: 10px;
 }
 .alert-success {
@@ -303,6 +383,12 @@ input.address {
 
 /* Custom labels */
 .no-label,
-.no-input {
+.no-input,
+.uploads,
+.coord{
 	display: none !important;
+}
+
+ul li {
+	list-style: none;
 }

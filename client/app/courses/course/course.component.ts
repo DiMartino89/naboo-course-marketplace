@@ -1,157 +1,155 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User, Course, Review } from '../../_models/index';
-import { AuthenticationService, UserService, CourseService, CategoryService, ReviewService, AlertService } from '../../_services/index';
+﻿import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params, NavigationStart} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService, UserService, CourseService, AlertService} from '../../_services/index';
+import {ReviewService} from "../../_services/review/review.service";
+
+declare var $: any;
 
 @Component({
-	styleUrls: ['./course.css'],
+    styleUrls: ['./course.css'],
     moduleId: module.id,
     templateUrl: 'course.component.html'
 })
 
 export class CourseComponent implements OnInit {
-    updateOfferForm: FormGroup;
-	
-	currentUser: any = {};
-	users: User[] = [];
-	courses: Course[] = [];
-	reviews: Review[] = [];
-	
-	courseId: string;
-	course: any = {};
+    reviewForm: FormGroup;
+
+    currentUser: any = {};
+    courseOwner: any = {};
+    course: any = {};
+    courseId: string;
+
+    image: any;
+    imageModal: any;
+
+    reviewModal: any;
 
     constructor(private formBuilder: FormBuilder,
-				private userService: UserService, 
-				private courseService: CourseService,
-				private categoryService: CategoryService,
-				private reviewService: ReviewService,
-				private alertService: AlertService, 
-				private activatedRoute: ActivatedRoute,
-				private authenticationService: AuthenticationService) {
-					if (this.authenticationService.userLoggedIn("user_token") != null) {
-						this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => { this.currentUser = user; });
-					}
-	}
+                private userService: UserService,
+                private courseService: CourseService,
+                private alertService: AlertService,
+                private reviewService: ReviewService,
+                private activatedRoute: ActivatedRoute,
+                private authenticationService: AuthenticationService,
+                private router: Router) {
+        if (this.authenticationService.userLoggedIn("user_token") != null) {
+            this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
+                this.currentUser = user;
+            });
+        }
 
-    ngOnInit() {
-        this.loadAllUsers();
-		this.loadAllCourses();
-		this.loadAllReviews();
-		this.activatedRoute.params.subscribe((params: Params) => {
-			this.courseId = params['id'];
-		});
-		
-		this.updateOfferForm = this.formBuilder.group({
-            name: ['', Validators.required, [Validators.minLength(3), Validators.maxLength(63)]],
-            description: ['', [Validators.maxLength(500)]],
-			categories: ['', Validators.required],
-			file_image: '',
-			default_image: '',
-			address_name: ['', Validators.required],
-			street: '',
-			district: '',
-			city: '',
-			country: '',
-			latitude: ['', Validators.required],
-			longitude: ['', Validators.required],
-			link: '',
-			date: ['', Validators.required],
-			duration: '',
-			pictures: ''
+        router.events.subscribe((evt) => {
+            if (evt instanceof NavigationStart && this.imageModal && this.imageModal.is(':visible')) {
+                this.imageModal.modal('hide');
+            }
+            if (evt instanceof NavigationStart && this.reviewModal && this.reviewModal.is(':visible')) {
+                this.reviewModal.modal('hide');
+            }
         });
     }
-	
-	/* User Stuff */
-	private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
-    }
-	
-	/* Course Stuff */
-	private loadAllCourses() {
-        this.courseService.getAll().subscribe(courses => { this.courses = courses; });
+
+    ngOnInit() {
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.courseId = params['id'];
+        });
+        this.courseService.getById(this.courseId)
+            .subscribe(
+                course => {
+                    this.course = course;
+                    this.courseOwner = course.owner;
+                });
+
+        this.reviewForm = this.formBuilder.group({
+            rating: [0, Validators.required],
+            description: ['', [Validators.maxLength(500), Validators.required]]
+        });
+
+        this.imageModal = $('#image-modal');
+        this.reviewModal = $('#review-modal');
     }
 
-	deleteCourse(_id: string) {
-        this.courseService.delete(_id).subscribe(() => { this.loadAllCourses() });
+    bookCourse() {
+        this.courseService.getById(this.courseId)
+            .subscribe(
+                course => {
+                    course.members.push(this.currentUser);
+                    this.courseService.update(course).subscribe(() => {
+                            this.alertService.success('Course-Booking successful', true);
+                        },
+                        error => {
+                            this.alertService.error(error._body);
+                        });
+                });
     }
-	
-	/* Review Stuff */
-	private loadAllReviews() {
-        this.reviewService.getAll().subscribe(reviews => { this.reviews = reviews; });
+
+    cancelCourse() {
+        this.courseService.getById(this.courseId)
+            .subscribe(
+                course => {
+                    course.members.splice(this.currentUser, 1);
+                    this.courseService.update(course).subscribe(() => {
+                            this.alertService.success('Course-Booking successful', true);
+                        },
+                        error => {
+                            this.alertService.error(error._body);
+                        });
+                });
     }
-	
-	updateCourse() {
-		var course: any = {};
-		
-		this.courseService.update(course).subscribe(
-			course => { 
-				this.alertService.success('course successfully updated', true);
-			},
-			error => {
-                this.alertService.error(error._body);
-            });
+
+    reviewCourse() {
+        this.courseService.getById(this.courseId)
+            .subscribe(
+                course => {
+                    if(course.reviews.indexOf(this.currentUser._id)) {
+                        const review = this.reviewForm.value;
+                        review.user = this.currentUser;
+                        let date = new Date();
+                        review.createdAt = this.changeDateFormat(date);
+                        review.updatedAt = this.changeDateFormat(date);
+                        this.reviewService.create(review).subscribe(review => {
+                                course.rating += (review.rating / course.reviews.length);
+                                course.reviews.push(review);
+                                this.courseService.update(course).subscribe(() => {
+                                        this.alertService.success('Course-Rating successful', true);
+                                    },
+                                    error => {
+                                        this.alertService.error(error._body);
+                                    });
+                            },
+                            error => {
+                                this.alertService.error(error._body);
+                            });
+                    } else {
+                        this.alertService.error('You already rated the course!');
+                    }
+                });
     }
-	
-	getPictures() {
-		var files = (<HTMLInputElement>document.getElementById('pictures')).files;
-		for (var i = 0; i < files.length; i++) {
-			let file: File = files[i];
-			(function(file) {
-				var reader = new FileReader();  
-				reader.onload = function(e:any) {  
-					var input = (<HTMLInputElement>document.createElement("input"));
-					input.type = "text";
-					input.className = "form-control picture";
-					input.value = 'data:' + file.type + ';base64,' + btoa(e.target.result);
-					document.getElementById('filelist').appendChild(input);
-				}
-				reader.readAsBinaryString(file);
-			})(file);
-		}
-	}
-	
-	edit() {
-		(<HTMLElement>document.getElementById('course-update')).className += " active";
-		(<HTMLElement>document.getElementById('naboo-content')).style.height = '2215px';
-	}
-	
-	close() {
-		(<HTMLElement>document.getElementById('course-update')).classList.remove("active");
-		(<HTMLElement>document.getElementById('naboo-content')).style.height = 'auto';
-	}
-	
-	showRatingPanel() {
-		(<HTMLElement>document.getElementById('naboo-rating-panel')).classList.toggle('active');
-	}
-	
-	setRating() {
-		var review: any = {};
-		review.user = this.currentUser;
-		review.rating = +(<HTMLInputElement>document.getElementById('rating')).value;
-		review.description = (<HTMLInputElement>document.getElementById('rating-description')).value;
-		var date = new Date();
-		review.createdAt = ('0' + date.getDate()).slice(-2) + "." + ('0' + date.getMonth()).slice(-2) + "." + date.getFullYear() + " " + ('0' + date.getHours()).slice(-2) + ":" + 						('0' + date.getMinutes()).slice(-2);
-		review.updatedAt = ('0' + date.getDate()).slice(-2) + "." + ('0' + date.getMonth()).slice(-2) + "." + date.getFullYear() + " " + ('0' + date.getHours()).slice(-2) + ":" + 						('0' + date.getMinutes()).slice(-2);
-		
-		this.courseService.getById(this.courseId).subscribe(course => { this.course = course; });
-		var rating = +(<HTMLInputElement>document.getElementById('rating')).value;
-		this.course.rating = (this.course.rating + rating) / (this.course.reviews.length + 1);
-		
-		this.reviewService.create(review).subscribe(
-			review => { 
-				this.alertService.success('Review successfully set', true);
-				this.course.reviews.push(review);
-				this.courseService.update(this.course).subscribe(
-					course => { 
-						this.alertService.success('Course successfully updated', true);
-					},
-					error => {
-						this.alertService.error(error._body);
-					});
-			},
-			error => {
-                this.alertService.error(error._body);
-            });
-	}
+
+    isValid() {
+        return this.reviewForm.valid;
+    }
+
+    changeDateFormat(dateInput: any) {
+        var date = new Date(dateInput);
+        return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
+            '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
+    }
+
+    openImageModal(image: any) {
+        this.image = '/uploads/' + image;
+        this.imageModal.modal('show');
+    }
+
+    closeImageModal() {
+        this.imageModal.modal('hide');
+    }
+
+    openReviewModal() {
+        this.reviewModal.modal('show');
+    }
+
+    closeReviewModal() {
+        this.reviewModal.modal('hide');
+    }
 }

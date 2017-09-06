@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { AuthenticationService } from '../index';
+import { Http, Response } from '@angular/http';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 import { AppConfig } from '../../app.config';
 import { User } from '../../_models/index';
@@ -19,7 +19,7 @@ export class UserService {
         return this.http.put(this.config.apiUrl + '/users/' + user._id, user, this.authenticationService.jwt());
     }
 
-    delete(_id: string) {
+    delete(_id: any) {
         return this.http.delete(this.config.apiUrl + '/users/' + _id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 	
@@ -27,7 +27,7 @@ export class UserService {
         return this.http.get(this.config.apiUrl + '/users', this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    getById(_id: string) {
+    getById(_id: any) {
         return this.http.get(this.config.apiUrl + '/users/' + _id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }

@@ -1,0 +1,68 @@
+<h1 *ngIf="message">
+    {{message.subject}}
+    <app-button *ngIf="authService.user.id !== message.from.id" (click)="openMessageModal(message)" [size]="'sm'" class="float-right">{{'Antwort'| translate }}</app-button>
+</h1>
+
+<div *ngIf="message" class="message">
+    <p class="mb-1"><strong>{{'Von:'| translate }}</strong> {{ message.from.profile?.display_name || message.from.email }}</p>
+    <p class="mb-1"><strong>{{'An:'| translate }}</strong> {{ message.to.profile?.display_name || message.from.email }}</p>
+    <p class="mb-1"><strong>{{'Datum'| translate }}:</strong> {{ message.created_at | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
+    <p class="mb-1"><strong>{{'Betreff'| translate }}:</strong> {{ message.subject }}</p>
+
+    <h2 class="h4 mt-4">{{'Nachricht'| translate }}</h2>
+    <p>
+        {{ message.text }}
+    </p>
+</div>
+
+<div *ngIf="message" class="offer mt-5">
+    <h5>{{'Angebot' | translate }}</h5>
+    <div class="d-flex flex-row align-items-stretch w-50">
+        <div class="w-25">
+            <img *ngIf="message.offer.images.length > 0" src="{{config.assetPath}}/uploads/img/{{message.offer.images[0].image_name}}" alt="{{message.offer.title}}">
+            <img *ngIf="message.offer.images.length === 0" src="/assets/img-placeholder.png" alt="No image for this offer!">
+        </div>
+        <div class="w-75 ml-2 card d-flex flex-column justify-content-between">
+            <div class="card-block">
+                <a routerLink="/offers/{{message.offer.id}}" class="float-right" (click)="dataService.previousUrl = '/offers'">Details</a>
+                <h5 class="card-title">{{message.offer.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{'von' | translate }} {{message.offer.user.profile?.display_name || 'User'}}</h6>
+
+                <p class="card-text">
+                    {{ message.offer.description }}
+                </p>
+
+                <p class="card-text">
+                    <strong>{{'Preis' | translate }}: </strong> {{ message.offer.price }}€ {{message.offer.unit | translate}} <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-labelledby="reply__label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reply__label">{{'Nachricht beantworten'| translate }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <alert [service]="true"></alert>
+                <form (ngSubmit)="messageForm.valid && sendMessage()">
+                    <app-input field="subject" type="text" [form]="messageForm" [tabindex]="1"
+                               [label]="'Betreff'| translate" [errorText]="'Bitte Betreff mit maximal 100 Zeichen eingeben!'| translate"
+                    ></app-input>
+
+                    <app-input field="text" type="textarea" [form]="messageForm" [tabindex]="2"
+                               [label]="'Nachricht' | translate" [errorText]="'Bitte Nachricht mit maximal 1000 Zeichen eingeben!'| translate"
+                    ></app-input>
+
+                    <app-button [disabled]="!messageForm.valid" [tabindex]="3">{{'Nachricht senden' | translate}}</app-button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

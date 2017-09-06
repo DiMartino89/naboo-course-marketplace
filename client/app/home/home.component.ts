@@ -53,8 +53,8 @@ export class HomeComponent implements OnInit {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }	
 	
-	private getUserById(userId: string) {
-		this.courseService.getById(userId).subscribe(user => { this.user = user; });
+	getUserById(userId: string) {
+		this.userService.getById(userId).subscribe(user => { this.user = user });
 	}	
 	
 	deleteUser(userId: string) {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
 	
 	private getCourseById(courseId: string) {
 		this.courseService.getById(courseId).subscribe(course => { this.course = course; });
-	}	
+	}
 	
 	deleteCourse(courseId: string) {
         this.courseService.delete(courseId).subscribe(() => { this.loadAllCourses(); });

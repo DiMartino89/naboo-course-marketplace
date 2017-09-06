@@ -7,10 +7,10 @@ var userService = require('services/user.service');
 // routes
 router.post('/login', authenticate);
 router.post('/register', register);
-router.get('/', getAll);
-router.get('/:_id', getCurrent);
 router.put('/:_id', update);
 router.delete('/:_id', _delete);
+router.get('/', getAll);
+router.get('/:_id', getCurrent);
 
 module.exports = router;
 
@@ -93,6 +93,7 @@ function getAll(req, res) {
     userService.getAll()
         .then(function (users) {
             res.send(users);
+            res.sendStatus(200);
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -100,10 +101,11 @@ function getAll(req, res) {
 }
 
 function getCurrent(req, res) {
-    userService.getById(req.user.sub)
+    userService.getById(req.params._id)
         .then(function (user) {
             if (user) {
                 res.send(user);
+                res.sendStatus(200);
             } else {
                 res.sendStatus(404);
             }

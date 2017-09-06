@@ -8,14 +8,20 @@
 	</nav>
 	<div id="top-rated-courses" class="top-rated-courses">
 		<div class="courses-container" *ngFor="let course of courses | orderBy : ['rating', 'reviews.length']; let i=index">
-			<a [routerLink]="['/courses', course._id]">
+			<a [routerLink]="['/course', course._id]">
 			<li class="course-container" *ngIf="i < 5">
 				<div class="col-sm-9 course-image">
-					<img src="{{course.image}}">
+					<!--<img src="/uploads/{{course.image}}">-->
+					<img [src]="course.image ? '/uploads/' + course.image : '/app/_assets/images/default-titleImage.png'">
 				</div>
 				<div class="col-sm-9 course-info">
 					<h2>{{course.name}}</h2>
-					<a [routerLink]="['/users', course.owner._id]"><div><img class="owner-avatar" src="{{course.owner.avatar}}" /> {{course.owner.name}}</div></a>
+					<a [routerLink]="['/users', course.owner._id]">
+						<div>
+							<img class="owner-avatar" [src]="course.owner.avatar ? '/uploads/' + course.owner.avatar : '/app/_assets/images/default-avatar.png'" />
+							{{course.owner.name}}
+						</div>
+					</a>
 					<p>{{course.date}} Uhr</p>
 					<p>{{course.description | truncate : 20}}</p>
 				</div>
@@ -28,12 +34,12 @@
 			<a [routerLink]="['/users', user._id]">
 				<li class="teacher-container" *ngIf="i < 5">
 					<div class="col-sm-9 teacher-image">
-						<img src="{{user.titleImage}}">
+						<img [src]="user.titleImage ? '/uploads/' + user.titleImage : '/app/_assets/images/default-titleImage.png'">
 					</div>
 					<div class="col-sm-9 teacher-info">
 						<div>
 							<a [routerLink]="['/users', user._id]">
-								<img class="teacher-avatar" src="{{user.avatar}}" />
+								<img class="teacher-avatar" [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'" />
 								<h2>{{user.name}}</h2>
 							</a>
 						</div>

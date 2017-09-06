@@ -5,3 +5,7 @@ export * from './modal-link/modal-link.component';
 export * from './button/button.component';
 export * from './loading/loading.component';
 export * from './map/map.component';
+export * from './review/review.component';
+export * from './upload/upload.component';
+export * from './calendar/calendar.component';
+export * from './select2/select2.component';

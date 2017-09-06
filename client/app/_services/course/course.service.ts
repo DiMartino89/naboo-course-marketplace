@@ -19,7 +19,7 @@ export class CourseService {
         return this.http.put(this.config.apiUrl + '/courses/' + course._id, course, this.authenticationService.jwt());
     }
 
-    delete(_id: string) {
+    delete(_id: any) {
         return this.http.delete(this.config.apiUrl + '/courses/' + _id, this.authenticationService.jwt());
     }
 	
@@ -27,7 +27,7 @@ export class CourseService {
         return this.http.get(this.config.apiUrl + '/courses', this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    getById(_id: string) {
+    getById(_id: any) {
         return this.http.get(this.config.apiUrl + '/courses/' + _id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }

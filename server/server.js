@@ -2,7 +2,6 @@
 	var express = require('express'); 
     var app = express(); 
     var bodyParser = require('body-parser');
-    var multer = require('multer');
 	var cors = require('cors');
 	var expressJwt = require('express-jwt');
 	var config = require('config.json');
@@ -19,6 +18,7 @@
 	app.use('/users', require('./controllers/users.controller'));
 	app.use('/courses', require('./controllers/courses.controller'));
 	app.use('/reviews', require('./controllers/reviews.controller'));
+    app.use('/uploads', require('./controllers/uploads.controller'));
 
     app.listen('3001', function(){
         console.log('running on 3001...');

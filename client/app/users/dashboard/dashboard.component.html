@@ -1,0 +1,175 @@
+<div *ngIf="authenticationService.isLoggedIn && authenticationService.isEnabled">
+    <h1>{{'Persönlicher Bereich'| translate }}</h1>
+
+    <div class="row">
+        <div class="col-sm-12 col-xl-6">
+            <h4>{{'Letzte eigene Angebote'|translate}}</h4>
+            <dd *ngIf="courses && courses.length == 0">{{'Keine Angebote' | translate}}</dd>
+            <ul *ngIf="courses && courses.length > 0" class="list-unstyled">
+                <li *ngFor="let course of courses.slice(0, 3);  let i=index" class="mb-3">
+                    <div class="d-flex flex-row align-items-stretch">
+                        <div class="w-25">
+                            <img *ngIf="course.images.length > 0" src="{{config.assetPath}}/uploads/img/{{course.images[0].image_name}}" alt="{{course.title}}">
+                            <img *ngIf="course.images.length === 0" src="/assets/img-placeholder.png" alt="No image for this course!">
+                        </div>
+                        <div class="w-75 ml-2 card d-flex flex-column justify-content-between">
+                            <div class="card-block">
+                                <a routerLink="/courses/{{course.id}}" class="float-right" (click)="dataService.previousUrl = '/dashboard'">Details</a>
+                                <h5 class="card-title">{{course.title}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{'von'|translate}} {{course.user.profile?.display_name || 'User'}}</h6>
+
+                                <p class="card-text">
+                                    {{ course.description }}
+                                </p>
+
+                                <p class="card-text">
+                                    <strong>{{'Preis' | translate}}: </strong> {{ course.price }}€ {{course.unit | translate}} <br>
+                                    <span *ngIf="course.delivery === 'pickup_only'"><strong>{{'Lieferung' | translate}}:</strong> {{'Nur Abholung' | translate}}</span>
+                                    <span *ngIf="course.delivery === 'delivery_radius'"><strong>{{'Lieferung' | translate}}:</strong> {{course.radius}} km {{'um Standort' | translate}}</span>
+                                    <span *ngIf="course.delivery === 'delivery_country'"><strong>{{'Lieferung' | translate}}:</strong> {{'landesweit' | translate}}</span>
+                                    <span *ngIf="course.delivery === 'delivery_world'"><strong>{{'Lieferung' | translate}}:</strong> {{'weltweit' | translate}}</span>
+                                </p>
+                            </div>
+
+                            <p *ngIf="course.user.id !== userId" class="mb-0 pt-0 clearfix card-block">
+                                <small *ngIf="course.last_user_message" class="float-left text-muted">
+                                    {{'Letzter Kontakt' | translate}}: <a routerLink="/messages/{{course.last_user_message.id}}">{{
+                                    course.last_user_message.subject }}</a>
+                                </small>
+
+                                <app-button class="float-right" (click)="openMessageModal(course)" [size]="'sm'"> {{'Nachricht senden' | translate}}</app-button>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <h4>{{'Letzte angesehene Angebote'|translate}} <button class="btn btn-primary btn-sm" (click)="deleteViewedcourses()">{{'Leeren'|translate}}</button></h4>
+
+            <dd *ngIf="viewedcourses && viewedcourses.length == 0">{{'Keine Angebote'|translate}}</dd>
+            <div id="viewed-courses">
+                <ul *ngIf="viewedcourses && viewedcourses.length > 0" class="list-unstyled">
+                    <li *ngFor="let course of viewedcourses.slice(0, 3);  let i=index" class="mb-3">
+                        <div class="d-flex flex-row align-items-stretch">
+                            <div class="w-25">
+                                <img *ngIf="course.images.length > 0" src="{{config.assetPath}}/uploads/img/{{course.images[0].image_name}}" alt="{{course.title}}">
+                                <img *ngIf="course.images.length === 0" src="/assets/img-placeholder.png" alt="No image for this course!">
+                            </div>
+                            <div class="w-75 ml-2 card d-flex flex-column justify-content-between">
+                                <div class="card-block">
+                                    <a routerLink="/courses/{{course.id}}" class="float-right" (click)="dataService.previousUrl = '/dashboard'">Details</a>
+                                    <h5 class="card-title">{{course.title}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{'von' | translate }} {{course.user.profile?.display_name || 'User'}}</h6>
+
+                                    <p class="card-text">
+                                        {{ course.description }}
+                                    </p>
+
+                                    <p class="card-text">
+                                        <strong>{{'Preis' | translate}}: </strong> {{ course.price }}€ {{course.unit | translate}} <br>
+                                        <span *ngIf="course.delivery === 'pickup_only'"><strong>{{'Lieferung' | translate}}:</strong> {{'Nur Abholung' | translate}}</span>
+                                        <span *ngIf="course.delivery === 'delivery_radius'"><strong>{{'Lieferung' | translate}}:</strong> {{course.radius}} km {{'um Standort' | translate}}</span>
+                                        <span *ngIf="course.delivery === 'delivery_country'"><strong>{{'Lieferung' | translate}}:</strong> {{'landesweit' | translate}}</span>
+                                        <span *ngIf="course.delivery === 'delivery_world'"><strong>{{'Lieferung' | translate}}:</strong> {{'weltweit' | translate}}</span>
+                                    </p>
+                                </div>
+
+                                <p *ngIf="course.user.id !== userId" class="mb-0 pt-0 clearfix card-block">
+                                    <small *ngIf="course.last_user_message" class="float-left text-muted">
+                                        {{'Letzter Kontakt' | translate}}: <a routerLink="/messages/{{course.last_user_message.id}}">{{
+                                        course.last_user_message.subject }}</a>
+                                    </small>
+
+                                    <app-button class="float-right" (click)="openMessageModal(course)" [size]="'sm'"> {{'Nachricht senden'|translate}}</app-button>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12">
+            <h4>{{'Letzte Nachrichten'|translate}}</h4>
+
+            <div *ngIf="inboxMessages === null && outboxMessages === null">
+                <td colspan="4"><app-loading></app-loading></td>
+            </div>
+
+            <div *ngIf="inboxMessages != null || outboxMessages != null">
+                <strong>{{'Empfangen'| translate }}:</strong>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{{'Betreff'| translate }}</th>
+                        <th>{{'Empfänger'| translate }}</th>
+                        <th>{{'Datum'| translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let message of (inboxMessages || []).slice(0, 5)">
+                        <td><a routerLink="/messages/{{ message.id }}">{{ message.subject }}</a></td>
+                        <td>{{ message.to.profile?.display_name || message.to.email }}</td>
+                        <td>{{ message.created_at | date: 'dd.MM.yyyy HH:mm'}}</td>
+                    </tr>
+
+                    <tr *ngIf="inboxMessages !== null && inboxMessages.length === 0">
+                        <td colspan="4">{{'Keine Nachrichten!'| translate }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>{{'Gesendet'| translate }}:</strong>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{{'Betreff'| translate }}</th>
+                        <th>{{'Empfänger'| translate }}</th>
+                        <th>{{'Datum'| translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let message of (outboxMessages || []).slice(0, 5)">
+                        <td><a routerLink="/messages/{{ message.id }}">{{ message.subject }}</a></td>
+                        <td>{{ message.to.profile?.display_name || message.to.email }}</td>
+                        <td>{{ message.created_at | date: 'dd.MM.yyyy HH:mm'}}</td>
+                    </tr>
+
+                    <tr *ngIf="outboxMessages !== null && outboxMessages.length === 0">
+                        <td colspan="4">{{'Keine Nachrichten!'| translate }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="send-message-modal" tabindex="-1" role="dialog" aria-labelledby="send-message__label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="send-message__label">{{'Nachricht senden' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <alert [service]="true"></alert>
+                <form (ngSubmit)="messageForm.valid && sendMessage()">
+                    <app-input field="subject" type="text" [form]="messageForm" [tabindex]="18"
+                               [label]="'Betreff'| translate" [errorText]="'Bitte Betreff mit maximal 100 Zeichen eingeben!'| translate"
+                    ></app-input>
+
+                    <app-input field="text" type="textarea" [form]="messageForm" [tabindex]="19"
+                               [label]="'Nachricht'| translate" [errorText]="'Bitte Nachricht mit maximal 1000 Zeichen eingeben!'| translate"
+                    ></app-input>
+
+                    <app-button [disabled]="!messageForm.valid">{{ 'Nachricht senden' | translate}}</app-button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

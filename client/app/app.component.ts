@@ -39,4 +39,9 @@ export class AppComponent {
 			return false;
 		}
 	}
+
+	private showSub(classname: string, selector: string) {
+		$(classname).slideToggle();
+        $(selector).toggleClass('active');
+	}
 }

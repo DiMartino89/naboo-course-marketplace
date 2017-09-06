@@ -118,7 +118,6 @@ function getAll() {
     db.users.find().toArray(function (err, users) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
-        // return users (without hashed passwords)
         users = _.map(users, function (user) {
             return _.omit(user, 'hash');
         });
@@ -131,15 +130,11 @@ function getAll() {
 
 function getById(_id) {
     var deferred = Q.defer();
-
-    db.users.findOne({ _id: mongo.helper.toObjectID(_id) }, function (err, user) {
+    db.users.findById(_id, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
-
         if (user) {
-            // return user (without hashed password)
             deferred.resolve(_.omit(user, 'hash'));
         } else {
-            // user not found
             deferred.resolve();
         }
     });

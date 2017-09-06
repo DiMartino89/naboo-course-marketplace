@@ -1,7 +1,5 @@
 ﻿var config = require('config.json');
 var _ = require('lodash');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
 var Q = require('q');
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://localhost:27017/quodo", { native_parser: true });
@@ -24,12 +22,11 @@ function create(courseParam) {
     function createCourse() {
         var course = _.omit(courseParam, '');
         db.courses.insert(course, function (err, doc) {
+            var id = doc["ops"][0]["_id"];
+            course._id = id;
             if (err) { deferred.reject(err.name + ': ' + err.message); }
-			var id = doc["ops"][0]["_id"];
-			course._id = id;
 			deferred.resolve(_.omit(course, ''));
         });
-        deferred.resolve();
     }
 
     return deferred.promise;
@@ -89,10 +86,8 @@ function getAll() {
 
 function getById(_id) {
     var deferred = Q.defer();
-
-    db.courses.findOne({ _id: mongo.helper.toObjectID(_id) }, function (err, course) {
+    db.courses.findById(_id, function (err, course) {
         if (err) deferred.reject(err.name + ': ' + err.message);
-
         if (course) {
             deferred.resolve(_.omit(course, ''));
         } else {

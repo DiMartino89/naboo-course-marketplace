@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit {
 		user.enabled = false;
 		user.role = 'user';
 		user.description = '';
-		user.avatar = 'app/_assets/images/default-avatar.png';
-		user.titleImage = 'app/_assets/images/default-titleImage.png';
+		user.avatar = '';
+		user.titleImage = '';
 		user.pictures = [];
 		user.courses = [];
 		user.friendRequests = [];
@@ -47,9 +47,9 @@ export class RegisterComponent implements OnInit {
 		user.reviews = [];
 		user.rating = 0;
 		var date = new Date();
-		user.createdAt = ('0' + date.getDate()).slice(-2) + "." + ('0' + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear() + " " + ('0' + date.getHours()).slice(-2) + ":" + 						('0' + date.getMinutes()).slice(-2);
-		user.updatedAt = ('0' + date.getDate()).slice(-2) + "." + ('0' + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear() + " " + ('0' + date.getHours()).slice(-2) + ":" + 						('0' + date.getMinutes()).slice(-2);
-		
+		user.createdAt = this.changeDateFormat(date);
+		user.updatedAt = this.changeDateFormat(date);
+
         this.userService.create(user)
             .subscribe(
                 data => {
@@ -74,4 +74,10 @@ export class RegisterComponent implements OnInit {
 	isValid() {
         return this.registrationForm.valid;
     }
+
+	changeDateFormat(dateInput: any) {
+		var date = new Date(dateInput);
+		return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
+				'.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
+	}
 }

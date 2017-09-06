@@ -5,6 +5,9 @@ import { AppConfig } from '../../app.config';
 
 @Injectable()
 export class CategoryService {
+
+	categories: {};
+
     constructor(private http: Http, 
 				private config: AppConfig) { }
 	

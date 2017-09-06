@@ -1,0 +1,80 @@
+﻿<div *ngIf="single" class="col-sm-12">
+    <input type="file" class="file" ng2FileSelect [uploader]="uploader"/>
+
+    <div class="col-md-9">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of uploader.queue">
+                <td><strong>{{ item?.file?.name }}</strong></td>
+                <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="uploads" *ngIf="uploader.queue.length > 0">
+            <input type="text" class="course-titleImage" readonly>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-success btn-xs"
+                    (click)="uploader.uploadAll()" [disabled]="!uploader.queue.length">
+                <span class="glyphicon glyphicon-upload"></span> Confirm
+            </button>
+            <button type="button" class="btn btn-danger btn-s"
+                    (click)="uploader.clearQueue(); clearInput();" [disabled]="!uploader.queue.length">
+                <span class="glyphicon glyphicon-trash"></span> Remove
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="multiple" class="col-sm-12">
+    <input type="file" class="files" ng2FileSelect [uploader]="multipleUploader" multiple/>
+
+    <div class="col-md-9">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of multipleUploader.queue">
+                <td><strong>{{ item?.file?.name }}</strong></td>
+                <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                <td nowrap>
+                    <button type="button" class="btn btn-danger btn-xs"
+                            (click)="item.remove(); clearInput2();" >
+                        <span class="glyphicon glyphicon-trash"></span> Remove
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="uploads" *ngIf="multipleUploader.queue.length > 0">
+            <input type="text" class="course-pictures" readonly>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-success btn-xs"
+                    (click)="multipleUploader.uploadAll()" [disabled]="!multipleUploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> Confirm
+            </button>
+            <button type="button" class="btn btn-danger btn-s"
+                    (click)="multipleUploader.clearQueue(); clearInput2();" [disabled]="!multipleUploader.queue.length">
+                <span class="glyphicon glyphicon-trash"></span> Remove All
+            </button>
+        </div>
+    </div>
+</div>

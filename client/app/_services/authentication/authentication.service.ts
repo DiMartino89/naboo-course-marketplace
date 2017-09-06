@@ -1,12 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-
 import { AppConfig } from '../../app.config';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticationService {
+    isEnabled: boolean;
+
     constructor(private http: Http, 
 				private config: AppConfig) { }
 
@@ -58,6 +59,17 @@ export class AuthenticationService {
 		}
 		return decodeURI(dc.substring(begin + name.length, end));
 	}
+
+    checkIfEnabled() {
+        if (!this.userLoggedIn("user_token") != null) {
+            this.isEnabled = null;
+            return;
+        }
+
+        this.getById(JSON.parse(this.getUserParam("user_id"))).subscribe(user => {
+            this.isEnabled = user.enabled;
+        });
+    }
 	
 	setUserParam(cname: string, cvalue: string, exp: boolean) {
 		if(exp) {
@@ -84,4 +96,8 @@ export class AuthenticationService {
 		}
 		return "";
 	}
+
+    getById(_id: any) {
+        return this.http.get(this.config.apiUrl + '/users/' + _id, this.jwt()).map((response: Response) => response.json());
+    }
 }

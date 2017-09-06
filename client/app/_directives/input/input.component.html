@@ -1,5 +1,5 @@
 <!-- Input when attached to a form -->
-<div *ngIf="form" class="form-group" [ngClass]="{'has-danger': form.controls[field].touched && !form.controls[field].valid, 'row': !multipleInputs && horizontal}" [formGroup]="form">
+<div *ngIf="form" style="width:100%;margin:0 auto;" [ngClass]="{'has-danger': form.controls[field].touched && !form.controls[field].valid, 'row': !multipleInputs && horizontal}" [formGroup]="form">
 
     <!-- Multiple Custom inputs -->
     <fieldset *ngIf="isCustomType() && multipleInputs" [ngClass]="{'custom-controls-stacked': stacked, 'row': horizontal}">
@@ -26,14 +26,14 @@
     </label>
 
     <!-- Label for non custom inputs -->
-    <label *ngIf="!isCustomType() && !isHiddenType()" class="form-control-label" [ngClass]="{'col-sm-3 col-form-label': horizontal, 'no-label': labelHidden}" [for]="id || name">
+    <label *ngIf="!isCustomType() && !isHiddenType()" class="form-control-label" [ngClass]="{'col-sm-6 col-form-label': horizontal, 'no-label': labelHidden}" [for]="id || name">
         {{ label }}
 
         <!-- Forgot password link for password fields -->
         <a *ngIf="showForgotPasswordLink" [routerLink]="['/forgot-password']"><small>{{ 'Passwort vergessen?' | translate }}</small></a>
     </label>
 
-    <div [ngClass]="{'col-sm-9': horizontal}">
+    <div style="width:100%;">
         <!-- Text area -->
         <textarea *ngIf="isTextareaType()" [formControlName]="field" name="{{ field }}" tabindex="{{tabindex}}" id="{{id || field}}" class="form-control" placeholder="{{placeholder}}"></textarea>
 

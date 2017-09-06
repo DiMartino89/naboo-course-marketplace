@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import {Component, Input, OnInit} from '@angular/core';
 
 import { AlertService } from '../../_services/index';
 
@@ -9,11 +9,26 @@ import { AlertService } from '../../_services/index';
 })
 
 export class AlertComponent implements OnInit {
-    message: any;
+    @Input() text: string;
+    @Input() type: string;
+    @Input() headline: string;
 
-    constructor(private alertService: AlertService) { }
+    @Input() service = false;
+
+    constructor(private alertService: AlertService) {
+    }
 
     ngOnInit() {
-        this.alertService.getMessage().subscribe(message => { this.message = message; });
+        if (this.service === true) {
+            this.alertService.getMessage().subscribe((message) => {
+                if (message) {
+                    this.text = message.text;
+                    this.type = message.type;
+                    this.headline = null;
+
+                    $('.alerts').get(0).scrollIntoView();
+                }
+            });
+        }
     }
 }

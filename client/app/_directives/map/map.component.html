@@ -1,6 +1,4 @@
-﻿<input type="text" #search class="form-control" placeholder="Search" [formControl]="searchControl">
-<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+﻿<input *ngIf="search" type="text" #search class="form-control" placeholder="Search" [formControl]="searchControl">
+<agm-map #map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
         <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
 </agm-map>
-<input type="text" id="latitude" class="no-input" value="{{latitude}}" />
-<input type="text" id="longitude" class="no-input" value="{{longitude}}"/>

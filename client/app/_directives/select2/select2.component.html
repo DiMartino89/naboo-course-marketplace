@@ -1,0 +1,16 @@
+<div *ngIf="form" [formGroup]="form" class="form-group" [ngClass]="{'has-danger': form.controls[field].touched && !form.controls[field].valid, 'row': horizontal}">
+    <label for="field_{{field}}" class="form-control-label" [ngClass]="{'col-sm-3 col-form-label': horizontal}">
+        {{label}}{{required ? '*' : ''}}:
+    </label>
+
+    <div [ngClass]="{'col-sm-9': horizontal}">
+        <!-- select 2 not connected to form -->
+        <select2 [data]="data" [options]="options" [value]="currentValue" (valueChanged)="onValueChange($event)" id="field_{{field}}" tabindex="{{tabindex}}"
+        ></select2>
+
+        <!-- error text -->
+        <p *ngIf="errorText && form.controls[field].touched && !form.controls[field].valid" class="form-control-feedback">
+            <small>{{ errorText }}</small>
+        </p>
+    </div>
+</div>

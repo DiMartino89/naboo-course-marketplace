@@ -1,0 +1,35 @@
+<div *ngIf="authService.isLoggedIn && authService.isEnabled">
+    <h1>{{'Archiv'| translate }}</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>{{'Betreff'| translate }}</th>
+            <th>{{'Absender'| translate }}</th>
+            <th>{{'Empfänger'| translate }}</th>
+            <th>{{'Datum'| translate }}</th>
+            <th>{{'Operationen'| translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let message of messages" [ngClass]="{'table-info': !message.read}">
+            <td><a routerLink="/messages/{{ message.id }}">{{ message.subject }}</a></td>
+            <td>{{ message.from.profile?.display_name || message.from.email }}</td>
+            <td>{{ message.to.profile?.display_name || message.to.email }}</td>
+            <td>{{ message.created_at | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>
+                <app-button (click)="unArchive(message.id)" [type]="'secondary'" [size]="'sm'">{{'Wiederherstellen'| translate }}</app-button>
+                <app-button (click)="remove(message.id)" [type]="'secondary'" [size]="'sm'">{{'Löschen' | translate}}</app-button>
+            </td>
+        </tr>
+
+        <tr *ngIf="messages === null && authService.isEnabled">
+            <td colspan="5"><app-loading></app-loading></td>
+        </tr>
+
+        <tr *ngIf="messages !== null && messages.length === 0 && authService.isEnabled">
+            <td colspan="5">{{'Keine Nachrichten!'| translate }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

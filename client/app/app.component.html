@@ -1,9 +1,9 @@
 ﻿<!-- main app container -->
 <header *ngIf="isLoggedIn()">
-	<a [routerLink]="['/']"><img class="naboo-logo" src="app/_assets/images/logo.png" /></a>
+	<a [routerLink]="['/']"><img class="naboo-logo" src="app/_assets/images/logo2.png" /></a>
 	<div>
 		<div (click)="showPanel()">
-			<img class="naboo-headbar-user-avatar" [src]="currentUser.avatar" />
+			<img class="naboo-headbar-user-avatar" [src]="currentUser.avatar ? '/uploads/' + currentUser.avatar : '/app/_assets/images/default-avatar.png'" />
 		</div>
 		<div id="naboo-user-panel" class="naboo-user-panel">
 			<p><a [routerLink]="['/users', currentUser._id]">Profile</a></p>
@@ -11,11 +11,31 @@
 		</div>
 	</div>
 </header>
-<div id="naboo-content" class="naboo-content">
-    <div class="naboo-container">
-        <div>
-			<alert></alert>
-            <router-outlet></router-outlet>
-        </div>
+<div class="col-sm-2 naboo-sidebar">
+	<ul>
+		<li><i class="fa fa-home"></i><a [routerLink]="['/']"><span>Home</span></a></li>
+		<li (click)="showSub('.user-menu', '.one')"><i class="fa fa-users"></i><span>Users</span><i class="fa fa-angle-up one"></i></li>
+			<ul class="user-menu">
+				<li><i class="fa fa-search"></i><span>Search</span></li>
+				<li><i class="fa fa-address-book-o"></i><span>Friends</span></li>
+			</ul>
+		<li (click)="showSub('.course-menu', '.two')"><i class="fa fa-circle-thin"></i><span>Courses</span><i class="fa fa-angle-up two"></i></li>
+			<ul class="course-menu">
+				<li><i class="fa fa-search"></i><span>Search</span></li>
+				<li><i class="fa fa-pencil"></i><span>Create</span></li>
+				<li><i class="fa fa-pencil-square-o"></i><span>Manage</span></li>
+			</ul>
+		<li (click)="showSub('.message-menu', '.three')"><i class="fa fa-envelope-o"></i><span>Messages</span><i class="fa fa-angle-up three"></i></li>
+			<ul class="message-menu">
+				<li><i class="fa fa-sign-in"></i><span>Inbox</span></li>
+				<li><i class="fa fa-sign-out"></i><span>Outbox</span></li>
+				<li><i class="fa fa-list-alt"></i><span>Archive</span></li>
+			</ul>
+	</ul>
+</div>
+<div class="naboo-content">
+    <div class="naboo-container container--main">
+		<alert></alert>
+		<router-outlet></router-outlet>
     </div>
 </div>

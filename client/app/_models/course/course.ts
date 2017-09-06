@@ -5,12 +5,15 @@ export class Course {
 	name: string;
 	description: string;
 	categories: string[];
-	image: string;
+	price: number;
+    titleImage: string;
 	latitude: number;
-	longitude: number;	
+	longitude: number;
+	maxMembers: number;
 	members: User[] = [];
+	signInDeadline: any;
 	link: string;	
-	date: any;
+	appointments: any;
 	duration: number;
 	rating: number;
 	reviews: Review[] = [];
