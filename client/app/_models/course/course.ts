@@ -10,15 +10,15 @@ export class Course {
 	latitude: number;
 	longitude: number;
 	maxMembers: number;
-	members: User[] = [];
+	members: any[] = [];
 	signInDeadline: any;
 	link: string;	
 	appointments: any;
 	duration: number;
 	rating: number;
-	reviews: Review[] = [];
+	reviews: any[] = [];
 	pictures: string[] = [];
 	createdAt: any;
 	updatedAt: any;
-	owner: User;
+	owner: any;
 }

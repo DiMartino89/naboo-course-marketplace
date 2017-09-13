@@ -36,9 +36,11 @@
     "moment": "^2.18.1",
     "ng2-file-upload": "^1.2.1",
     "ng2-notifications": "^0.3.0",
+    "ng2-nouislider": "^1.6.1",
     "ng2-select2": "^1.0.0-beta.10",
+    "nouislider": "^10.0.0",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "^5.4.3",
     "select2": "^4.0.3",
     "systemjs": "0.19.39",
     "zone.js": "^0.6.25"

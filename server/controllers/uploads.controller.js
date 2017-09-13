@@ -24,7 +24,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.post('/user_avatar', upload.any(), function(req, res, next) {
-    res.end(req.files[0].filename);
+    res.end(req.files[0].filename + '$');
 });
 
 router.post('/user_titleImage', upload.any(), function(req, res, next) {

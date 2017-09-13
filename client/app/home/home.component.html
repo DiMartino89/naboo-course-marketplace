@@ -1,85 +1,57 @@
-﻿<div class="naboo-home-container">
-	<nav class="main-navigation">
-		<ul>
-			<li class="col-sm-4" (click)="showContainer('top-rated-teachers')">Top Rated Teachers</li>
-			<li class="col-sm-4" (click)="showContainer('top-rated-courses')">Top Rated Courses</li>
-			<li class="col-sm-4" (click)="showContainer('categories')">Categories</li>
-		</ul>
-	</nav>
-	<div id="top-rated-courses" class="top-rated-courses">
-		<div class="courses-container" *ngFor="let course of courses | orderBy : ['rating', 'reviews.length']; let i=index">
-			<a [routerLink]="['/course', course._id]">
-			<li class="course-container" *ngIf="i < 5">
-				<div class="col-sm-9 course-image">
-					<!--<img src="/uploads/{{course.image}}">-->
-					<img [src]="course.image ? '/uploads/' + course.image : '/app/_assets/images/default-titleImage.png'">
-				</div>
-				<div class="col-sm-9 course-info">
-					<h2>{{course.name}}</h2>
-					<a [routerLink]="['/users', course.owner._id]">
-						<div>
-							<img class="owner-avatar" [src]="course.owner.avatar ? '/uploads/' + course.owner.avatar : '/app/_assets/images/default-avatar.png'" />
-							{{course.owner.name}}
-						</div>
-					</a>
-					<p>{{course.date}} Uhr</p>
-					<p>{{course.description | truncate : 20}}</p>
-				</div>
-			</li>
-			</a>
-		</div>
-	</div>
-	<div class="top-rated-teachers">
-		<div class="teachers-container" *ngFor="let user of users | orderBy : ['rating', 'reviews.length']; let i=index">
-			<a [routerLink]="['/users', user._id]">
-				<li class="teacher-container" *ngIf="i < 5">
-					<div class="col-sm-9 teacher-image">
-						<img [src]="user.titleImage ? '/uploads/' + user.titleImage : '/app/_assets/images/default-titleImage.png'">
-					</div>
-					<div class="col-sm-9 teacher-info">
-						<div>
-							<a [routerLink]="['/users', user._id]">
-								<img class="teacher-avatar" [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'" />
-								<h2>{{user.name}}</h2>
-							</a>
-						</div>
-						<div>
-							<p>{{user.description | truncate : 20}}</p>
-						</div>
-					</div>
-				</li>
-			</a>
-		</div>
-	</div>
-	<div class="categories">
-		<p>Categories</p>
-	</div>
+﻿<div class="naboo-home-container col-sm-12">
+    <nav class="col-sm-12">
+        <ul class="tablist" role="tablist">
+            <li id="tab1" class="col-sm-6 tab panel-head" role="tab" aria-controls="panel1" aria-selected="true">Latest
+                Courses
+            </li>
+            <li id="tab2" class="col-sm-6 tab panel-head" role="tab" aria-controls="panel2" aria-selected="false">
+                Top-Rated Courses
+            </li>
+        </ul>
+    </nav>
+    <div id="panel1" role="tabpanel" aria-labelledby="tab1" aria-hidden="false">
+        <div class="col-sm-3 panel" *ngFor="let course of courses | orderBy : ['createdAt']; let i=index">
+
+            <li *ngIf="i < 4">
+                <div class="col-sm-12">
+                    <a [routerLink]="['/course', course._id]">
+                        <img class="thumb"
+                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'">
+                    </a>
+                </div>
+                <div class="col-sm-12">
+                    <h2>{{course.name}},
+                        <small>{{course.createdAt}}</small>
+                    </h2>
+                    <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
+                    <p>{{course.description | truncate : 10}}</p>
+                </div>
+            </li>
+
+        </div>
+    </div>
+    <div id="panel2" class="hidden" role="tabpanel" aria-labelledby="tab2" aria-hidden="true">
+        <div class="col-sm-3 panel"
+             *ngFor="let course of courses | orderBy : ['rating', 'reviews.length']; let i=index">
+            <li *ngIf="i < 4">
+                <div class="col-sm-12">
+                    <a [routerLink]="['/course', course._id]">
+                        <img class="thumb"
+                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'">
+                    </a>
+                    <app-review [rating]="course.rating ? course.rating : 0"></app-review>
+                </div>
+                <div class="col-sm-12">
+                    <h2>{{course.name}},
+                        <small>{{course.createdAt}}</small>
+                    </h2>
+                    <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
+                    <p>{{course.description | truncate : 10}}</p>
+                </div>
+            </li>
+
+        </div>
+    </div>
 </div>
 
-<app-map></app-map>
-
-<div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser.name}}!</h1>
-    <p>You're logged in with the MEAN Stack & Angular 2!!</p>
-	 <p><a [routerLink]="['/course/create']">Create Course</a></p>
-	 <p><a [routerLink]="['/categories/create']">Create Category</a></p>
-    <h3>All registered users:</h3>
-    <ul class="naboo-users-list">
-        <li *ngFor="let user of users">
-            <a [routerLink]="['/users', user._id]">{{user.name}} ({{user.email}})</a><button class="btn btn-primary" (click)="deleteUser(user._id)">Delete</button>
-        </li>
-	</ul>
-	<h3>All registered courses:</h3>
-	<ul class="naboo-courses-list">
-		<li *ngFor="let course of courses">
-            <a [routerLink]="['/courses', course._id]">{{course.name}}</a><button class="btn btn-primary" (click)="deleteCourse(course._id)">Delete</button>
-        </li>
-    </ul>
-	<h3>All registered categories:</h3>
-	<ul class="naboo-categories-list">
-		<li *ngFor="let category of categories">
-            <a [routerLink]="['/categories', category._id]">{{category.name}}</a><button class="btn btn-primary" (click)="deleteCategory(category._id)">Delete</button>
-        </li>
-    </ul>
-    <p><a [routerLink]="['/login']">Logout</a></p>
-</div>
+<app-map [search]="false" [edit]="false"></app-map>

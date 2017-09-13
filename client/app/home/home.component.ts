@@ -46,6 +46,27 @@ export class HomeComponent implements OnInit {
 			}
 		);
 		this.loadAllReviews();
+
+        $("li[role='tab']").click(function(){
+            $("li[role='tab']").attr("aria-selected","false");
+            $(this).attr("aria-selected","true");
+            $("div[role='tabpanel']").attr("aria-hidden","true");
+            $("div[role='tabpanel']").addClass('hidden'); //For older browsers
+            $("#"+ $(this).attr("aria-controls")).attr("aria-hidden","false");
+            $("#"+ $(this).attr("aria-controls")).removeClass('hidden'); //For older browsers
+        });
+    }
+
+    getOwner(userId: any) {
+    	this.userService.getById(userId).subscribe(user => {
+    		return user;
+		});
+	}
+
+    changeDateFormat(dateInput: any) {
+        var date = new Date(dateInput);
+        return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
+            '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
     }
 	
 	/* USER STUFF */

@@ -19,6 +19,8 @@ export class UserComponent implements OnInit {
     userId: string;
     users: any;
 
+    userCourses: any = [];
+
     requester: any;
     receiver: any;
 
@@ -27,12 +29,12 @@ export class UserComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
-                private courseService: CourseService,
                 private alertService: AlertService,
                 private reviewService: ReviewService,
                 private activatedRoute: ActivatedRoute,
                 private authenticationService: AuthenticationService,
-                private router: Router) {
+                private router: Router,
+                public courseService: CourseService) {
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
                 this.currentUser = user;
@@ -54,6 +56,14 @@ export class UserComponent implements OnInit {
             .subscribe(
                 user => {
                     this.user = user;
+                    for(let i=0; i < user.courses.length; i++) {
+                        this.courseService.getById(user.courses[i]).subscribe(course => {
+                            this.userCourses.push(course);
+                        });
+                    }
+                    if (user._id !== this.currentUser._id) {
+                        this.userService.addViewedUser(this.currentUser._id, user._id);
+                    }
                 });
 
         this.imageModal = $('#image-modal');
@@ -74,45 +84,24 @@ export class UserComponent implements OnInit {
         this.imageModal.modal('hide');
     }
 
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
-    }
-
 	sendFriendRequest(user: User) {
 		this.receiver = user;
 		this.receiver.friendRequests.push(this.currentUser._id);
-		this.userService.update(this.receiver).subscribe(() => { this.loadAllUsers(); });
+		this.userService.update(this.receiver).subscribe(() => { this.alertService.success('Successfully sent Friendrequest'); });
 	}
 
 	cancelFriendRequest(user: User) {
 		this.receiver = user;
 		this.receiver.friendRequests.splice(this.receiver.friendRequests.indexOf(this.currentUser._id), 1);
-		this.userService.update(this.receiver).subscribe(() => { this.loadAllUsers(); });
+		this.userService.update(this.receiver).subscribe(() => {});
 	}
 
-	acceptFriendRequest(_id: string) {
-		this.receiver = this.userService.getById(this.currentUser._id);
-		this.requester = this.userService.getById(_id);
-		this.receiver.friends.push(this.requester._id);
-		this.receiver.friendRequests.splice(this.receiver.friendRequests.indexOf(this.requester._id), 1);
-		this.userService.update(this.receiver).subscribe(() => { this.loadAllUsers(); });
-		this.requester.friends.push(this.receiver._id);
-		this.userService.update(this.requester).subscribe(() => { this.loadAllUsers(); });
-	}
-
-	refuseFriendRequest(_id: string) {
-		this.receiver = this.userService.getById(this.currentUser._id);
-		this.requester = this.userService.getById(_id);
-		this.receiver.friendRequests.splice(this.receiver.friendRequests.indexOf(this.requester._id), 1);
-		this.userService.update(this.receiver).subscribe(() => { this.loadAllUsers(); });
-	}
-
-	removeFriend(_id: string) {
-		this.receiver = this.userService.getById(_id);
-		this.requester = this.userService.getById(this.currentUser._id);
+	removeFriend(user: User) {
+		this.receiver = user;
+		this.requester = this.currentUser;
 		this.receiver.friends.splice(this.receiver.friends.indexOf(this.requester._id), 1);
-		this.userService.update(this.receiver).subscribe(() => { this.loadAllUsers(); });
+		this.userService.update(this.receiver).subscribe(() => {});
 		this.requester.friends.splice(this.requester.friends.indexOf(this.receiver._id), 1);
-		this.userService.update(this.requester).subscribe(() => { this.loadAllUsers(); });
+		this.userService.update(this.requester).subscribe(() => { this.alertService.success('Removed this user as a friend.'); });
 	}
 }

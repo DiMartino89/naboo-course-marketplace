@@ -1,0 +1,15 @@
+﻿<div class="col-sm-12">
+    <div class="user-headline main">
+        <div class="col-sm-9" style="font-size: 24px;">Chats</div>
+    </div>
+</div>
+
+<div class="col-sm-12 user-info">
+    <ul>
+        <li *ngFor="let message of messages">
+            <div class="col-sm-12">
+                <a [routerLink]="['/messages/', message]">Chat with {{message}}</a>
+            </div>
+        </li>
+    </ul>
+</div>

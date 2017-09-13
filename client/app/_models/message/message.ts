@@ -1,13 +1,6 @@
-import { Course, User } from '../index';
-
 export class Message {
-    id: number;
-    subject: string;
+    _id: string;
+    from: any;
     text: string;
-    from: User;
-    to: User;
-    course: Course;
-    read: boolean;
-    archived: boolean;
-    created_at: Date;
+    createdAt: any;
 }

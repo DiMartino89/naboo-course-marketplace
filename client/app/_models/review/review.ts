@@ -2,9 +2,9 @@
 
 export class Review {
     _id: string;
-	user: User;
+	user: any;
+	course: any;
 	rating: number;
 	description: string;
 	createdAt: any;
-	updatedAt: any;
 }

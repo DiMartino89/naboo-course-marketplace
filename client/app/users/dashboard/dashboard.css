@@ -1,0 +1,54 @@
+.dashboard-headline {
+    display: table;
+    position: relative;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0px 0px 10px;
+    background-color: rgba(255,255,255,0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.dashboard-headline.main {
+    width:calc(100% - 30px);
+    margin:10px 15px;
+}
+
+.dashboard-info {
+    margin-bottom: 20px;
+    background-color: rgba(255,255,255,0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+}
+
+/* Modal */
+.modal-body {
+    cursor: zoom-out;
+}
+
+.modal-body label {
+    color: #0C1724;
+}
+
+p {
+    color: #FFF !important;
+}
+
+table, td {
+    border: none;
+}
+
+.user-avatar {
+    width: 100px;
+    height: auto;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+}
+
+.course-image {
+    width: 100px;
+    height: auto;
+}

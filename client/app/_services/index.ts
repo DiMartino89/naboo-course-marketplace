@@ -5,4 +5,3 @@ export * from './course/course.service';
 export * from './review/review.service';
 export * from './category/category.service';
 export * from './data/data.service';
-export * from './message/message.service';

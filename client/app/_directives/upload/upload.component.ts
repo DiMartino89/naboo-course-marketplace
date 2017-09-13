@@ -15,6 +15,7 @@ export class UploadComponent implements OnInit {
     @Input() single: boolean;
     @Input() multiple: boolean;
 
+    public avatarUploader:FileUploader;
     public uploader:FileUploader;
     public multipleUploader:FileUploader;
 
@@ -26,7 +27,7 @@ export class UploadComponent implements OnInit {
                 private dataService: DataService) {}
 
     ngOnInit() {
-        //Single File-Uploader
+        //Single File-Uploader TitleImage
         this.uploader = new FileUploader({
             url: 'http://localhost:3001/uploads/' + this.kind,
             headers: [{name:'Accept', value:'application/json'}],
@@ -49,24 +50,25 @@ export class UploadComponent implements OnInit {
         this.multipleUploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
     }
 
-    onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    onSuccessItem(item: FileItem, response: any, status: number, headers: ParsedResponseHeaders): any {
         //Single File
-        if(!response.includes(",")) {
-            this.dataService.file = response;
+        if(response.includes("$")) {
+            this.dataService.avatar = response.replace('$', '');
+        }
+
+        if(!response.includes(",") && !response.includes("$")) {
+            this.dataService.titleImage = response;
         }
 
         //Multiple Files
         if(response.includes(",")) {
-            this.file += response;
-            this.dataService.files = this.file;
+            this.dataService.pictures += response;
         }
     }
 
     onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
         this.alertService.error('Image Upload was not successful, please try again later!');
     }
-
-    public hasBaseDropZoneOver:boolean = false;
 
     public clearInput() {
         $('.file').val('');

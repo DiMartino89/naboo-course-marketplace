@@ -1,0 +1,31 @@
+﻿<div class="col-sm-12">
+    <div class="user-headline main">
+        <div class="col-sm-9" style="font-size: 24px;">Chat with {{user.name}}</div>
+    </div>
+</div>
+
+<div class="col-sm-12 user-info">
+    <ul>
+        <li *ngFor="let message of messages">
+            <div *ngIf="message.from != currentUser._id" class="col-sm-12 inbox message tri-right left-top">
+                <div class="col-sm-12">
+                    {{message.text}}
+                </div>
+            </div>
+            <div *ngIf="message.from == currentUser._id" class="col-sm-12 outbox message tri-right left-top">
+                <div class="col-sm-12">
+                    {{message.text}}
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="col-sm-12 user-info">
+    <form (ngSubmit)="messageForm.valid && sendMessage()">
+        <app-input field="text" type="text" [tabindex]="2" [form]="messageForm" [horizontal]="true"
+                   [label]="'Message'"
+        ></app-input>
+        <app-button [disabled]="!messageForm.valid" [tabindex]="3">{{ 'Send' | translate}}</app-button>
+    </form>
+</div>

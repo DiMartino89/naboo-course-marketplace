@@ -19,9 +19,10 @@
 	text-align: right;
 }
 
-.edit-panel i {
-	line-height: 34px;
-	font-size: 25px;
+.edit-panel button {
+	background: transparent;
+	border: none;
+	float: right;
 }
 
 .user-info {
@@ -84,7 +85,7 @@ table, td {
 }
 
 .user-avatar {
-	width: 50px;
+	width: 100px;
 	height: auto;
 	border: 1px solid #FFF;
 	border-radius: 50%;

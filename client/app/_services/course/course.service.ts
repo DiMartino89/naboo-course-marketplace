@@ -7,6 +7,9 @@ import { Course } from '../../_models/index';
 
 @Injectable()
 export class CourseService {
+
+    viewedCourses: any;
+
     constructor(private http: Http, 
 				private config: AppConfig,
 				private authenticationService: AuthenticationService) { }
@@ -29,5 +32,12 @@ export class CourseService {
 
     getById(_id: any) {
         return this.http.get(this.config.apiUrl + '/courses/' + _id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    addViewedCourse(currUserId: any, courseId: any) {
+        this.viewedCourses = (JSON.parse(localStorage.getItem(currUserId + '_courses')) || []).filter((id) => id !== courseId);
+        this.viewedCourses.push(courseId);
+
+        localStorage.setItem(currUserId + '_courses', JSON.stringify(this.viewedCourses.slice(-3)));
     }
 }

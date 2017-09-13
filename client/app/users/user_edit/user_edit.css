@@ -1,0 +1,83 @@
+.user-headline {
+    display: table;
+    position: relative;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0px 0px 10px;
+    background-color: rgba(255,255,255,0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.user-headline input {
+    width: 50%;
+}
+
+.user-info {
+    margin-bottom: 20px;
+    background-color: rgba(255,255,255,0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+}
+
+.user-info .description {
+    padding: 5px;
+    text-align: justify;
+}
+
+table, td {
+    border: none;
+}
+
+.user-pictures {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgba(255,255,255,0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.user-members,
+.user-rating {
+    margin: 0px;
+    padding: 0px;
+}
+
+.user-pictures li,
+.user-members li,
+.user-rating li {
+    list-style: none;
+}
+
+.user-pictures li img {
+    cursor: auto;
+    width: 100%;
+}
+
+.eventlist {
+    width: 100%;
+}
+
+.event {
+    float: left;
+    width: 80%;
+}
+
+.removeEvent {
+    float: right;
+    width: 10%;
+}
+
+.save-images {
+    display: none;
+}
+
+.removeImage {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

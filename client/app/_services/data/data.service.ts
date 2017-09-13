@@ -2,8 +2,9 @@
 
 @Injectable()
 export class DataService {
-    public file: string = '';
-    public files: string = '';
+    public avatar: string = '';
+    public titleImage: string = '';
+    public pictures: string = '';
     public latitude: number;
     public longitude: number;
     public events: string[];

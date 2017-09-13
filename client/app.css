@@ -13,9 +13,13 @@
 /* Import Course Styles */
 @import url("app/courses/course/course.css");
 @import url("app/courses/course_create/course_create.css");
+@import url("app/courses/course_search/course_search.css");
 
 /* Calendar */
 @import url("node_modules/fullcalendar/dist/fullcalendar.css");
+
+/* Slider */
+@import url("node_modules/nouislider/distribute/nouislider.min.css");
 
 /* AOS */
 @import url("node_modules/aos/dist/aos.css");
@@ -108,7 +112,7 @@ p, a, span {
 }
 
 div {
-	display: table;
+	display: block;
 	box-sizing: border-box;
 	overflow: visible;
 	font-size: 18px;
@@ -218,7 +222,7 @@ header {
 	line-height: 25px;
 }
 
-.naboo-sidebar ul li .fa-angle-up {
+.naboo-sidebar ul li .fa-angle-down {
 	display: table;
 	width: 12%;
 	float: right;
@@ -232,7 +236,7 @@ header {
 	transition: transform 0.5s;
 }
 
-.naboo-sidebar ul li .fa-angle-up.active {
+.naboo-sidebar ul li .fa-angle-down.active {
 	-webkit-transform: rotate(180deg);
 	-moz-transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
@@ -391,4 +395,8 @@ input.address {
 
 ul li {
 	list-style: none;
+}
+.user-menu,
+.course-menu {
+	display: none;
 }

@@ -21,14 +21,14 @@ export class LoginComponent implements OnInit {
 		
     ngOnInit() {
 		this.loginForm = this.formBuilder.group({
-            'email': ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')]],
-            'password': ['', [Validators.required, Validators.minLength(8)]],
-            'stay_loggedIn': true
+            email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')]],
+            password: ['', [Validators.required, Validators.minLength(8)]],
+            stay_loggedIn: true
         });
 	}	
 	
 	login() {
-		var user: any = this.loginForm.value;
+		let user: any = this.loginForm.value;
 		this.authenticationService.login(user.email, user.password, user.stay_loggedIn)
 			.subscribe(
 				data => {				

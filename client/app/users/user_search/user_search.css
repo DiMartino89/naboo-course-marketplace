@@ -1,0 +1,53 @@
+.course-headline {
+	display: table;
+	position: relative;
+	width: 100%;
+	padding: 10px 20px;
+	margin: 0px 0px 10px;
+	background-color: rgba(255,255,255,0.1);
+	border: 0;
+	border-radius: 7px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.course-headline.main {
+	width:calc(100% - 30px);
+	margin:10px 15px;
+}
+
+.course-info {
+	margin-bottom: 20px;
+	background-color: rgba(255,255,255,0.1);
+	border: 0;
+	border-radius: 7px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+	box-sizing: border-box;
+}
+
+.select2-container {
+	width: 100% !important;
+	height: 32px !important;
+	margin: 5px 0px;
+}
+
+app-select2 div {
+	display: block !important;
+}
+
+.select2-results__option {
+	color: #222;
+}
+
+.select2-selection__choice {
+	color: #0C1724;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: 1px solid #CCC !important;
+	outline: 0;
+	border-radius: 5px !important;
+}
+
+.course-info .col-sm-8 span {
+	width: 100%;
+}

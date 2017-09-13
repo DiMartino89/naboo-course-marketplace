@@ -18,13 +18,9 @@
             </tbody>
         </table>
 
-        <div class="uploads" *ngIf="uploader.queue.length > 0">
-            <input type="text" class="course-titleImage" readonly>
-        </div>
-
         <div>
             <button type="button" class="btn btn-success btn-xs"
-                    (click)="uploader.uploadAll()" [disabled]="!uploader.queue.length">
+                    (click)="uploader.uploadAll(); clearInput();" [disabled]="uploader.queue.length == 0">
                 <span class="glyphicon glyphicon-upload"></span> Confirm
             </button>
             <button type="button" class="btn btn-danger btn-s"
@@ -62,13 +58,9 @@
             </tbody>
         </table>
 
-        <div class="uploads" *ngIf="multipleUploader.queue.length > 0">
-            <input type="text" class="course-pictures" readonly>
-        </div>
-
         <div>
             <button type="button" class="btn btn-success btn-xs"
-                    (click)="multipleUploader.uploadAll()" [disabled]="!multipleUploader.getNotUploadedItems().length">
+                    (click)="multipleUploader.uploadAll(); clearInput2();" [disabled]="!multipleUploader.getNotUploadedItems().length">
                 <span class="glyphicon glyphicon-upload"></span> Confirm
             </button>
             <button type="button" class="btn btn-danger btn-s"

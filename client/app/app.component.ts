@@ -32,7 +32,7 @@ export class AppComponent {
 		this.alertService.success('Erfolgreich ausgeloggt!', true);
 	}
 	
-	private isLoggedIn() {
+	isLoggedIn() {
 		if (this.authenticationService.userLoggedIn("user_token") != null) {
 			return true;
 		} else {

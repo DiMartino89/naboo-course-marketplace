@@ -21,11 +21,22 @@ export class RegisterComponent implements OnInit {
 		
 	ngOnInit() {
 		this.registrationForm = this.formBuilder.group({
-            'email': ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')]],
-			'email_repeat': ['', [Validators.required, MatchOtherValidator('email')]],
-			'name': ['', Validators.maxLength(63)],
-            'password': ['', [Validators.required, Validators.minLength(8)]],
-           
+            email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')]],
+			email_repeat: ['', [Validators.required, MatchOtherValidator('email')]],
+			name: ['', Validators.maxLength(63)],
+            password: ['', [Validators.required, Validators.minLength(8)]],
+			enabled: false,
+			description: '',
+			avatar: '',
+			titleImage: '',
+			pictures: [[]],
+			courses: [[]],
+			bookedCourses: [[]],
+            friendRequests: [[]],
+			friends: [[]],
+			messages: [{}],
+			createdAt: this.changeDateFormat(new Date()),
+			updatedAt: this.changeDateFormat(new Date())
         });
 	}
 	
@@ -34,21 +45,6 @@ export class RegisterComponent implements OnInit {
 		user = this.registrationForm.value;		
 		
 		delete user.email_repeat;
-		
-		user.enabled = false;
-		user.role = 'user';
-		user.description = '';
-		user.avatar = '';
-		user.titleImage = '';
-		user.pictures = [];
-		user.courses = [];
-		user.friendRequests = [];
-		user.friends = [];
-		user.reviews = [];
-		user.rating = 0;
-		var date = new Date();
-		user.createdAt = this.changeDateFormat(date);
-		user.updatedAt = this.changeDateFormat(date);
 
         this.userService.create(user)
             .subscribe(
@@ -69,10 +65,6 @@ export class RegisterComponent implements OnInit {
                 error => {
                     this.alertService.error('Registration failed! A user with email ' + user.email + ' may already exist!');
                 });
-    }
-	
-	isValid() {
-        return this.registrationForm.valid;
     }
 
 	changeDateFormat(dateInput: any) {

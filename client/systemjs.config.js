@@ -27,7 +27,9 @@
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
             'ng2-file-upload': 'npm:ng2-file-upload',
             'ng2-notifications': 'npm:ng2-notifications',
-            'ng2-select2': 'npm:ng2-select2'
+            'ng2-select2': 'npm:ng2-select2',
+            'ng2-nouislider': 'npm:ng2-nouislider',
+            'nouislider': 'npm:nouislider'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -52,6 +54,14 @@
             },
             'ng2-select2': {
                 main: './ng2-select2.js',
+                defaultExtension: 'js'
+            },
+            'ng2-nouislider': {
+                main: './src/nouislider.js',
+                defaultExtension: 'js'
+            },
+            'nouislider': {
+                main: './distribute/nouislider.js',
                 defaultExtension: 'js'
             }
         }

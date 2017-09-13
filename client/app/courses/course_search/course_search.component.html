@@ -1,0 +1,50 @@
+﻿<div class="col-sm-12">
+    <div class="course-headline main">
+        <div class="col-sm-9" style="font-size: 24px;">Search Courses</div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="col-sm-6">
+        <div class="course-headline">Filter</div>
+        <div class="col-sm-12 course-info">
+            <form (ngSubmit)="searchForm.valid && searchCourses()">
+                <app-input field="fulltext" type="text" [tabindex]="5" [form]="searchForm" [horizontal]="true"
+                           [label]="'Fulltext'"
+                ></app-input>
+                <div style="width:100%;margin:0px auto 25px;">
+                    <app-select2 field="categories" [form]="searchForm" [required]="true" [tabindex]="2"
+                                 [label]="'Categories' | translate" [errorText]="'Bitte Labels auswählen!' | translate"
+                                 [data]="categories" [options]="options"
+                    ></app-select2>
+                </div>
+                <app-input field="categories" type="text" [tabindex]="5" [form]="searchForm" [horizontal]="true"
+                           [labelHidden]="true" [inputHidden]="true"
+                ></app-input>
+                <app-nouislider [form]="searchForm" [minField]="'min_price'" [maxField]="'max_price'"
+                                [label]="'Preisspanne (€)' | translate" [errorText]="'Bitte gültige Werte auswählen!'"
+                                [min]="0" [max]="sliderMax" [step]="5" [tabindex]="5"
+                ></app-nouislider>
+                <app-button [disabled]="!searchForm.valid" [tabindex]="13">{{ 'Filter' | translate}}</app-button>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="course-headline">Results</div>
+        <div class="col-sm-12 course-info">
+            <ul>
+                <li *ngFor="let course of courses">
+                    <div class="col-sm-4">
+                        <img style="width:100%;" [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'" />
+                    </div>
+                    <div class="col-sm-8">
+                        <h4>{{course.name}}</h4>
+                        <span>{{course.categories}}</span>
+                        <span>{{course.price}} €</span>
+                        <span>{{changeDateFormat(course.signInDeadline)}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

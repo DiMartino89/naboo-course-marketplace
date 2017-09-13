@@ -1,93 +1,131 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../_services/user/user.service';
-import { AlertService } from '../../_services/alert/alert.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppConfig } from '../../app.config';
-import { CourseService } from "../../_services/course/course.service";
-import { Course } from "../../_models/course/course";
-import { AuthenticationService } from "../../_services/authentication/authentication.service";
-import { MessageService } from "../../_services/message/message.service";
-import { Message } from "../../_models/message/message";
-import { DataService } from "../../_services/data/data.service";
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../_services/user/user.service';
+import {AlertService} from '../../_services/alert/alert.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AppConfig} from '../../app.config';
+import {CourseService} from "../../_services/course/course.service";
+import {Course} from "../../_models/course/course";
+import {AuthenticationService} from "../../_services/authentication/authentication.service";
+import {DataService} from "../../_services/data/data.service";
+import {User} from "../../_models/user/user";
 
 @Component({
     moduleId: module.id,
-    selector: 'app-view-dashboard',
+    selector: 'dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.css']
 })
 export class DashboardComponent implements OnInit {
     currentUser: any = {};
-    userId: number;
+
+    userRequests: any = [];
+    viewedUsers: any = [];
+    userCourses: any = [];
+    bookedCourses: any = [];
+    viewedCourses: any = [];
+
+    inboxSenders: any = [];
+
+    requester: any;
+    receiver: any;
 
     courses: Course[];
-    viewedCourses: Course[];
-
-    inboxMessages: Message[];
-    outboxMessages: Message[];
-    messageForm: FormGroup;
-    messageModal: any;
 
     constructor(private userService: UserService,
                 private alertService: AlertService,
                 private courseService: CourseService,
-                private messageService: MessageService,
                 public authenticationService: AuthenticationService,
                 private dataService: DataService,
                 private formBuilder: FormBuilder,
                 private config: AppConfig) {
-        this.inboxMessages = null;
-        this.outboxMessages = null;
-        this.viewedCourses = [];
 
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
                 this.currentUser = user;
+                for (let i = 0; i < user.friendRequests.length; i++) {
+                    this.userService.getById(user.friendRequests[i]).subscribe(user => {
+                        this.userRequests.push(user);
+                    });
+                }
+                for (let i = 0; i < user.courses.length; i++) {
+                    this.courseService.getById(user.courses[i]).subscribe(course => {
+                        this.userCourses.push(course);
+                    });
+                }
+                for (let i = 0; i < user.bookedCourses.length; i++) {
+                    this.courseService.getById(user.bookedCourses[i]).subscribe(course => {
+                        this.bookedCourses.push(course);
+                    });
+                }
+                this.getViewedCourses(user._id);
+                this.getViewedUsers(user._id);
             });
         }
     }
 
     ngOnInit() {
-        this.authenticationService.checkIfEnabled();
-        if (this.authenticationService.isEnabled) {
-            this.updateInboxMessages();
-            this.updateOutboxMessages();
+
+    }
+
+    private getViewedUsers(currUserId: any) {
+        let users = [];
+        const viewedUsers = JSON.parse(localStorage.getItem(currUserId + '_users'));
+
+        if (viewedUsers != null) {
+            users = viewedUsers;
+            users = users.reverse();
         }
 
-        this.messageModal = $('#send-message-modal');
-        this.messageForm = this.formBuilder.group({
-            offer_id: [0, Validators.required],
-            subject: ['', [Validators.required, Validators.maxLength(100)]],
-            text: ['', [Validators.required, Validators.maxLength(1000)]]
-        });
-    }
-
-    private updateInboxMessages() {
-        this.messageService.getReceived().subscribe((messages: Message[]) => {
-            this.inboxMessages = messages;
-        });
-    }
-
-    private updateOutboxMessages() {
-        this.messageService.getSent().subscribe((messages: Message[]) => {
-            this.outboxMessages = messages;
-        });
-    }
-
-    openMessageModal(course: Course) {
-        if (this.authenticationService.userLoggedIn("user_token") != null) {
-            this.messageForm.get('course_id').setValue(course._id);
-            this.messageForm.get('subject').setValue(`Anfrage zu "${course.name}"`);
-            this.messageModal.modal('show');
+        for (let i = 0; i < users.length; i++) {
+            this.userService.getById(users[i]).subscribe(
+                (user: User) => {
+                    this.viewedUsers.push(user);
+                }
+            );
         }
     }
 
-    sendMessage() {
-        this.messageService.send(this.messageForm.value).subscribe(() => {
-            this.messageModal.modal('hide');
-            this.alertService.success('Nachricht erfolgreich versandt!');
-        }, error => {
-            this.alertService.error(error._body);
+    private getViewedCourses(currUserId: any) {
+        let courses = [];
+        const viewedCourses = JSON.parse(localStorage.getItem(currUserId + '_courses'));
+
+        if (viewedCourses != null) {
+            courses = viewedCourses;
+            courses = courses.reverse();
+        }
+
+        for (let i = 0; i < courses.length; i++) {
+            this.courseService.getById(courses[i]).subscribe(
+                (course: Course) => {
+                    this.viewedCourses.push(course);
+                }
+            );
+        }
+    }
+
+    acceptFriendRequest(user: User) {
+        this.receiver = this.currentUser;
+        this.requester = user;
+        this.receiver.friends.push(this.requester._id);
+        this.receiver.friendRequests.splice(this.receiver.friendRequests.indexOf(this.requester._id), 1);
+        this.userService.update(this.receiver).subscribe(() => {
         });
+        this.requester.friends.push(this.receiver._id);
+        this.userService.update(this.requester).subscribe(() => {
+        });
+    }
+
+    refuseFriendRequest(user: User) {
+        this.receiver = this.currentUser;
+        this.requester = user;
+        this.receiver.friendRequests.splice(this.receiver.friendRequests.indexOf(this.requester._id), 1);
+        this.userService.update(this.receiver).subscribe(() => {
+        });
+    }
+
+    changeDateFormat(dateInput: any) {
+        var date = new Date(dateInput);
+        return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
+            '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
     }
 }

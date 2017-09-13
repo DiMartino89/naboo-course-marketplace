@@ -6,16 +6,15 @@ export class User {
 	email: string;
     name: string;
     password: string;
-	role: string;
 	description: string;
 	avatar: string;
 	titleImage: string;
 	pictures: string[] = [];
-	courses: Course[] = [];
+	courses: any[] = [];
+	bookedCourses: any[] = [];
 	friendRequests: any[] = [];
 	friends: any[] = [];
-	reviews: Review[] = [];
-	rating: number;
+	messages: any = {};
 	createdAt: any;
 	updatedAt: any;
 }

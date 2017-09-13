@@ -1,7 +1,7 @@
-﻿import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
+﻿import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {Params, Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Select2TemplateFunction, Select2OptionData} from 'ng2-select2';
+import {Select2OptionData} from 'ng2-select2';
 import {User, Course} from '../../_models/index';
 import {
     AuthenticationService,
@@ -11,7 +11,6 @@ import {
     AlertService,
     DataService
 } from '../../_services/index';
-import {MapComponent, UploadComponent} from "../../_directives/index";
 import {ArrayNotEmptyValidator} from "../../_helpers/arrayNotEmptyValidator/array-not-empty.validator";
 
 declare var $: any;
@@ -23,9 +22,6 @@ declare var $: any;
 })
 
 export class CreateCourseComponent implements OnInit {
-    @ViewChild('uploadComp') uploadComp: any;
-    @ViewChild('uploadComp2') uploadComp2: any;
-
     createCourseForm: FormGroup;
 
     currentUser: any = {};
@@ -37,7 +33,8 @@ export class CreateCourseComponent implements OnInit {
     public categories: Array<Select2OptionData>;
     public options: Select2Options;
     public value: string[];
-    public current: string;
+
+    deleteFiles: any = []
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -91,72 +88,63 @@ export class CreateCourseComponent implements OnInit {
     }
 
     createCourse() {
-        const course = this.createCourseForm.value;
-        course.latitude = this.dataService.latitude;
-        course.longitude = this.dataService.longitude;
-        course.owner = this.currentUser;
-        course.appointments = [];
-        for (let i = 0; i < $('.event').length; i++) {
-            let eventDate = $('.event').get(i).value;
-            course.appointments[i] = eventDate;
-        }
-        course.titleImage = this.dataService.file;
-        course.pictures = this.dataService.files.split(',').slice(0, -1);
-        course.signInDeadline = $('.signin_deadline').val();
-        course.members = [];
-        course.reviews = [];
-        course.rating = 0;
-        let date = new Date();
-        course.createdAt = this.changeDateFormat(date);
-        course.updatedAt = this.changeDateFormat(date);
-
-        alert(JSON.stringify(course));
-        this.courseService.create(course).subscribe(
-            course => {
-                this.alertService.success('Course successfully created', true);
-                this.currentUser.courses.push(course);
-                this.userService.update(this.currentUser).subscribe(() => {
-                });
-                this.router.navigate(['/course', course._id]);
-            },
-            error => {
-                this.alertService.error(error._body);
-            });
-        /*} else {
-            this.courseService.getById(this.courseId).subscribe((course) => {
-
-                alert('test2');
-                this.uploadComp.uploader.uploadAll();
-                this.uploadComp2.multipleUploader.uploadAll();
-
-                course = this.createCourseForm.value;
+        //Create New Course
+        if (!this.courseId) {
+            if (this.datesValid($('.signin_deadline').val())) {
+                const course = this.createCourseForm.value;
                 course.latitude = this.dataService.latitude;
                 course.longitude = this.dataService.longitude;
-                course.titleImage = this.dataService.file;
-                course.pictures = this.dataService.files.split(',').pop();
+                course.owner = this.currentUser._id;
+                course.titleImage = this.dataService.titleImage;
+                course.pictures = this.dataService.pictures.split(',').slice(0, -1);
+                course.signInDeadline = $('.signin_deadline').val();
+                course.members = [];
+                course.reviews = [];
+                course.rating = 0;
                 course.appointments = [];
                 for (let i = 0; i < $('.event').length; i++) {
-                    let eventDate = $('.event').get(i).value;
-                    course.appointments[i] = eventDate;
+                    course.appointments[i] = $('.event').get(i).value;
                 }
-                course.signInDeadline = $('.signin_deadline').val();
                 let date = new Date();
+                course.createdAt = this.changeDateFormat(date);
                 course.updatedAt = this.changeDateFormat(date);
 
-                alert(JSON.stringify(course));
-                this.courseService.update(course).subscribe(() => {
-                    this.alertService.success('Updated Course successfully');
-                }, error => {
-                    this.alertService.error(error.body);
+                this.courseService.create(course).subscribe(course => {
+                    this.alertService.success('Course successfully created', true);
+                    this.currentUser.courses.push(course._id);
+                    this.userService.update(this.currentUser).subscribe(() => {});
+                    this.router.navigate(['/course', course._id]);
                 });
-            });
-        }*/
-    }
+            }
+        //Edit Course
+        } else {
+            if (this.datesValid($('.signin_deadline').val())) {
+                this.courseService.getById(this.courseId).subscribe((course) => {
+                    course = this.createCourseForm.value;
+                    course._id = this.courseId;
+                    course.latitude = this.dataService.latitude;
+                    course.longitude = this.dataService.longitude;
+                    course.titleImage = this.dataService.titleImage;
+                    course.signInDeadline = $('.signin_deadline').val();
+                    course.pictures = this.dataService.pictures.split(',').slice(0, -1);
+                    for (let i = 0; i < this.deleteFiles.length; i++) {
+                        let index = course.pictures.indexOf(this.deleteFiles[i]);
+                        course.pictures.splice(index, 1);
+                    }
+                    course.appointments = [];
+                    for (let i = 0; i < $('.event').length; i++) {
+                        course.appointments[i] = $('.event').get(i).value;
+                    }
+                    let date = new Date();
+                    course.updatedAt = this.changeDateFormat(date);
 
-    changeDateFormat(dateInput: any) {
-        var date = new Date(dateInput);
-        return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
-            '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
+                    this.courseService.update(course).subscribe(() => {
+                        this.alertService.success('Updated Course successfully');
+                        this.router.navigate(['/course', this.courseId]);
+                    });
+                });
+            }
+        }
     }
 
     private setValuesFromCourse(course: Course) {
@@ -165,11 +153,11 @@ export class CreateCourseComponent implements OnInit {
                 this.createCourseForm.get(key).setValue(course[key]);
             } else {
                 if (key === 'titleImage') {
-                    this.dataService.file = course[key];
+                    this.dataService.titleImage = course[key];
                 }
                 if (key === 'pictures') {
                     for (let i = 0; i < course[key].length; i++) {
-                        this.dataService.files += course[key][i] + ',';
+                        this.dataService.pictures += course[key][i] + ',';
                     }
                 }
                 if (key === 'latitude') {
@@ -197,36 +185,24 @@ export class CreateCourseComponent implements OnInit {
         this.cdRef.detectChanges();
     }
 
-    removeTitleImage(file: string) {
-        this.dataService.file = '';
-        function remove() {
-            var object;
-            object = new ActiveXObject("Scripting.FileSystemObject");
-            var f = object.GetFile('../uploads/' + file);
-            f.Delete();
-        }
+    changeDateFormat(dateInput: any) {
+        let date = new Date(dateInput);
+        return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
+            '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
+    }
+
+    removeTitleImage() {
+        this.dataService.titleImage = '';
+        $('.image-preview').remove();
     }
 
     removePicture(file: string, index: number) {
-        this.dataService.files.split(',').splice(index, 1);
-        function remove() {
-            var object;
-            object = new ActiveXObject("Scripting.FileSystemObject");
-            var f = object.GetFile('../uploads/' + file);
-            f.Delete();
-        }
+        this.deleteFiles.push(file);
+        $('.image-preview' + index).remove();
     }
 
     isValid() {
         return this.createCourseForm.valid;
-    }
-
-    filesValid() {
-        if ($('.course-titleImage').length > 0 && $('.course-titleImage').val().length == 0 || $('.course-pictures').length > 0 && $('.course-pictures').val().length == 0) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     datesValid(value: string) {

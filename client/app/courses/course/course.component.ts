@@ -20,10 +20,15 @@ export class CourseComponent implements OnInit {
     course: any = {};
     courseId: string;
 
+    courseMembers: any = [];
+    courseReviews: any = [];
+
     image: any;
     imageModal: any;
-
     reviewModal: any;
+
+    messageForm: FormGroup;
+    messageModal: any;
 
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
@@ -57,83 +62,112 @@ export class CourseComponent implements OnInit {
             .subscribe(
                 course => {
                     this.course = course;
-                    this.courseOwner = course.owner;
+                    this.userService.getById(course.owner).subscribe(user => {
+                        this.courseOwner = user;
+                    });
+                    for (let i = 0; i < course.members.length; i++) {
+                        this.userService.getById(course.members[i]).subscribe(user => {
+                            this.courseMembers.push(user);
+                        });
+                    }
+                    for (let i = 0; i < course.reviews.length; i++) {
+                        this.reviewService.getById(course.reviews[i]).subscribe(review => {
+                            this.courseReviews.push(review);
+                        });
+                    }
+                    if (course.owner !== this.currentUser._id) {
+                        this.courseService.addViewedCourse(this.currentUser._id, this.courseId);
+                    }
                 });
 
-        this.reviewForm = this.formBuilder.group({
-            rating: [0, Validators.required],
-            description: ['', [Validators.maxLength(500), Validators.required]]
+        this.messageForm = this.formBuilder.group({
+            from: [this.currentUser._id, Validators.required],
+            to: [this.courseOwner._id, Validators.required],
+            course: [this.courseId, Validators.required],
+            subject: ['', [Validators.required, Validators.maxLength(100)]],
+            text: ['', [Validators.required, Validators.maxLength(500)]],
+            read: false,
+            archived: false,
+            createdAt: this.changeDateFormat(new Date())
         });
 
+        this.reviewForm = this.formBuilder.group({
+            user: [this.currentUser._id, Validators.required],
+            course: [this.courseId, Validators.required],
+            rating: [0, Validators.required],
+            description: ['', [Validators.required, Validators.maxLength(500)]],
+            createdAt: this.changeDateFormat(new Date())
+        });
+
+        this.messageModal = $('#send-message-modal');
         this.imageModal = $('#image-modal');
         this.reviewModal = $('#review-modal');
     }
 
-    bookCourse() {
+    bookCourse(userId: any) {
+        this.currentUser.bookedCourses.push(this.courseId);
+        this.userService.update(this.currentUser).subscribe(() => {
+        });
         this.courseService.getById(this.courseId)
             .subscribe(
                 course => {
-                    course.members.push(this.currentUser);
+                    course.members.push(userId);
                     this.courseService.update(course).subscribe(() => {
-                            this.alertService.success('Course-Booking successful', true);
-                        },
-                        error => {
-                            this.alertService.error(error._body);
-                        });
+                        this.alertService.success('Course-Booking successful', true);
+                    });
                 });
     }
 
-    cancelCourse() {
+    cancelCourse(userId: any) {
+        this.currentUser.bookedCourses.slice(this.courseId, 1);
+        this.userService.update(this.currentUser).subscribe(() => {
+        });
         this.courseService.getById(this.courseId)
             .subscribe(
                 course => {
-                    course.members.splice(this.currentUser, 1);
+                    course.members.slice(userId, 1);
                     this.courseService.update(course).subscribe(() => {
-                            this.alertService.success('Course-Booking successful', true);
-                        },
-                        error => {
-                            this.alertService.error(error._body);
-                        });
+                        this.alertService.success('Course-Booking successful', true);
+                    });
                 });
+    }
+
+    sendMessage() {
+        this.userService.getById(this.currentUser._id).subscribe(user => {
+            const message = this.messageForm.value;
+            user.inboxMessages.push(message);
+            this.userService.update(user).subscribe(() => {
+            });
+        });
     }
 
     reviewCourse() {
-        this.courseService.getById(this.courseId)
-            .subscribe(
-                course => {
-                    if(course.reviews.indexOf(this.currentUser._id)) {
-                        const review = this.reviewForm.value;
-                        review.user = this.currentUser;
-                        let date = new Date();
-                        review.createdAt = this.changeDateFormat(date);
-                        review.updatedAt = this.changeDateFormat(date);
-                        this.reviewService.create(review).subscribe(review => {
-                                course.rating += (review.rating / course.reviews.length);
-                                course.reviews.push(review);
-                                this.courseService.update(course).subscribe(() => {
-                                        this.alertService.success('Course-Rating successful', true);
-                                    },
-                                    error => {
-                                        this.alertService.error(error._body);
-                                    });
-                            },
-                            error => {
-                                this.alertService.error(error._body);
-                            });
-                    } else {
-                        this.alertService.error('You already rated the course!');
-                    }
+        this.courseService.getById(this.courseId).subscribe(course => {
+            if (course.reviews.includes(this.currentUser._id)) {
+                const review = this.reviewForm.value;
+                this.reviewService.create(review).subscribe(review => {
+                    course.rating += (review.rating / course.reviews.length);
+                    course.reviews.push(review._id);
+                    this.courseService.update(course).subscribe(() => {});
                 });
-    }
-
-    isValid() {
-        return this.reviewForm.valid;
+            } else {
+                this.alertService.error('You already rated the course!');
+            }
+        });
     }
 
     changeDateFormat(dateInput: any) {
         var date = new Date(dateInput);
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
             '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
+    }
+
+    openMessageModal() {
+        this.messageModal.modal('show');
+    }
+
+    closeMessageModal() {
+        this.messageModal.modal('hide');
     }
 
     openImageModal(image: any) {

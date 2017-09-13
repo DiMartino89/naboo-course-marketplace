@@ -7,6 +7,9 @@ import { User } from '../../_models/index';
 
 @Injectable()
 export class UserService {
+
+    viewedUsers: any;
+
     constructor(private http: Http, 
 				private config: AppConfig,
 				private authenticationService: AuthenticationService) { }
@@ -29,5 +32,12 @@ export class UserService {
 
     getById(_id: any) {
         return this.http.get(this.config.apiUrl + '/users/' + _id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    addViewedUser(currUserId: any, userId: any) {
+        this.viewedUsers = (JSON.parse(localStorage.getItem(currUserId + '_users')) || []).filter((id) => id !== userId);
+        this.viewedUsers.push(userId);
+
+        localStorage.setItem(currUserId + '_users', JSON.stringify(this.viewedUsers.slice(-3)));
     }
 }

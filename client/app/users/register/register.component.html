@@ -6,7 +6,7 @@
 		</ul>
 	</div>
 	<div class="naboo-registration-container">
-		<form (ngSubmit)="isValid() && register()">
+		<form (ngSubmit)="registrationForm.valid && register()">
 			<fieldset>
 				<app-input field="email" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true" placeholder="Your Email"
 						   [label]="'Email' | translate" [errorText]="'Please enter your Email!' | translate"
@@ -26,7 +26,7 @@
 				<br>
 			</fieldset>
 			<fieldset>
-				<app-button [disabled]="!isValid()" [tabindex]="13">{{ 'Register' | translate}}</app-button>
+				<app-button [disabled]="!registrationForm.valid" [tabindex]="13">{{ 'Register' | translate}}</app-button>
 			</fieldset>
 		</form>
 	</div>

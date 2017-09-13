@@ -1,0 +1,65 @@
+﻿<div *ngIf="userId == currentUser._id">
+    <form (ngSubmit)="isValid() && editUser()">
+        <div class="col-sm-12">
+            <div class="user-headline">
+                <app-input field="name" type="text" [tabindex]="5" [form]="editUserForm" [horizontal]="true"
+                           [label]="'Name'"
+                ></app-input>
+            </div>
+            <div class="col-sm-4">
+                <div class="user-headline">User Avatar</div>
+                <div class="col-sm-12 user-info">
+                    <div *ngIf="user.avatar" class="avatar-preview" style="position:relative;">
+                        <button type="button" (click)="removeAvatar()" class="btn btn-danger btn-s removeImage"><span
+                                class="glyphicon glyphicon-trash"></span></button>
+                        <img [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'"
+                             style="width:100%;height:auto;"/>
+                    </div>
+                    <app-upload [kind]="'user_avatar'" [single]="true" [multiple]="false"></app-upload>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="user-headline">User Titleimage</div>
+                <div class="col-sm-12 user-info">
+                    <div *ngIf="user.titleImage" class="image-preview" style="position:relative;">
+                        <button type="button" (click)="removeTitleImage()"
+                                class="btn btn-danger btn-s removeImage"><span
+                                class="glyphicon glyphicon-trash"></span></button>
+                        <img [src]="'/uploads/' + user.titleImage"
+                             style="width:100%;height:auto;"/>
+                    </div>
+                    <app-upload [kind]="'user_titleImage'" [single]="true" [multiple]="false"></app-upload>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="user-headline">User Pictures</div>
+                <div class="col-sm-12 user-info">
+                    <ul *ngIf="user.pictures" class="user-pictures">
+                        <li *ngFor="let picture of user.pictures; let i = index">
+                            <div class="col-sm-3 image-preview{{i}}" style="position:relative;">
+                                <button type="button" (click)="removePicture(picture, i)"
+                                        class="btn btn-danger btn-s removeImage">
+                                    <span class="glyphicon glyphicon-trash"></span></button>
+                                <img [src]="'/uploads/' + picture"/>
+                            </div>
+                        </li>
+                    </ul>
+                    <app-upload [kind]="'user_pictures'" [single]="false" [multiple]="true"></app-upload>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="user-headline">General Info</div>
+                <div class="col-sm-12 user-info" data-aos="fade-right">
+                    <app-input field="description" type="textarea" [tabindex]="11" [form]="editUserForm"
+                               [horizontal]="true"
+                               [label]="'Description'"
+                    ></app-input>
+                </div>
+            </div>
+        </div>
+
+        <app-button [disabled]="!isValid()" [tabindex]="13">{{ 'Update' | translate}}</app-button>
+    </form>
+</div>
