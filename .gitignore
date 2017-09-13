@@ -10,5 +10,5 @@ node_modules/
 client/app/**/*.js
 client/app/**/*.map
 
-
-client/uploads/*
+# File Uploads
+client/uploads/**
