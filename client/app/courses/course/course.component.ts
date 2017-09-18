@@ -5,6 +5,7 @@ import {AuthenticationService, UserService, CourseService, AlertService} from '.
 import {ReviewService} from "../../_services/review/review.service";
 
 declare var $: any;
+declare var Circles: any;
 
 @Component({
     styleUrls: ['./course.css'],
@@ -21,20 +22,19 @@ export class CourseComponent implements OnInit {
     courseId: string;
 
     courseMembers: any = [];
-    courseReviews: any = [];
 
     image: any;
     imageModal: any;
     reviewModal: any;
 
-    messageForm: FormGroup;
     messageModal: any;
+
+    today: Date;
 
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
                 private courseService: CourseService,
                 private alertService: AlertService,
-                private reviewService: ReviewService,
                 private activatedRoute: ActivatedRoute,
                 private authenticationService: AuthenticationService,
                 private router: Router) {
@@ -70,30 +70,27 @@ export class CourseComponent implements OnInit {
                             this.courseMembers.push(user);
                         });
                     }
-                    for (let i = 0; i < course.reviews.length; i++) {
-                        this.reviewService.getById(course.reviews[i]).subscribe(review => {
-                            this.courseReviews.push(review);
-                        });
-                    }
                     if (course.owner !== this.currentUser._id) {
                         this.courseService.addViewedCourse(this.currentUser._id, this.courseId);
                     }
+                    let members = course.members ? ((course.members.length * 100)/course.maxMembers) : 0;
+                    Circles.create({
+                        id:           'circles-4',
+                        radius:       60,
+                        value:        members,
+                        maxValue:     100,
+                        width:        10,
+                        text:         function(value){return value + '%';},
+                        colors:       ['#FFF', '#3A87AD'],
+                        duration:     400,
+                        wrpClass:     'circles-wrp',
+                        textClass:    'circles-text',
+                        styleWrapper: true,
+                        styleText:    true
+                    });
                 });
 
-        this.messageForm = this.formBuilder.group({
-            from: [this.currentUser._id, Validators.required],
-            to: [this.courseOwner._id, Validators.required],
-            course: [this.courseId, Validators.required],
-            subject: ['', [Validators.required, Validators.maxLength(100)]],
-            text: ['', [Validators.required, Validators.maxLength(500)]],
-            read: false,
-            archived: false,
-            createdAt: this.changeDateFormat(new Date())
-        });
-
         this.reviewForm = this.formBuilder.group({
-            user: [this.currentUser._id, Validators.required],
-            course: [this.courseId, Validators.required],
             rating: [0, Validators.required],
             description: ['', [Validators.required, Validators.maxLength(500)]],
             createdAt: this.changeDateFormat(new Date())
@@ -102,6 +99,8 @@ export class CourseComponent implements OnInit {
         this.messageModal = $('#send-message-modal');
         this.imageModal = $('#image-modal');
         this.reviewModal = $('#review-modal');
+
+        this.today = new Date();
     }
 
     bookCourse(userId: any) {
@@ -132,24 +131,15 @@ export class CourseComponent implements OnInit {
                 });
     }
 
-    sendMessage() {
-        this.userService.getById(this.currentUser._id).subscribe(user => {
-            const message = this.messageForm.value;
-            user.inboxMessages.push(message);
-            this.userService.update(user).subscribe(() => {
-            });
-        });
-    }
-
     reviewCourse() {
         this.courseService.getById(this.courseId).subscribe(course => {
-            if (course.reviews.includes(this.currentUser._id)) {
+            if (!course.reviews.includes(this.currentUser._id)) {
                 const review = this.reviewForm.value;
-                this.reviewService.create(review).subscribe(review => {
-                    course.rating += (review.rating / course.reviews.length);
-                    course.reviews.push(review._id);
-                    this.courseService.update(course).subscribe(() => {});
-                });
+                review.user = this.currentUser._id;
+                course.rating += (review.rating / (course.reviews.length + 1));
+                course.reviews.push(review);
+                this.courseService.update(course).subscribe(() => {});
+                this.reviewModal.modal('hide');
             } else {
                 this.alertService.error('You already rated the course!');
             }
@@ -157,17 +147,9 @@ export class CourseComponent implements OnInit {
     }
 
     changeDateFormat(dateInput: any) {
-        var date = new Date(dateInput);
+        let date = new Date(dateInput);
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
             '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
-    }
-
-    openMessageModal() {
-        this.messageModal.modal('show');
-    }
-
-    closeMessageModal() {
-        this.messageModal.modal('hide');
     }
 
     openImageModal(image: any) {

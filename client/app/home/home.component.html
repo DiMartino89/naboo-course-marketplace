@@ -1,57 +1,60 @@
-﻿<div class="naboo-home-container col-sm-12">
-    <nav class="col-sm-12">
-        <ul class="tablist" role="tablist">
-            <li id="tab1" class="col-sm-6 tab panel-head" role="tab" aria-controls="panel1" aria-selected="true">Latest
-                Courses
-            </li>
-            <li id="tab2" class="col-sm-6 tab panel-head" role="tab" aria-controls="panel2" aria-selected="false">
-                Top-Rated Courses
-            </li>
-        </ul>
-    </nav>
-    <div id="panel1" role="tabpanel" aria-labelledby="tab1" aria-hidden="false">
-        <div class="col-sm-3 panel" *ngFor="let course of courses | orderBy : ['createdAt']; let i=index">
-
-            <li *ngIf="i < 4">
-                <div class="col-sm-12">
-                    <a [routerLink]="['/course', course._id]">
-                        <img class="thumb"
-                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'">
-                    </a>
-                </div>
-                <div class="col-sm-12">
-                    <h2>{{course.name}},
+﻿<div class="home-container">
+    <div class="col-sm-12">
+        <nav class="col-sm-12">
+            <ul class="tablist" role="tablist">
+                <li id="tab1" class="tab active" role="tab" aria-controls="panel1" aria-selected="true"
+                    (click)="sortCourses('createdAt')">Latest
+                    Courses
+                </li>
+                <li id="tab2" class="tab" role="tab" aria-controls="panel2" aria-selected="false"
+                    (click)="sortCourses('rating')">
+                    Top-Rated Courses
+                </li>
+            </ul>
+        </nav>
+        <div id="panel1" class="col-sm-12" role="tabpanel" aria-labelledby="tab1" aria-hidden="false">
+            <div class="col-sm-3 panel" *ngFor="let course of courses | orderBy : ['createdAt']; let i=index">
+                <li *ngIf="i < 4">
+                    <div class="col-sm-12">
+                        <a [routerLink]="['/course', course._id]">
+                            <img class="thumb"
+                                 [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'">
+                        </a>
+                    </div>
+                    <div class="col-sm-12">
+                        <h2>{{course.name}}</h2>
                         <small>{{course.createdAt}}</small>
-                    </h2>
-                    <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
-                    <p>{{course.description | truncate : 10}}</p>
-                </div>
-            </li>
-
+                        <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
+                        <p>{{course.description | truncate : 10}}</p>
+                    </div>
+                </li>
+            </div>
+        </div>
+        <div id="panel2" class="col-sm-12 hidden" role="tabpanel" aria-labelledby="tab2" aria-hidden="true">
+            <div class="col-sm-3 panel"
+                 *ngFor="let course of courses | orderBy : ['rating', 'reviews.length']; let i=index">
+                <li *ngIf="i < 4">
+                    <div class="col-sm-12">
+                        <a [routerLink]="['/course', course._id]">
+                            <img class="thumb"
+                                 [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'">
+                        </a>
+                        <app-review [rating]="course.rating ? course.rating : 0"></app-review>
+                    </div>
+                    <div class="col-sm-12">
+                        <h2>{{course.name}}</h2>
+                        <small>{{course.createdAt}}</small>
+                        <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
+                        <p>{{course.description | truncate : 10}}</p>
+                    </div>
+                </li>
+            </div>
         </div>
     </div>
-    <div id="panel2" class="hidden" role="tabpanel" aria-labelledby="tab2" aria-hidden="true">
-        <div class="col-sm-3 panel"
-             *ngFor="let course of courses | orderBy : ['rating', 'reviews.length']; let i=index">
-            <li *ngIf="i < 4">
-                <div class="col-sm-12">
-                    <a [routerLink]="['/course', course._id]">
-                        <img class="thumb"
-                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'">
-                    </a>
-                    <app-review [rating]="course.rating ? course.rating : 0"></app-review>
-                </div>
-                <div class="col-sm-12">
-                    <h2>{{course.name}},
-                        <small>{{course.createdAt}}</small>
-                    </h2>
-                    <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
-                    <p>{{course.description | truncate : 10}}</p>
-                </div>
-            </li>
 
+    <div class="col-sm-12">
+        <div class="panel map">
+            <app-map [multiple]="true" [single]="false" [search]="false" [edit]="false" [courses]="courses"></app-map>
         </div>
     </div>
 </div>
-
-<app-map [search]="false" [edit]="false"></app-map>

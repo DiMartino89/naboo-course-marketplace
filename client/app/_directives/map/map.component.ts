@@ -1,4 +1,6 @@
-﻿import {Component, OnInit, ViewChild, NgZone, ElementRef, Input, AfterViewInit, SimpleChanges} from '@angular/core';
+﻿import {
+    Component, OnInit, ViewChild, NgZone, ElementRef, Input, AfterContentChecked
+} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {AgmMap, MapsAPILoader} from '@agm/core';
 import {DataService} from "../../_services/data/data.service";
@@ -11,21 +13,26 @@ declare let google: any;
     templateUrl: 'map.component.html'
 })
 
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterContentChecked {
     @Input() search: boolean;
     @Input() edit: boolean;
+    @Input() single: boolean;
+    @Input() multiple: boolean;
     @Input() lat: number;
     @Input() lng: number;
+    @Input() courses: any[];
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
 
-    @ViewChild(AgmMap) map: AgmMap;
+    @ViewChild(AgmMap) private map: AgmMap;
 
     public latitude: number;
     public longitude: number;
     public searchControl: FormControl;
     public zoom: number;
+
+    courseArr: any[];
 
     constructor(private dataService: DataService,
                 private mapsAPILoader: MapsAPILoader,
@@ -52,12 +59,18 @@ export class MapComponent implements OnInit {
                         this.dataService.longitude = place.geometry.location.lng();
                         this.latitude = place.geometry.location.lat();
                         this.longitude = place.geometry.location.lng();
-                        this.zoom = 12;
+                        this.zoom = 14;
                     });
                 });
             });
         } else {
-            this.ngZone.run(() => {
+            this.setCurrentPosition();
+        }
+    }
+
+    ngAfterContentChecked() {
+        if(this.single && this.lat && this.lng || this.multiple && this.lat && this.lng && this.courses) {
+            this.map.triggerResize().then(() => {
                 this.latitude = this.lat;
                 this.longitude = this.lng;
                 this.zoom = 14;
@@ -70,16 +83,6 @@ export class MapComponent implements OnInit {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude;
                 this.longitude = position.coords.longitude;
-                this.zoom = 12;
-            });
-        }
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if(this.edit && changes.lat.currentValue && changes.lng.currentValue) {
-            this.map.triggerResize().then(() => {
-                this.latitude = this.lat;
-                this.longitude = this.lng;
                 this.zoom = 14;
             });
         }

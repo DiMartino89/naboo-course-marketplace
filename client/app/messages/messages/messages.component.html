@@ -1,15 +1,17 @@
-﻿<div class="col-sm-12">
-    <div class="user-headline main">
-        <div class="col-sm-9" style="font-size: 24px;">Chats</div>
+﻿<div class="message-container">
+    <div class="message-headline main">
+        <div class="col-sm-9 page-headline">Chats</div>
     </div>
-</div>
 
-<div class="col-sm-12 user-info">
-    <ul>
-        <li *ngFor="let message of messages">
-            <div class="col-sm-12">
-                <a [routerLink]="['/messages/', message]">Chat with {{message}}</a>
+    <div class="col-sm-12">
+        <div class="col-sm-12">
+            <div class="message-info">
+                <ul>
+                    <li *ngFor="let message of messages; let i = index;" class="message-item">
+                        <a [routerLink]="['/messages/', message]">with {{users[i]}}</a>
+                    </li>
+                </ul>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>

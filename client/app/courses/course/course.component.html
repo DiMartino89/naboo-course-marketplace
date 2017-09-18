@@ -1,120 +1,138 @@
-﻿<div class="col-sm-12">
+﻿<div class="course-container">
     <div class="course-headline main">
-        <div class="col-sm-9" style="font-size: 24px;">{{course.name}}</div>
+        <div class="col-sm-9 page-headline">{{course.name}}</div>
         <div class="col-sm-3 edit-panel">
             <i *ngIf="currentUser._id != courseOwner._id && course.reviews && !course.reviews.indexOf(currentUser._id)"
                class="fa fa-star-o" (click)="openReviewModal()"></i>
             <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-pencil-square-o"></i>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div style="position:relative;overflow:hidden;">
-            <img [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"
-                 style="width:100%;height:auto;"/>
-            <div class="price-flag">{{course.price}} €</div>
-            <a [routerLink]="['/user', course.owner ? course.owner : 0]" class="owner">
-                <img *ngIf="course.owner" class="owner-avatar"
-                     [src]="courseOwner.avatar ? '/uploads/' + courseOwner.avatar : '/app/_assets/images/default-avatar.png'"/>
-            </a>
-            <app-review [rating]="course.rating" (click)="showRatingPanel()"></app-review>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <ul class="course-pictures">
-            <li *ngFor="let picture of course.pictures" class="col-sm-3">
-                <img (click)="openImageModal(picture)" [src]="'/uploads/' + picture"/>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="col-sm-12">
-    <div class="col-sm-6">
-        <!--General Info-->
-        <div class="course-headline">General Info</div>
-        <div class="col-sm-12 course-info">
-            <p class="description">{{course.description}}</p>
-            <table class="ginfo-table">
-                <tbody>
-                <tr>
-                    <td><label>Category:</label></td>
-                    <td><p *ngFor="let category of course.categories">{{category}}</p></td>
-                </tr>
-                <tr *ngIf="course.link != ''">
-                    <td><label>Link:</label></td>
-                    <td><p *ngIf="course.link != ''"><a href="{{course.link}}">{{course.link}}</a></p></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!--Appointments-->
-        <div class="course-headline">Appointments</div>
-        <div class="col-sm-12 course-info" data-aos="fade-right">
-            <calendar [events]="course.appointments" [creation]="false"></calendar>
-        </div>
-
-        <!--Participants-->
-        <div class="course-headline">Participants</div>
-        <div class="col-sm-12 course-info" data-aos="fade-right">
-            <p class="col-sm-12">Current Members:
-                <span>{{course.members ? course.members.length : 0}}/{{course.maxMembers}}</span>
-            </p>
-            <ul class="col-sm-12 course-members">
-                <li *ngFor="let member of courseMembers" class="col-sm-2">
-                    <a [routerLink]="['/users', member._id]">
-                        <div>
-                            <img class="member-avatar"
-                                 [src]="member.avatar ? '/uploads/' + member.avatar : '/app/_assets/images/default-avatar.png'"/>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <p class="col-sm-12">SignIn-Deadline: <span>{{changeDateFormat(course.signInDeadline)}}</span></p>
-            <div *ngIf="course.owner && currentUser._id != course.owner">
-                <button *ngIf="course.members && !course.members.includes(currentUser._id)"
-                        (click)="bookCourse(currentUser._id)">Book
-                    Course
-                </button>
-                <button *ngIf="course.members && course.members.includes(currentUser._id)"
-                        (click)="cancelCourse(currentUser._id)">Cancel
-                    Course
-                </button>
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <div class="image-wrapper">
+                <img [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"
+                />
+                <div class="price-flag">{{course.price}} €</div>
+                <a [routerLink]="['/user', course.owner ? course.owner : 0]" class="owner">
+                    <img *ngIf="course.owner" class="user-avatar oval"
+                         [src]="courseOwner.avatar ? '/uploads/' + courseOwner.avatar : '/app/_assets/images/default-avatar.png'"/>
+                </a>
+                <app-review *ngIf="course.owner != currentUser._id" [rating]="course.rating"
+                            (click)="openReviewModal()"></app-review>
+                <app-review class="own" *ngIf="course.owner == currentUser._id" [rating]="course.rating"></app-review>
             </div>
         </div>
-
-        <!--Reviews-->
-        <div class="course-headline">Reviews ({{course.reviews ? course.reviews.length : 0}})</div>
-        <div class="col-sm-12 course-info" data-aos="fade-right">
-            <ul class="course-rating">
-                <li *ngFor="let review of courseReviews" class="col-sm-12 review-item">
-                    <div class="review-item-head">
-                        <a [routerLink]="['/user', review.user._id]">
-                            <img class="review-avatar"
-                                 [src]="review.user.avatar ? '/uploads/' + review.user.avatar : '/app/_assets/images/default-avatar.png'"/>
-                        </a>{{review.user.name}}, at {{review.updatedAt}}
-                    </div>
-                    <app-review [rating]="review.rating"></app-review>
-                    <div class="review-description">
-                        <p>{{review.description}}</p>
-                    </div>
+        <div class="col-sm-6">
+            <ul class="course-pictures">
+                <li *ngFor="let picture of course.pictures" class="col-sm-3">
+                    <img (click)="openImageModal(picture)" [src]="'/uploads/' + picture"/>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="course-headline">Standort</div>
-        <div class="col-sm-12 course-info">
-            <app-map [search]="false" [lat]="course.latitude" [lng]="course.longitude"></app-map>
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <!--General Info-->
+            <div class="course-headline">General Info</div>
+            <div class="col-sm-12 course-info">
+                <p class="description">{{course.description}}</p>
+                <table class="ginfo-table">
+                    <tbody>
+                    <tr>
+                        <td><p>Category:</p></td>
+                        <td><p *ngFor="let category of course.categories">{{category}}</p></td>
+                    </tr>
+                    <tr *ngIf="course.link != ''">
+                        <td><p>Link:</p></td>
+                        <td><p *ngIf="course.link != ''"><a href="{{course.link}}">{{course.link}}</a></p></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--Appointments-->
+            <div class="course-headline">Appointments</div>
+            <div class="col-sm-12 course-info">
+                <calendar [events]="course.appointments" [creation]="false"></calendar>
+            </div>
+
+            <!--Participants-->
+            <div class="course-headline">Participants</div>
+            <div class="col-sm-12 course-info">
+                <div class="left-col">
+                    <p class="col-sm-12">Capacity:
+                        <span>{{course.members ? course.members.length : 0}}/{{course.maxMembers}}</span>
+                    </p>
+                    <div class="circle" id="circles-4"></div>
+                </div>
+                <div *ngIf="course.owner && currentUser._id != course.owner" class="right-col">
+                    <button class="btn btn-primary" *ngIf="course.members && !course.members.includes(currentUser._id) && course.members.length <= maxMembers && course.signInDeadline <= changeDateFormat(today)"
+                            (click)="bookCourse(currentUser._id)">Book
+                        Course
+                    </button>
+                    <button class="btn btn-primary" *ngIf="course.members && course.members.includes(currentUser._id)"
+                            (click)="cancelCourse(currentUser._id)">Cancel
+                        Course
+                    </button>
+                </div>
+                <div class="col-sm-12 course-members">
+                    <p class="col-sm-12">Current Members:</p>
+                    <ul>
+                        <li *ngFor="let member of courseMembers" class="col-sm-2">
+                            <a [routerLink]="['/users', member._id]">
+                                <div>
+                                    <img class="member-avatar"
+                                         [src]="member.avatar ? '/uploads/' + member.avatar : '/app/_assets/images/default-avatar.png'"/>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p class="col-sm-12 deadline">Sign-in until:
+                    <span>{{changeDateFormat(course.signInDeadline)}}</span> | Status:
+                    <i *ngIf="changeDateFormat(course.signInDeadline) >= changeDateFormat(today)" class="fa fa-check"></i>
+                    <i *ngIf="changeDateFormat(course.signInDeadline) < changeDateFormat(today)" class="fa fa-times"></i>
+                </p>
+            </div>
+
+            <!--Reviews-->
+            <div class="course-headline">Reviews ({{course.reviews ? course.reviews.length : 0}})</div>
+            <div class="col-sm-12 course-info">
+                <ul *ngIf="course.reviews && course.reviews.length" class="course-rating">
+                    <li *ngFor="let review of course.reviews" class="col-sm-12 review-item">
+                        <div class="review-item-head">
+                            <a [routerLink]="['/user', review.user._id]">
+                                <img class="review-avatar"
+                                     [src]="review.user.avatar ? '/uploads/' + review.user.avatar : '/app/_assets/images/default-avatar.png'"/>
+                            </a>{{review.user.name}} (
+                            <small>{{review.createdAt}}</small>
+                            )
+                            <app-review class="own single" [rating]="review.rating"></app-review>
+                        </div>
+                        <div class="review-description">
+                            <p>{{review.description}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="course-headline">Standort</div>
+            <div class="col-sm-12 course-info">
+                <app-map [search]="false" [single]="true" [multiple]="false" [lat]="course.latitude"
+                         [lng]="course.longitude"></app-map>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="image__label" aria-hidden="true"
-     (click)="closeImageModal()">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img class="preview-image" src="{{image}}">
+    <div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="image__label"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" (click)="closeImageModal()">x</button>
+                    <img class="preview-image" src="{{image}}">
+                </div>
             </div>
         </div>
     </div>
@@ -122,10 +140,11 @@
 
 <div class="modal fade" id="review-modal" tabindex="-1" role="dialog" aria-labelledby="review__label"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <form (ngSubmit)="reviewForm.valid && reviewCourse() && closeReviewModal()">
+                <button class="close" (click)="closeReviewModal()">x</button>
+                <form (ngSubmit)="reviewForm.valid && reviewCourse()">
                     <app-input field="rating" type="number" [tabindex]="5" [form]="reviewForm" [horizontal]="true"
                                [label]="'Rating'"
                     ></app-input>

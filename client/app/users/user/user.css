@@ -1,37 +1,63 @@
-.user-headline {
+.user-container .user-headline {
 	display: table;
 	position: relative;
 	width: 100%;
 	padding: 10px 20px;
-	margin: 0px 0px 10px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+	margin: 0 0 10px;
+	background: rgba(0, 0, 0, 0.5);
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.user-headline.main {
-	width:calc(100% - 30px);
-	margin:10px 15px;
+.user-container .user-headline.main {
+	width: calc(100% - 30px);
+	margin: 10px 15px;
 }
 
-.edit-panel {
+.user-container .user-info {
+	display: table;
+	max-height: 500px;
+	padding: 20px;
+	margin-bottom: 20px;
+	background: rgba(0, 0, 0, 0.5);
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+
+.user-container .edit-panel {
 	text-align: right;
 }
 
-.edit-panel button {
-	background: transparent;
-	border: none;
+.user-container .edit-panel a {
+	display: table;
+	margin: 9px;
 	float: right;
+	line-height: 24px;
+	font-size: 25px;
+	cursor: pointer;
 }
 
-.user-info {
-	margin-bottom: 20px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
-	box-sizing: border-box;
+.user-container .edit-panel i {
+	line-height: 24px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.user-container .image-wrapper {
+	position: relative;
+	overflow: hidden;
+}
+
+.user-container .image-wrapper img {
+	width: 100%;
+	height: auto;
+	margin: 0 0 10px;
+}
+
+.user-container .image-wrapper img.user-avatar.oval {
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
 }
 
 .course-info .description {
@@ -39,59 +65,82 @@
 	text-align: justify;
 }
 
-.user {
+.user-container .user {
 	display: table;
 	position: absolute;
 	bottom: 5px;
 	left: 5px;
 }
 
-.user-pictures {
-	margin: 0px;
-	padding: 0px;
+.user-container .user-pictures {
+	margin: 0;
+	padding: 0;
 	background-color: rgba(255,255,255,0.1);
 	border: 0;
 	border-radius: 7px;
 	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
 }
 
-.user-pictures li {
+.user-container .user-pictures li {
 	list-style: none;
 }
 
-.user-pictures li img {
+.user-container .user-pictures li img {
 	cursor: zoom-in;
 }
 
-/* Modal */
-.modal-body {
-	cursor: zoom-out;
-}
-
-.modal-body label {
-	color: #0C1724;
-}
-
-p {
-	color: #FFF !important;
-}
-
-table, td {
+.user-container table, td {
 	border: none;
 }
 
-.user-info .ginfo-table tr td:first-child {
+.user-container .user-info .ginfo-table tr td:first-child {
 	padding: 5px 20px 5px 5px;
 }
 
-.user-avatar {
-	width: 100px;
+.user-container .user-avatar {
+	width: 75px;
 	height: auto;
 	border: 1px solid #FFF;
-	border-radius: 50%;
 }
 
-.course-image {
+.user-container .course-image {
 	width: 100px;
 	height: auto;
+}
+
+.user-container .course-item {
+	padding: 5px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.user-container .course-name {
+	line-height: 45px;
+}
+
+.user-container .review-rating {
+	display: table;
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+	padding: 5px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 0;
+	border-radius: 7px;
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
+}
+
+.user-container .own.single .review-rating {
+	position: relative;
+	float: right;
+	box-sizing: border-box;
+	display: table;
+	bottom: 0;
+	right: 0;
+	margin: 8px 0;
+}
+
+/* Modal */
+.modal-body label {
+	color: #0C1724;
 }

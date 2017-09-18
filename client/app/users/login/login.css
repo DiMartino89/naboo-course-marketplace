@@ -1,104 +1,117 @@
 /* Login */
-.naboo-login-content{
-	display: table;
-	width: 100%;
-	padding: 30px 350px;
-	box-sizing: border-box;
+.login-logo {
+    display: table;
+    width: 100%;
+    max-width: 170px;
+    text-align: left;
+    margin: 10px 0;
+    box-sizing: border-box;
 }
 
-.naboo-login-container {
-	display: table;
-	width: 100%;
-	height: auto;
-	padding: 30px;
-	background: rgba(0,0,0,0.8);
-	box-sizing: border-box;
+.login-content {
+    display: table;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+    box-sizing: border-box;
 }
 
-.naboo-login-container p {
-	width: 100%;
-	margin: 10px 0px;
-	text-align: center;
-	color: #CCC;
+.container-nav .nav-item {
+    display: inline-block;
+    padding: 10px;
+    float: left;
+    border: 1px solid transparent;
+    background: rgba(0, 0, 0, 0.3);
 }
 
-.naboo-login-container a {
-	color: #0094FF;
-	text-decoration: none;
-	transition: color 0.25s ease-in;
-	-webkit-transition: color 0.25s ease-in;
+.container-nav .nav-item.active {
+    background: rgba(0, 0, 0, 0.5);
 }
 
-.naboo-login-container a:hover {
-	color: #00BEFF;
-	text-decoration: none;
-	transition: color 0.25s ease-in;
-	-webkit-transition: color 0.25s ease-in;
+.login-container {
+    position: relative;
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 10px 30px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 
-.naboo-login-container input:focus {
-	border: 1px solid #0094FF;
-	transition: border 0.25s ease-in;
-	-webkit-transition: border 0.25s ease-in;
+.login-container p {
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
+    color: #CCC;
 }
 
-.naboo-login-container .stay-logged-in {
-	display:table; 
-	margin:10px 0px; 
-	color:#CCC;
+.login-container a {
+    color: #0094FF;
+    text-decoration: none;
+    transition: color 0.25s ease-in;
+    -webkit-transition: color 0.25s ease-in;
 }
 
-.naboo-login-container fieldset {
-	border: none;
+.login-container a:hover {
+    color: #00BEFF;
+    text-decoration: none;
+    transition: color 0.25s ease-in;
+    -webkit-transition: color 0.25s ease-in;
 }
 
-.naboo-login-container fieldset:nth-child(2) {
-	text-align: center;
+.login-container input:focus {
+    border: 1px solid #0094FF;
+    transition: border 0.25s ease-in;
+    -webkit-transition: border 0.25s ease-in;
 }
 
-.naboo-login-container app-button {
-	width: 100%;
-	text-align: center;
+.login-container .stay-logged-in {
+    display: table;
+    margin: 10px 0;
+    color: #CCC;
 }
 
-.naboo-login-container label {
-	width: 100%;
-	color: #CCC;
-	margin: 5px 0px;
-	padding: 5px 0px;
-	box-sizing: border-box;
+.login-container fieldset {
+    border: none;
 }
 
-.naboo-login-container input {
-	width: 100%;
-	height: 40px;
-	color: #CCC;
-	margin: 10px 0px;
-	padding: 5px 10px;
-	border-top: none;
-	border-right: none;
-	border-left: 1px solid #555;
-	border-bottom: 1px solid #555;
-	box-sizing: border-box;
+.login-container fieldset:nth-child(2) {
+    text-align: center;
 }
 
-.naboo-login-container input[type="checkbox"] {
-	display: table;
-	width: 20px;
-	height: 20px;
-	margin: 0px 10px 0px 0px;
-	float: left;
-	outline: 0 none;
-	box-sizing: border-box;
+.login-container app-button {
+    width: 100%;
+    text-align: center;
 }
 
-.naboo-login-container .btn-primary {
-	margin: 10px 0px 20px;
-	transition: background 0.25s ease-in;
-	-webkit-transition: background 0.25s ease-in;
+.login-container label {
+    width: 100%;
+    color: #CCC;
+    margin: 5px 0;
+    padding: 5px 0;
+    box-sizing: border-box;
 }
-.naboo-login-container .btn-primary:hover {
-	background: #00BEFF;
-	transition: background 0.25s ease-in;
-	-webkit-transition: background 0.25s ease-in;
+
+.login-container input {
+    width: 100%;
+    height: 40px;
+    color: #CCC;
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-top: none;
+    border-right: none;
+    border-left: 1px solid #555;
+    border-bottom: 1px solid #555;
+    box-sizing: border-box;
+}
+
+.login-container input[type="checkbox"] {
+    display: table;
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 0 0;
+    float: left;
+    outline: 0 none;
+    box-sizing: border-box;
 }

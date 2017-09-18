@@ -1,85 +1,142 @@
-<div class="dashboard-headline main">
-    <div class="col-sm-9" style="font-size: 24px;">Dashboard</div>
-</div>
+<div class="dashboard-container">
+    <div class="dashboard-headline main">
+        <div class="col-sm-9" style="font-size: 24px;">Dashboard</div>
+    </div>
 
-<div class="col-sm-12">
-    <div class="col-sm-6">
-        <div class="dashboard-headline">Friendrequests</div>
-        <div class="col-sm-12 dashboard-info">
-            <ul *ngIf="userRequests && userRequests.length > 0">
-                <li *ngFor="let request of userRequests" class="col-sm-12">
-                    <div class="col-sm-4">
-                        <img class="user-avatar"
-                             [src]="request.avatar ? '/uploads/' + request.avatar : '/app/_assets/images/default-avatar.png'"/>
-                    </div>
-                    <div class="col-sm-4">
-                        {{request.name}}
-                    </div>
-                    <div class="col-sm-4">
-                        <button (click)="acceptFriendRequest(request)">Accept</button>
-                        <button (click)="refuseFriendRequest(request)">Refuse</button>
-                    </div>
-                </li>
-            </ul>
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <div class="dashboard-headline">Friendrequests</div>
+            <div class="col-sm-12 dashboard-info">
+                <ul *ngIf="userRequests && userRequests.length > 0">
+                    <li *ngFor="let request of userRequests" class="col-sm-12 user-item">
+                        <div class="col-sm-4">
+                            <a href="/user/{{request._id}}">
+                                <img class="user-avatar"
+                                     [src]="request.avatar ? '/uploads/' + request.avatar : '/app/_assets/images/default-avatar.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a class="user-name" href="/user/{{request._id}}">
+                                {{request.name}}
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn-primary user-answer" (click)="acceptFriendRequest(request)"><i
+                                    class="fa fa-check"></i></button>
+                            <button class="btn-primary user-answer" (click)="refuseFriendRequest(request)"><i
+                                    class="fa fa-times"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="dashboard-headline">Last viewed Users</div>
+            <div class="col-sm-12 dashboard-info">
+                <ul *ngIf="viewedUsers && viewedUsers.length > 0">
+                    <li *ngFor="let user of viewedUsers.slice(0, 3)" class="col-sm-12 user-item">
+                        <div class="col-sm-4">
+                            <a href="/user/{{user._id}}">
+                                <img class="user-avatar"
+                                     [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-8">
+                            <a href="/user/{{user._id}}">
+                                {{user.name}}
+                            </a>
+                            <p>
+                                {{user.description | truncate : 10}}
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="dashboard-headline">Last viewed Users</div>
-        <div class="col-sm-12 dashboard-info">
-            <ul *ngIf="viewedUsers && viewedUsers.length > 0">
-                <li *ngFor="let user of viewedUsers.slice(0, 3)">
-                    <a [routerLink]="['/user', user._id]">
-                        <img class="course-image"
-                             [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'"/>
-                        {{user.name}}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
 
-<div class="col-sm-12">
-    <div class="col-sm-4">
-        <div class="dashboard-headline">My Courses</div>
-        <div class="col-sm-12 dashboard-info">
-            <ul *ngIf="userCourses && userCourses.length > 0">
-                <li *ngFor="let course of userCourses;">
-                    <a [routerLink]="['/course', course._id]">
-                        <img class="course-image"
-                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
-                        {{course.name}}
-                    </a>
-                </li>
-            </ul>
+    <div class="col-sm-12">
+        <div class="col-sm-4">
+            <div class="dashboard-headline">My Courses</div>
+            <div class="col-sm-12 dashboard-info">
+                <ul *ngIf="userCourses && userCourses.length > 0">
+                    <li *ngFor="let course of userCourses;" class="col-sm-12 course-item">
+                        <div class="col-sm-6">
+                            <a href="/course/{{course._id}}">
+                                <img class="course-image"
+                                     [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="course-name" href="/course/{{course._id}}">
+                                {{course.name}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="dashboard-headline">Booked Courses</div>
+            <div class="col-sm-12 dashboard-info">
+                <ul *ngIf="bookedCourses && bookedCourses.length > 0">
+                    <li *ngFor="let course of bookedCourses;">
+                        <div class="col-sm-6">
+                            <a href="/course/{{course._id}}">
+                                <img class="course-image"
+                                     [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="course-name" href="/course/{{course._id}}">
+                                {{course.name}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="dashboard-headline">Last Viewed Courses</div>
+            <div class="col-sm-12 dashboard-info">
+                <ul *ngIf="viewedCourses && viewedCourses.length > 0">
+                    <li *ngFor="let course of viewedCourses.slice(0, 3);  let i=index">
+                        <div class="col-sm-6">
+                            <a href="/course/{{course._id}}">
+                                <img class="course-image"
+                                     [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="course-name" href="/course/{{course._id}}">
+                                {{course.name}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="dashboard-headline">Booked Courses</div>
-        <div class="col-sm-12 dashboard-info">
-            <ul *ngIf="bookedCourses && bookedCourses.length > 0">
-                <li *ngFor="let course of bookedCourses;">
-                    <a [routerLink]="['/course', course._id]">
-                        <img class="course-image"
-                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
-                        {{course.name}}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="dashboard-headline">Last Viewed Courses</div>
-        <div class="col-sm-12 dashboard-info">
-            <ul *ngIf="viewedCourses && viewedCourses.length > 0">
-                <li *ngFor="let course of viewedCourses.slice(0, 3);  let i=index">
-                    <a [routerLink]="['/course', course._id]">
-                        <img class="course-image"
-                             [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
-                        {{course.name}}
-                    </a>
-                </li>
-            </ul>
+    <div class="col-sm-12">
+        <div class="col-sm-12">
+            <div class="dashboard-headline">Last Messages</div>
+            <div class="col-sm-12 dashboard-info">
+                <ul *ngIf="userMessages && userMessages.length > 0">
+                    <li *ngFor="let chat of userMessages">
+                        <div class="col-sm-2">
+                            <a href="/messages/{{chat._id}}">
+                                <img class="user-avatar"
+                                     [src]="chat.avatar ? '/uploads/' + chat.avatar : '/app/_assets/images/default-avatar.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-10">
+                            <a class="user-name" href="/messages/{{chat._id}}">
+                                {{chat.name}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

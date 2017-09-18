@@ -10,3 +10,4 @@ export * from './upload/upload.component';
 export * from './calendar/calendar.component';
 export * from './select2/select2.component';
 export * from './nouislider/nouislider.component';
+export * from './radios/radios.component';

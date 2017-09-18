@@ -1,35 +1,91 @@
-﻿<!-- main app container -->
-<header *ngIf="isLoggedIn()">
-	<a [routerLink]="['/']"><img class="naboo-logo" src="app/_assets/images/logo2.png" /></a>
-	<div>
-		<div (click)="showPanel()">
-			<img *ngIf="currentUser" class="naboo-headbar-user-avatar" [src]="currentUser.avatar ? '/uploads/' + currentUser.avatar : '/app/_assets/images/default-avatar.png'" />
-		</div>
-		<div id="naboo-user-panel" class="naboo-user-panel">
-			<p><a [routerLink]="['/user', currentUser._id]">Profile</a></p>
-			<p><button (click)="logout()">Logout</button></p>
-		</div>
-	</div>
-</header>
-<div *ngIf="isLoggedIn()" class="col-sm-2 naboo-sidebar">
-	<ul>
-		<li><i class="fa fa-home"></i><a [routerLink]="['/']"><span>Home</span></a></li>
-		<li><i class="fa fa-tachometer"></i><a [routerLink]="['/dashboard']"><span>Dashboard</span></a></li>
-		<li (click)="showSub('.user-menu', '.one')"><i class="fa fa-users"></i><span>Users</span><i class="fa fa-angle-down one"></i></li>
-			<ul class="user-menu">
-				<li><i class="fa fa-search"></i><a [routerLink]="['/user/search']">Search</a></li>
-			</ul>
-		<li (click)="showSub('.course-menu', '.two')"><i class="fa fa-circle-thin"></i><span>Courses</span><i class="fa fa-angle-down two"></i></li>
-			<ul class="course-menu">
-				<li><i class="fa fa-search"></i><a [routerLink]="['/course/search']">Search</a></li>
-				<li><i class="fa fa-pencil"></i><a [routerLink]="['/course/create']">Create</a></li>
-			</ul>
-		<li><i class="fa fa-envelope-o"></i><a [routerLink]="['/messages']"><span>Messages</span></a></li>
-	</ul>
+﻿<div class="switch-language">
+    <select class="lang-switcher" (change)="selectLang($event.target.value)">
+        <option *ngFor="let lang of supportedLanguages" [selected]="lang.value == currentLanguage"
+                value="{{lang.value}}">
+            {{lang.display}}
+        </option>
+    </select>
+    <div class="news-panel">
+        <ul>
+            <li>
+                <a class="news user-news" [routerLink]="['/dashboard']">
+                    <small class="notification">{{currentUser.friendRequests ? currentUser.friendRequests.length : 0}}</small>
+                    <i class="fa fa-users"></i>
+                </a>
+            </li>
+            <li>
+                <a class="news message-news" [routerLink]="['/messages']">
+                    <i class="fa fa-envelope-o"></i>
+                </a>
+            </li>
+            <li>
+                <button class="news btn-logout" (click)="logout()"><i class="fa fa-sign-out"></i></button>
+            </li>
+        </ul>
+    </div>
 </div>
-<div class="naboo-content">
-    <div class="naboo-container col-sm-12">
-		<alert></alert>
-		<router-outlet></router-outlet>
+<header *ngIf="isLoggedIn()" class="col-sm-12">
+    <div class="app-logo">
+        <a [routerLink]="['/']"><img class="col-sm-12" [src]="'app/_assets/images/logo2.png'"/></a>
+    </div>
+    <div class="app-avatar">
+        <div>
+            <a [routerLink]="['/user', currentUser._id]">
+                <img *ngIf="currentUser" class="col-sm-12"
+                     [src]="currentUser.avatar ? '/uploads/' + currentUser.avatar : '/app/_assets/images/default-avatar.png'"/>
+            </a>
+        </div>
+    </div>
+</header>
+<div *ngIf="isLoggedIn()" class="col-sm-2 sidebar">
+    <ul>
+        <li>
+            <i class="fa fa-home"></i>
+            <a (click)="setActive($event)" [routerLink]="['/']" class="active">
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <i class="fa fa-tachometer"></i>
+            <a (click)="setActive($event)" [routerLink]="['/dashboard']">
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li (click)="showSub('.user-menu', '.one')">
+            <i class="fa fa-users"></i>
+            <span>Users</span>
+            <i class="fa fa-angle-down one"></i>
+        </li>
+        <ul class="sub-menu user-menu">
+            <li>
+                <i class="fa fa-search"></i>
+                <a (click)="setActive($event)" [routerLink]="['/user/search']">Search</a>
+            </li>
+        </ul>
+        <li (click)="showSub('.course-menu', '.two')">
+            <i class="fa fa-circle-thin"></i>
+            <span>Courses</span>
+            <i class="fa fa-angle-down two"></i>
+        </li>
+        <ul class="sub-menu course-menu">
+            <li>
+                <i class="fa fa-search"></i>
+                <a (click)="setActive($event)" [routerLink]="['/course/search']">Search</a>
+            </li>
+            <li>
+                <i class="fa fa-pencil"></i>
+                <a (click)="setActive($event)" [routerLink]="['/course/create']">Create</a>
+            </li>
+        </ul>
+        <li>
+            <i class="fa fa-envelope-o"></i>
+            <a (click)="setActive($event)" [routerLink]="['/messages']"><span>Messages</span></a>
+        </li>
+    </ul>
+</div>
+<div class="content">
+    <div class="main-container">
+        <alert></alert>
+        <router-outlet></router-outlet>
     </div>
 </div>

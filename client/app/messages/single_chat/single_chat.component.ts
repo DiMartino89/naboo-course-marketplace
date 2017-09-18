@@ -16,6 +16,8 @@ export class SingleChatComponent implements OnInit {
     user: any = {};
 
     messages: any = [];
+    messagesLength: number = 0;
+    difference: number = 0;
 
     messageForm: FormGroup;
 
@@ -31,6 +33,18 @@ export class SingleChatComponent implements OnInit {
                         this.messages = user.messages[key];
                     }
                 });
+
+                Object.keys(user.messages).forEach((key) => {
+                    for (let i = 0; i < user.messages[key].length; i++) {
+                        this.messagesLength++;
+                    }
+                });
+
+                this.difference = this.messagesLength - parseInt(JSON.parse(localStorage.getItem(user._id + '_messages')));
+
+                if (this.difference > 0) {
+                    localStorage.setItem(user._id + '_messages', JSON.stringify(this.messagesLength));
+                }
             });
         }
     }
@@ -68,6 +82,7 @@ export class SingleChatComponent implements OnInit {
                 this.currentUser.messages[this.userId] = [message];
             }
             this.userService.update(this.currentUser).subscribe(() => {});
+            localStorage.setItem(this.currentUser._id + '_messages', JSON.stringify(this.messagesLength++));
         });
     }
 

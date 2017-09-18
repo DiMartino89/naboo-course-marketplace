@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { AppConfig } from './app.config';
 
-import { AlertComponent, PushNotificationComponent, InputComponent, ButtonComponent, ModalLinkComponent, LoadingComponent, MapComponent, ReviewComponent, UploadComponent, CalendarComponent, Select2Component, NouisliderComponent } from './_directives/index';
+import { AlertComponent, PushNotificationComponent, InputComponent, ButtonComponent, ModalLinkComponent, LoadingComponent, MapComponent, ReviewComponent, UploadComponent, CalendarComponent, Select2Component, NouisliderComponent, RadiosComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { OrderByPipe, TruncatePipe, SafePipe } from './_helpers/index';
 import { TranslatePipe, TranslateService, TRANSLATION_PROVIDERS } from './translate/index';
@@ -52,6 +52,7 @@ require('node_modules/popper.js/dist/umd/popper.js');
         CalendarComponent,
         Select2Component,
         NouisliderComponent,
+        RadiosComponent,
         MessagesComponent,
         SingleChatComponent,
         HomeComponent,

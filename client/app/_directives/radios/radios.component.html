@@ -1,0 +1,21 @@
+<div *ngIf="form" [formGroup]="form" class="form-group" [ngClass]="{'has-danger': form.controls[field].touched && !form.controls[field].valid}">
+    <fieldset>
+        <div [ngClass]="{'row': horizontal}">
+            <legend class="form-control-label custom-controls-legend" [ngClass]="{'col-sm-3 col-form-label': horizontal}">{{ label }}</legend>
+
+            <div [ngClass]="{'col-sm-9': horizontal, 'custom-controls-stacked': stacked}">
+                <!-- Custom bootstrap radio with surrounding label -->
+                <label *ngFor="let singleLabel of labels; let i = index;" class="custom-control custom-radio">
+                    <input #radio value="{{ values[i] }}" type="radio" name="{{ field }}" tabindex="{{tabindex + i}}" class="custom-control-input">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{ singleLabel }}</span>
+                </label>
+
+                <!-- error text -->
+                <p *ngIf="errorText && form.controls[field].touched && !form.controls[field].valid" class="form-control-feedback mt-0">
+                    <small>{{ errorText }}</small>
+                </p>
+            </div>
+        </div>
+    </fieldset>
+</div>

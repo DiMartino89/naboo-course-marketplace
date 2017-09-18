@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
                             this.userCourses.push(course);
                         });
                     }
-                    if (user._id !== this.currentUser._id) {
+                    if (user._id != this.currentUser._id) {
                         this.userService.addViewedUser(this.currentUser._id, user._id);
                     }
                 });

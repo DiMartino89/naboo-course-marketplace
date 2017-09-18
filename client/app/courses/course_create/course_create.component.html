@@ -1,95 +1,109 @@
-﻿<form (ngSubmit)="isValid() && createCourse()">
-    <div class="col-sm-12">
-        <div class="course-headline">
-            <app-input field="name" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                       [label]="'Course-Title'"
-            ></app-input>
-        </div>
-        <div class="col-sm-6">
-            <div class="course-headline">Course Titleimage</div>
-            <div class="col-sm-12 course-info">
-                <div *ngIf="courseId" class="image-preview" style="position:relative;">
-                    <button type="button" (click)="removeTitleImage()" class="btn btn-danger btn-s removeImage"><span
-                            class="glyphicon glyphicon-trash"></span></button>
-                    <img [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"
-                         style="width:100%;height:auto;"/>
-                </div>
-                <app-upload [kind]="'course_titleImage'" [single]="true" [multiple]="false"></app-upload>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="course-headline">Course Pictures</div>
-            <div class="col-sm-12 course-info">
-                <ul *ngIf="courseId" class="course-pictures">
-                    <li *ngFor="let picture of course.pictures; let i = index">
-                        <div class="col-sm-3 image-preview{{i}}" style="position:relative;">
-                            <button type="button" (click)="removePicture(picture, i)" class="btn btn-danger btn-s removeImage">
-                                <span class="glyphicon glyphicon-trash"></span></button>
-                            <img [src]="'/uploads/' + picture"/>
-                        </div>
-                    </li>
-                </ul>
-                <app-upload [kind]="'course_pictures'" [single]="false" [multiple]="true"></app-upload>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="col-sm-6">
-            <div class="course-headline">General Info</div>
-            <div class="col-sm-12 course-info" data-aos="fade-right">
-                <app-input field="description" type="textarea" [tabindex]="11" [form]="createCourseForm"
-                           [horizontal]="true"
-                           [label]="'Description'"
-                ></app-input>
-                <div style="width:100%;margin:0px auto 25px;">
-                    <app-select2 field="categories" [form]="createCourseForm" [required]="true" [tabindex]="2"
-                                 [label]="'Categories' | translate" [errorText]="'Bitte Labels auswählen!' | translate"
-                                 [data]="categories" [options]="options"
-                    ></app-select2>
-                </div>
-                <app-input field="categories" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                           [labelHidden]="true" [inputHidden]="true"
-                ></app-input>
-                <app-input field="link" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                           [label]="'Link or Website'" placeholder="http://www.xxx.de"
-                ></app-input>
-                <app-input field="price" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                           [label]="'Price'"
-                ></app-input>
-            </div>
-
-            <!--Appointments-->
-            <div class="course-headline">Appointments</div>
-            <div class="col-sm-12 course-info" data-aos="fade-right">
-                <calendar [creation]="true"></calendar>
-                <span>Course-Meetings:</span>
-                <div class="eventlist"></div>
-                <app-input field="duration" type="number" [tabindex]="5" [form]="createCourseForm"
-                           [horizontal]="true" [label]="'General Duration'"
-                ></app-input>
-            </div>
-
-            <!--Participants-->
-            <div class="course-headline">Participants</div>
-            <div class="col-sm-12 course-info" data-aos="fade-right">
-                <app-input field="maxMembers" type="number" [tabindex]="5" [form]="createCourseForm"
-                           [horizontal]="true" [label]="'Max. Members'"
-                ></app-input>
-                <label class="form-control-label col-sm-6 col-form-label">SignIn Deadline</label>
-                <input type="datetime-local" class="signin_deadline form-control ng-pristine ng-valid ng-touched"
-                       (change)="datesValid($event.target.value)"/>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="course-headline">Standort</div>
-            <div class="col-sm-12 course-info" data-aos="fade-right">
-                <app-map *ngIf="!courseId" [search]="true"></app-map>
-                <app-map *ngIf="courseId && course" [search]="true" [edit]="true" [lat]="course.latitude"
-                         [lng]="course.longitude"></app-map>
-            </div>
-        </div>
+﻿<div class="course-create-container">
+    <div class="course-headline main">
+        <div class="col-sm-9 page-headline">Create a Course</div>
     </div>
 
-    <app-button *ngIf="!courseId" [disabled]="!isValid()" [tabindex]="13">{{ 'Create' | translate}}</app-button>
-    <app-button *ngIf="courseId" [disabled]="!isValid()" [tabindex]="13">{{ 'Update' | translate}}</app-button>
-</form>
+    <form (ngSubmit)="createCourseForm.valid && createCourse()">
+        <div class="col-sm-12">
+            <div class="col-sm-12">
+                <div class="course-headline course-title">
+                    <app-input field="name" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+                               [label]="'Course-Title'"
+                    ></app-input>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="course-headline">Course Titleimage</div>
+                <div class="col-sm-12 course-info">
+                    <div *ngIf="courseId" class="image-preview">
+                        <button type="button" (click)="removeTitleImage()"
+                                class="btn btn-danger btn-s removeImage"><span
+                                class="glyphicon glyphicon-trash"></span></button>
+                        <img [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"
+                        />
+                    </div>
+                    <app-upload [kind]="'course_titleImage'" [single]="true" [multiple]="false"></app-upload>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="course-headline">Course Pictures</div>
+                <div class="col-sm-12 course-info">
+                    <ul *ngIf="courseId" class="course-pictures">
+                        <li *ngFor="let picture of course.pictures; let i = index">
+                            <div class="col-sm-3 image-preview{{i}}" style="position:relative;">
+                                <button type="button" (click)="removePicture(picture, i)"
+                                        class="btn btn-danger btn-s removeImage">
+                                    <span class="glyphicon glyphicon-trash"></span></button>
+                                <img [src]="'/uploads/' + picture"/>
+                            </div>
+                        </li>
+                    </ul>
+                    <app-upload [kind]="'course_pictures'" [single]="false" [multiple]="true"></app-upload>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="course-headline">General Info</div>
+                <div class="col-sm-12 course-info">
+                    <app-input field="description" type="textarea" [tabindex]="11" [form]="createCourseForm"
+                               [horizontal]="true"
+                               [label]="'Description'"
+                    ></app-input>
+                    <div class="select-wrapper">
+                        <app-select2 field="categories" [form]="createCourseForm" [tabindex]="2"
+                                     [label]="'Categories' | translate"
+                                     [errorText]="'Bitte Labels auswählen!' | translate"
+                                     [data]="categories" [options]="options"
+                        ></app-select2>
+                    </div>
+                    <br>
+                    <app-input field="link" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+                               [label]="'Link or Website'" placeholder="http://www.xxx.de"
+                    ></app-input>
+                    <app-input field="price" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
+                               [label]="'Price'"
+                    ></app-input>
+                </div>
+
+                <!--Appointments-->
+                <div class="course-headline">Appointments</div>
+                <div class="col-sm-12 course-info">
+                    <calendar [creation]="true"></calendar>
+                    <span>Course-Meetings:</span>
+                    <div class="eventlist"></div>
+                    <app-input field="duration" type="number" [tabindex]="5" [form]="createCourseForm"
+                               [horizontal]="true" [label]="'General Duration'"
+                    ></app-input>
+                </div>
+
+                <!--Participants-->
+                <div class="course-headline">Participants</div>
+                <div class="col-sm-12 course-info">
+                    <app-input field="maxMembers" type="number" [tabindex]="5" [form]="createCourseForm"
+                               [horizontal]="true" [label]="'Max. Members'"
+                    ></app-input>
+                    <label class="form-control-label col-sm-6 col-form-label">SignIn Deadline</label>
+                    <input type="datetime-local" class="signin_deadline form-control ng-pristine ng-valid ng-touched"
+                           (change)="datesValid($event.target.value)"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="course-headline">Standort</div>
+                <div class="col-sm-12 course-info">
+                    <app-map *ngIf="!courseId" [search]="true" [single]="true" [multiple]="false"></app-map>
+                    <app-map *ngIf="courseId && course" [search]="true" [single]="true" [multiple]="false" [edit]="true" [lat]="course.latitude"
+                             [lng]="course.longitude"></app-map>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <app-button *ngIf="!courseId" [disabled]="!createCourseForm.valid" [tabindex]="13">{{ 'Create' |
+                    translate}}
+                </app-button>
+                <app-button *ngIf="courseId" [disabled]="!createCourseForm.valid" [tabindex]="13">{{ 'Update' |
+                    translate}}
+                </app-button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-﻿import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+﻿import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Params, Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Select2OptionData} from 'ng2-select2';
@@ -34,7 +34,7 @@ export class CreateCourseComponent implements OnInit {
     public options: Select2Options;
     public value: string[];
 
-    deleteFiles: any = []
+    deleteFiles: any = [];
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -112,11 +112,12 @@ export class CreateCourseComponent implements OnInit {
                 this.courseService.create(course).subscribe(course => {
                     this.alertService.success('Course successfully created', true);
                     this.currentUser.courses.push(course._id);
-                    this.userService.update(this.currentUser).subscribe(() => {});
+                    this.userService.update(this.currentUser).subscribe(() => {
+                    });
                     this.router.navigate(['/course', course._id]);
                 });
             }
-        //Edit Course
+            //Edit Course
         } else {
             if (this.datesValid($('.signin_deadline').val())) {
                 this.courseService.getById(this.courseId).subscribe((course) => {
@@ -199,10 +200,6 @@ export class CreateCourseComponent implements OnInit {
     removePicture(file: string, index: number) {
         this.deleteFiles.push(file);
         $('.image-preview' + index).remove();
-    }
-
-    isValid() {
-        return this.createCourseForm.valid;
     }
 
     datesValid(value: string) {

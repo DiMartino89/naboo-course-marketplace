@@ -1,116 +1,151 @@
-.course-headline {
-	display: table;
-	position: relative;
-	width: 100%;
-	padding: 10px 20px;
-	margin: 0px 0px 10px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+.course-create-container .course-headline {
+    display: table;
+    position: relative;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0 0 10px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.course-headline input {
-	width: 50%;
+.course-create-container .course-headline.main {
+    width: calc(100% - 30px);
+    margin: 10px 15px;
 }
 
-.course-info {
-	margin-bottom: 20px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
-	box-sizing: border-box;
+.course-create-container .course-info {
+    display: table;
+    max-height: 500px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
-.course-info .description {
-	padding: 5px;
-	text-align: justify;
+.course-create-container .course-title label {
+    width: 100%;
 }
 
-agm-map {
-	width: 100%;
-	height: 350px;
+.course-create-container .course-title input {
+    display: block;
+    width: 35%;
 }
 
-table, td {
-	border: none;
+.course-create-container .course-info .description {
+    padding: 5px;
+    text-align: justify;
 }
 
-.fc-body {
-	cursor: pointer;
+.course-create-container .image-preview {
+    position: relative;
 }
 
-.select2-container {
-	width: 100% !important;
-	height: 32px !important;
-	margin: 5px 0px;
+.course-create-container .image-preview img {
+    width: 100%;
+    height: auto;
 }
 
-app-select2 div {
-	display: block !important;
+.course-create-container .course-pictures li img {
+    cursor: auto;
+    width: 100%;
 }
 
-.select2-results__option {
-	color: #222;
+.course-create-container .save-images {
+    display: none;
 }
 
-.select2-selection__choice {
-	color: #0C1724;
+.course-create-container .removeImage {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-	border: 1px solid #CCC !important;
-	outline: 0;
-	border-radius: 5px !important;
+.course-create-container agm-map {
+    width: 100%;
+    height: 350px;
 }
 
-.course-pictures {
-	margin: 0px;
-	padding: 0px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+.course-create-container table, td {
+    border: none;
 }
 
-.course-members,
-.course-rating {
-	margin: 0px;
-	padding: 0px;
+.course-create-container .fc-state-default {
+    background-color: #203858 !important;
+    background-image: none !important;
 }
 
-.course-pictures li,
-.course-members li,
-.course-rating li {
-	list-style: none;
+.course-create-container .fc-body {
+    cursor: pointer;
 }
 
-.course-pictures li img {
-	cursor: auto;
-	width: 100%;
+.course-create-container .fc-scroller.fc-day-grid-container {
+    display: table !important;
 }
 
-.eventlist {
-	width: 100%;
+.course-create-container .fc-unthemed td.fc-today {
+    background: transparent !important;
 }
 
-.event {
-	float: left;
-	width: 80%;
+.course-create-container .fc-unthemed td.fc-today span {
+    color: #FF0000;
 }
 
-.removeEvent {
-	float: right;
-	width: 10%;
+.course-search-container .select-wrapper {
+    width: 100%;
+    margin: 0 auto 25px;
 }
 
-.save-images {
-	display: none;
+.course-create-container .select2-container {
+    width: 100% !important;
+    height: 32px !important;
+    margin: 5px 0;
 }
 
-.removeImage {
-	position: absolute;
-	top: 5px;
-	right: 5px;
+.course-create-container app-select2 div {
+    display: block !important;
+}
+
+.course-create-container .select2-results__option {
+    color: #222;
+}
+
+.course-create-container .select2-selection__choice {
+    color: #0C1724;
+}
+
+.course-create-container .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #CCC !important;
+    outline: 0;
+    border-radius: 5px !important;
+}
+
+.course-create-container .eventlist {
+    width: 100%;
+}
+
+.course-create-container .event {
+    float: left;
+    width: 80%;
+}
+
+.course-create-container .removeEvent {
+    float: right;
+    width: 10%;
+}
+
+.course-create-container .course-pictures {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.course-create-container .course-members,
+.course-create-container .course-rating {
+    margin: 0;
+    padding: 0;
 }

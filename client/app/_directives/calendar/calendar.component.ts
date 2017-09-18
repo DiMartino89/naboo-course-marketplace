@@ -27,7 +27,7 @@ export class CalendarComponent implements OnInit {
                     let selectedDate = selected.getFullYear() + '-' + ('0' + (selected.getMonth() + 1)).slice(-2) + '-' + ('0' + selected.getDate()).slice(-2) + 'T' + '00:00';
                     if (selectedDate > todayDate) {
                         $('.eventlist').append('<p><input type="datetime-local" class="event form-control ng-pristine ng-valid ng-touched"/>' +
-                            '<button type="button" class="btn btn-danger btn-s removeEvent"><span class="glyphicon glyphicon-trash"></span> Remove </button></p>');
+                            '<button type="button" class="btn btn-danger btn-s removeEvent"><span class="glyphicon glyphicon-trash"></span></button></p>');
                         $('.event').last().val(selectedDate);
                         $('.removeEvent').click(function () {
                             $(this).parent().remove();

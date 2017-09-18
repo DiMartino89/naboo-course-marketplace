@@ -1,34 +1,38 @@
-﻿<div class="col-sm-12">
-    <div class="course-headline main">
-        <div class="col-sm-9" style="font-size: 24px;">Search Users</div>
+﻿<div class="user-search-container">
+    <div class="search-headline main">
+        <div class="col-sm-9 page-headline">Search Users</div>
     </div>
-</div>
 
-<div class="col-sm-12">
-    <div class="col-sm-6">
-        <div class="course-headline">Filter</div>
-        <div class="col-sm-12 course-info">
-            <form (ngSubmit)="searchForm.valid && searchUsers()">
-                <app-input field="fulltext" type="text" [tabindex]="5" [form]="searchForm" [horizontal]="true"
-                           [label]="'Fulltext'"
-                ></app-input>
-                <app-button [disabled]="!searchForm.valid" [tabindex]="13">{{ 'Filter' | translate}}</app-button>
-            </form>
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <div class="search-headline">Filter</div>
+            <div class="col-sm-12 search-info">
+                <label for="fulltext" class="form-control-label col-sm-6 col-form-label">Fulltext</label>
+                <input id="fulltext" class="form-control ng-pristine ng-valid ng-touched" (keydown)="searchUsers()"/>
+            </div>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="course-headline">Results</div>
-        <div class="col-sm-12 course-info">
-            <ul>
-                <li *ngFor="let user of users">
-                    <div class="col-sm-4">
-                        <img style="width:100%;" [src]="user.avatar ? '/uploads/' + course.avatar : '/app/_assets/images/default-avatar.png'" />
-                    </div>
-                    <div class="col-sm-8">
-                        <h4>{{user.name}}</h4>
-                    </div>
-                </li>
-            </ul>
+        <div class="col-sm-6">
+            <div class="search-headline">Results</div>
+            <div class="col-sm-12 search-info">
+                <ul>
+                    <li *ngFor="let user of users" class="col-sm-12 user-item">
+                        <div class="col-sm-4">
+                            <a href="/user/{{user._id}}">
+                                <img class="user-avatar"
+                                     [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'"/>
+                            </a>
+                        </div>
+                        <div class="col-sm-8">
+                            <a href="/user/{{user._id}}">
+                                {{user.name}}
+                            </a>
+                            <p>
+                                {{user.description | truncate : 10}}
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

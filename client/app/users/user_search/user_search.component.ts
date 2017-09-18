@@ -53,14 +53,14 @@ export class SearchUserComponent implements OnInit {
     searchUsers() {
         this.userService.getAll().subscribe(users => {
             this.users = users;
-            const search = this.searchForm.value;
+            const search = $('#fulltext').val();
             let searchedUsers: any = [];
             for (let i = 0; i < this.users.length; i++) {
                 let fulltext = false;
                 Object.keys(this.users[i]).forEach((ckey) => {
-                    if (search.fulltext.length > 0) {
+                    if (search.length > 0) {
                         if (ckey === 'name') {
-                            if (this.users[i][ckey].includes(search.fulltext)) {
+                            if (this.users[i][ckey].includes(search)) {
                                 fulltext = true;
                             }
                         }

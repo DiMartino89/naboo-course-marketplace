@@ -1,75 +1,59 @@
-.user-headline {
+.edit-user-container .edit-user-headline {
     display: table;
     position: relative;
     width: 100%;
     padding: 10px 20px;
-    margin: 0px 0px 10px;
-    background-color: rgba(255,255,255,0.1);
-    border: 0;
-    border-radius: 7px;
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+    margin: 0 0 10px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.user-headline input {
-    width: 50%;
+.edit-user-container .edit-user-headline.main {
+    width: calc(100% - 30px);
+    margin: 10px 15px;
 }
 
-.user-info {
+.edit-user-container .edit-user-info {
+    display: table;
+    max-height: 500px;
+    padding: 20px;
     margin-bottom: 20px;
-    background-color: rgba(255,255,255,0.1);
-    border: 0;
-    border-radius: 7px;
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
-.user-info .description {
+.edit-user-container .user-name label {
+    width: 100%;
+}
+
+.edit-user-container .user-name input {
+    display: block;
+    width: 35% !important;
+}
+
+.edit-user-container .edit-user-info .description {
     padding: 5px;
     text-align: justify;
 }
 
-table, td {
+.edit-user-container table, td {
     border: none;
 }
 
-.user-pictures {
-    margin: 0px;
-    padding: 0px;
+.edit-user-container .user-pictures {
+    margin: 0;
+    padding: 0;
     background-color: rgba(255,255,255,0.1);
     border: 0;
     border-radius: 7px;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
 }
 
-.user-members,
-.user-rating {
-    margin: 0px;
-    padding: 0px;
-}
-
-.user-pictures li,
-.user-members li,
-.user-rating li {
-    list-style: none;
-}
-
-.user-pictures li img {
+.edit-user-container .user-pictures li img {
     cursor: auto;
     width: 100%;
-}
-
-.eventlist {
-    width: 100%;
-}
-
-.event {
-    float: left;
-    width: 80%;
-}
-
-.removeEvent {
-    float: right;
-    width: 10%;
 }
 
 .save-images {

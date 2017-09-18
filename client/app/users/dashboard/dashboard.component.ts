@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../_services/user/user.service';
 import {AlertService} from '../../_services/alert/alert.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {AppConfig} from '../../app.config';
 import {CourseService} from "../../_services/course/course.service";
 import {Course} from "../../_models/course/course";
@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
 
     userRequests: any = [];
     viewedUsers: any = [];
+    userMessages: any = [];
     userCourses: any = [];
     bookedCourses: any = [];
     viewedCourses: any = [];
@@ -32,12 +33,8 @@ export class DashboardComponent implements OnInit {
     courses: Course[];
 
     constructor(private userService: UserService,
-                private alertService: AlertService,
                 private courseService: CourseService,
-                public authenticationService: AuthenticationService,
-                private dataService: DataService,
-                private formBuilder: FormBuilder,
-                private config: AppConfig) {
+                public authenticationService: AuthenticationService) {
 
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
@@ -57,15 +54,19 @@ export class DashboardComponent implements OnInit {
                         this.bookedCourses.push(course);
                     });
                 }
+                Object.keys(user.messages).forEach((key) => {
+                    this.userService.getById(key).subscribe(user => {
+                        this.userMessages.push(user);
+                    });
+                });
+                this.userMessages.reverse();
                 this.getViewedCourses(user._id);
                 this.getViewedUsers(user._id);
             });
         }
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     private getViewedUsers(currUserId: any) {
         let users = [];

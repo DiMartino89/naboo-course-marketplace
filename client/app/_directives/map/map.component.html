@@ -1,4 +1,7 @@
 ﻿<input *ngIf="search" type="text" #search class="form-control" placeholder="Search" [formControl]="searchControl">
 <agm-map #map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    <div *ngFor="let course of courses">
+        <agm-marker [latitude]="course.latitude" [longitude]="course.longitude"></agm-marker>
+    </div>
 </agm-map>

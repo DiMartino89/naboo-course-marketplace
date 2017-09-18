@@ -1,27 +1,69 @@
-.dashboard-headline {
+.dashboard-container {
+    display: table;
+}
+
+.dashboard-container .dashboard-headline {
     display: table;
     position: relative;
     width: 100%;
     padding: 10px 20px;
-    margin: 0px 0px 10px;
-    background-color: rgba(255,255,255,0.1);
-    border: 0;
-    border-radius: 7px;
+    margin: 0 0 10px;
+    background: rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
 }
 
-.dashboard-headline.main {
-    width:calc(100% - 30px);
-    margin:10px 15px;
+.dashboard-container .dashboard-headline.main {
+    width: calc(100% - 30px);
+    margin: 10px 15px;
 }
 
-.dashboard-info {
+.dashboard-container .dashboard-info {
+    max-height: 500px;
+    padding: 20px;
     margin-bottom: 20px;
-    background-color: rgba(255,255,255,0.1);
-    border: 0;
-    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
     box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.dashboard-container table, td {
+    border: none;
+}
+
+.dashboard-container .user-item {
+    padding: 20px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.dashboard-container .course-item {
+    padding: 5px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.dashboard-container .user-name {
+    line-height: 75px;
+}
+
+.dashboard-container .user-answer {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+}
+
+.dashboard-container .user-avatar {
+    width: 75px;
+    height: auto;
+    border: 1px solid #FFF;
+}
+
+.dashboard-container .course-name {
+    line-height: 50px;
+}
+
+.dashboard-container .course-image {
+    width: 100px;
+    height: auto;
 }
 
 /* Modal */
@@ -31,24 +73,4 @@
 
 .modal-body label {
     color: #0C1724;
-}
-
-p {
-    color: #FFF !important;
-}
-
-table, td {
-    border: none;
-}
-
-.user-avatar {
-    width: 100px;
-    height: auto;
-    border: 1px solid #FFF;
-    border-radius: 50%;
-}
-
-.course-image {
-    width: 100px;
-    height: auto;
 }

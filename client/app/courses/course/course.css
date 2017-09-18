@@ -1,139 +1,232 @@
-.course-headline {
-	display: table;
-	position: relative;
-	width: 100%;
-	padding: 10px 20px;
-	margin: 0px 0px 10px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+.course-container .course-headline {
+    display: table;
+    position: relative;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0 0 10px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.course-headline.main {
-	width:calc(100% - 30px);
-	margin:10px 15px;
+.course-container .course-headline.main {
+    width: calc(100% - 30px);
+    margin: 10px 15px;
 }
 
-.edit-panel {
-	text-align: right;
+.course-container .course-info {
+    display: table;
+    max-height: 500px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
-.edit-panel i {
-	line-height: 34px;
-	font-size: 25px;
+.course-container .edit-panel {
+    text-align: right;
 }
 
-.course-info {
-	margin-bottom: 20px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
-	box-sizing: border-box;
+.course-container .edit-panel i {
+    line-height: 34px;
+    font-size: 25px;
+    cursor: pointer;
 }
 
-.course-info .description {
-	padding: 5px;
-	text-align: justify;
+.course-container .image-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 
-.review-rating {
-	display: table;
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	padding: 5px;
-	background-color: rgba(0,0,0,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+.course-container .image-wrapper img {
+    width: 100%;
+    height: auto;
+    margin: 0 0 10px;
 }
 
-.owner {
-	display: table;
-	position: absolute;
-	bottom: 5px;
-	left: 5px;
+.course-container .image-wrapper img.user-avatar.oval {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
-.price-flag {
-	display: table;
-	position: absolute;
-	width: 100px;
-	top: 14px;
-	left: -24px;
-	color: #FFF;
-	text-align: center;
-	background: #3E78B8;
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	transform: rotate(-45deg);
+.course-container .course-info .description {
+    padding: 5px;
+    text-align: justify;
 }
 
-.course-pictures {
-	margin: 0px;
-	padding: 0px;
-	background-color: rgba(255,255,255,0.1);
-	border: 0;
-	border-radius: 7px;
-	box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+.course-container .review-rating {
+    display: table;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
 }
 
-.course-members,
-.course-rating {
-	margin: 0px;
-	padding: 0px;
+.course-container .own .review-rating {
+    cursor: auto;
 }
 
-.course-pictures li,
-.course-members li,
-.course-rating li {
-	list-style: none;
+.course-container .own.single .review-rating {
+    position: relative;
+    float: right;
+    box-sizing: border-box;
+    display: table;
+    bottom: 0;
+    right: 0;
+    margin: 8px 0;
 }
 
-.course-pictures li img {
-	cursor: zoom-in;
-	width: 100%;
+.course-container .owner {
+    display: table;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
 }
 
-.modal-body {
-	cursor: zoom-out;
+.course-container .price-flag {
+    display: table;
+    position: absolute;
+    width: 100px;
+    top: 14px;
+    left: -24px;
+    color: #FFF;
+    text-align: center;
+    background: #3E78B8;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 
-.modal-body label {
-	color: #0C1724;
+.course-container .course-pictures {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 0;
+    border-radius: 7px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-p {
-	color: #FFF !important;
+.course-container .fc-state-default {
+    background-color: #203858 !important;
+    background-image: none !important;
 }
 
-agm-map {
-	width: 100%;
-	height: 350px;
+.course-container .fc-body {
+    cursor: pointer;
 }
 
-table, td {
-	border: none;
+.course-container .fc-scroller.fc-day-grid-container {
+    display: table !important;
 }
 
-.course-info .ginfo-table tr td:first-child {
-	padding: 5px 20px 5px 5px;
+.course-container .fc-unthemed td.fc-today {
+    background: transparent !important;
 }
 
-.owner-avatar,
-.member-avatar,
-.review-avatar {
-	width: 50px;
-	height: auto;
-	border: 1px solid #FFF;
-	border-radius: 50%;
+.course-container .fc-unthemed td.fc-today span {
+    color: #FF0000;
 }
 
-.review-description {
-	left: 50px;
-	padding: 5px;
+.course-container .course-pictures li img {
+    cursor: zoom-in;
+    width: 100%;
+}
+
+.course-container .modal-body label {
+    color: #0C1724;
+}
+
+.course-container agm-map {
+    width: 100%;
+    height: 350px;
+}
+
+.course-container table, td {
+    border: none;
+}
+
+.course-container .course-info .ginfo-table tr td:first-child {
+    padding: 5px 20px 5px 5px;
+}
+
+.course-container .course-members {
+    padding: 10px 0;
+}
+
+.course-container .course-members .member-avatar {
+    width: 50px;
+    height: auto;
+    margin: 5px 0;
+    border: 1px solid #FFF;
+}
+
+.course-container .deadline .fa-check {
+    color: #5cb85c !important;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.course-container .deadline .fa-times {
+    color: #D30000 !important;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.course-container .owner-avatar,
+.course-container .review-avatar {
+    width: 50px;
+    height: auto;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+}
+
+.course-container .left-col {
+    width: 50%;
+    float: left;
+}
+
+.course-container .right-col {
+    width: 50%;
+    float: right;
+}
+
+.course-container .circle {
+    display: inline-block;
+    margin: 1em;
+}
+
+.course-container .circles-decimals {
+    font-size: .3em;
+}
+
+.course-container .circles-text {
+    font-size: 30px !important;
+}
+
+.course-container .right-col button {
+    float: right;
+}
+
+.course-container .review-item {
+    padding: 5px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.course-container .review-description {
+    left: 50px;
+    padding: 5px;
+}
+
+.course-container .review-description p {
+    padding-left: 50px;
+    color: #CCC !important;
 }

@@ -1,14 +1,10 @@
 ﻿import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute, Params, NavigationStart} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService, UserService, CourseService, AlertService} from '../../_services/index';
-import {ReviewService} from "../../_services/review/review.service";
+import {AuthenticationService, UserService, CourseService} from '../../_services/index';
 import {CategoryService} from "../../_services/category/category.service";
 import {Select2OptionData} from "ng2-select2";
 import {NouisliderComponent} from 'ng2-nouislider';
 import {Course} from "../../_models/course/course";
-
-declare var $: any;
 
 @Component({
     styleUrls: ['./course_search.css'],
@@ -16,11 +12,12 @@ declare var $: any;
     templateUrl: 'course_search.component.html'
 })
 
-export class SearchCourseComponent implements OnInit {
+export class SearchCourseComponent implements OnInit, AfterViewInit {
 
     @ViewChild('sliderRef') sliderRef: NouisliderComponent;
 
     searchForm: FormGroup;
+    sortForm: FormGroup;
 
     currentUser: any = {};
     courses: Course[] = [];
@@ -53,6 +50,8 @@ export class SearchCourseComponent implements OnInit {
 
         this.sliderMax = 100;
 
+        this.setupSort();
+
         this.searchCourses();
 
         this.categories = this.categoryService.getCategoriesList();
@@ -61,6 +60,10 @@ export class SearchCourseComponent implements OnInit {
             multiple: true,
             closeOnSelect: false
         };
+    }
+
+    ngAfterViewInit() {
+        this.adjustSliderToOffers();
     }
 
     searchCourses() {
@@ -112,6 +115,42 @@ export class SearchCourseComponent implements OnInit {
 
             this.courses = searchedCourses;
         });
+    }
+
+    private sortCourses() {
+        const field = this.sortForm.get('field').value;
+        const direction = this.sortForm.get('order').value;
+
+        this.courses = this.courses.sort((a, b) => {
+            if (a[field] > b[field] && direction === 'desc' || a[field] < b[field] && direction === 'asc') {
+                return -1;
+            } else if (a[field] < b[field] && direction === 'desc' || a[field] > b[field] && direction === 'asc') {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    }
+
+    private setupSort() {
+        this.sortForm = this.formBuilder.group({
+            field: 'createdAt',
+            order: 'desc'
+        });
+
+        this.sortForm.statusChanges.subscribe(this.sortCourses.bind(this));
+    }
+
+    private adjustSliderToOffers() {
+        if (this.courses.length) {
+            this.sliderMax = this.courses.reduce((p, c) => p.price > c.price ? p : c).price;
+
+            // for some reason, angular likes to set the default value over and over again...
+            setTimeout(() => {
+                this.searchForm.get('min_price').setValue(0);
+                this.searchForm.get('max_price').setValue(this.sliderMax);
+            }, 500);
+        }
     }
 
     changeDateFormat(dateInput: any) {
