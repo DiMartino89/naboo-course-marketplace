@@ -1,5 +1,4 @@
 ﻿import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {DataService} from "../../_services/data/data.service";
 
 @Component({
     moduleId: module.id,

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChildren } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChildren} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     moduleId: module.id,

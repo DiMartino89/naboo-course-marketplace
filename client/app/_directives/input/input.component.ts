@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 declare var $: any;
 
 @Component({
-	moduleId: module.id,
+    moduleId: module.id,
     selector: 'app-input',
     templateUrl: 'input.component.html'
 })
@@ -12,8 +12,8 @@ declare var $: any;
 export class InputComponent implements OnInit, AfterViewInit {
     @Input() type: string;
     @Input() label: any;
-	@Input() labelHidden: boolean;
-	@Input() inputHidden: boolean;
+    @Input() labelHidden: boolean;
+    @Input() inputHidden: boolean;
     @Input() id: string;
     @Input() placeholder: string;
     @Input() form: FormGroup;

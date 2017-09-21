@@ -2,10 +2,10 @@
     Component, OnInit, ViewChild, NgZone, ElementRef, Input, AfterContentChecked
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {AgmMap, MapsAPILoader} from '@agm/core';
+import {AgmMap, LatLngLiteral, MapsAPILoader} from '@agm/core';
 import {DataService} from "../../_services/data/data.service";
 
-declare let google: any;
+declare var google: any;
 
 @Component({
     moduleId: module.id,
@@ -21,6 +21,7 @@ export class MapComponent implements OnInit, AfterContentChecked {
     @Input() lat: number;
     @Input() lng: number;
     @Input() courses: any[];
+    @Input() addresses: any[];
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -31,8 +32,6 @@ export class MapComponent implements OnInit, AfterContentChecked {
     public longitude: number;
     public searchControl: FormControl;
     public zoom: number;
-
-    courseArr: any[];
 
     constructor(private dataService: DataService,
                 private mapsAPILoader: MapsAPILoader,
@@ -69,7 +68,7 @@ export class MapComponent implements OnInit, AfterContentChecked {
     }
 
     ngAfterContentChecked() {
-        if(this.single && this.lat && this.lng || this.multiple && this.lat && this.lng && this.courses) {
+        if (this.single && this.lat && this.lng || this.multiple && this.lat && this.lng && this.courses && this.addresses) {
             this.map.triggerResize().then(() => {
                 this.latitude = this.lat;
                 this.longitude = this.lng;

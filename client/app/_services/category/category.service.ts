@@ -1,16 +1,17 @@
-﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Select2OptionData } from 'ng2-select2';
-import { AppConfig } from '../../app.config';
+﻿import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import {Select2OptionData} from 'ng2-select2';
+import {AppConfig} from '../../app.config';
 
 @Injectable()
 export class CategoryService {
 
-	categories: {};
+    categories: {};
 
-    constructor(private http: Http, 
-				private config: AppConfig) { }
-	
+    constructor(private http: Http,
+                private config: AppConfig) {
+    }
+
     getCategoriesList(): Select2OptionData[] {
         return [
             {
@@ -21,17 +22,17 @@ export class CategoryService {
                         id: 'band',
                         text: 'Band'
                     },
-					{
-						id: 'instruments',
-						text: 'Instrumente'
-					},
-					{
-						id: 'vocals',
-						text: 'Vocals'
-					}
-				]
+                    {
+                        id: 'instruments',
+                        text: 'Instrumente'
+                    },
+                    {
+                        id: 'vocals',
+                        text: 'Vocals'
+                    }
+                ]
             },
-			{
+            {
                 id: 'arts',
                 text: 'Arts',
                 children: [
@@ -39,17 +40,17 @@ export class CategoryService {
                         id: 'drawing',
                         text: 'Drawing'
                     },
-					{
-						id: 'mosaic',
-						text: 'Mosaic'
-					},
-					{
-						id: 'woodwork',
-						text: 'Woodwork'
-					}
-				]
+                    {
+                        id: 'mosaic',
+                        text: 'Mosaic'
+                    },
+                    {
+                        id: 'woodwork',
+                        text: 'Woodwork'
+                    }
+                ]
             },
-			{
+            {
                 id: 'cooking',
                 text: 'Cooking',
                 children: [
@@ -57,17 +58,17 @@ export class CategoryService {
                         id: 'mediterran',
                         text: 'Mediterran'
                     },
-					{
-						id: 'vegetarian',
-						text: 'Vegetarian'
-					},
-					{
-						id: 'grecian',
-						text: 'Grecian'
-					}
-				]
+                    {
+                        id: 'vegetarian',
+                        text: 'Vegetarian'
+                    },
+                    {
+                        id: 'grecian',
+                        text: 'Grecian'
+                    }
+                ]
             },
-			{
+            {
                 id: 'sports',
                 text: 'Sports',
                 children: [
@@ -75,16 +76,16 @@ export class CategoryService {
                         id: 'football',
                         text: 'Football'
                     },
-					{
-						id: 'tennis',
-						text: 'Tennis'
-					},
-					{
-						id: 'volleyball',
-						text: 'Volleyball'
-					}
-				]
+                    {
+                        id: 'tennis',
+                        text: 'Tennis'
+                    },
+                    {
+                        id: 'volleyball',
+                        text: 'Volleyball'
+                    }
+                ]
             }
-		];
-	}
+        ];
+    }
 }

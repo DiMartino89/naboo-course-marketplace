@@ -1,6 +1,6 @@
 <button
-    [type]="htmlType"
-    [ngClass]="{
+        [type]="htmlType"
+        [ngClass]="{
         'btn': true,
         'btn-primary': !type || type === 'primary',
         'btn-secondary': type === 'secondary',
@@ -11,6 +11,8 @@
         'btn-sm': size === 'sm',
         'btn-lg': size === 'lg'
         }"
-    [disabled]="disabled"
-    [tabindex]="tabindex"
-><ng-content></ng-content></button>
+        [disabled]="disabled"
+        [tabindex]="tabindex"
+>
+    <ng-content></ng-content>
+</button>

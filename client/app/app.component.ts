@@ -94,6 +94,7 @@ export class AppComponent implements OnInit {
     private logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
+        location.reload();
         this.alertService.success('Erfolgreich ausgeloggt!', true);
         this.isLoggedIn();
     }

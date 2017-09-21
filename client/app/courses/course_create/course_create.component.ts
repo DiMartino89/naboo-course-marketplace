@@ -12,12 +12,13 @@ import {
     DataService
 } from '../../_services/index';
 import {ArrayNotEmptyValidator} from "../../_helpers/arrayNotEmptyValidator/array-not-empty.validator";
+import {TranslateService} from "../../translate/translate.service";
 
 declare var $: any;
 
 @Component({
-    styleUrls: ['./course_create.css'],
     moduleId: module.id,
+    styleUrls: ['./course_create.css'],
     templateUrl: 'course_create.component.html'
 })
 
@@ -40,6 +41,7 @@ export class CreateCourseComponent implements OnInit {
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private cdRef: ChangeDetectorRef,
+                private _translate: TranslateService,
                 private dataService: DataService,
                 private userService: UserService,
                 private courseService: CourseService,
@@ -110,7 +112,7 @@ export class CreateCourseComponent implements OnInit {
                 course.updatedAt = this.changeDateFormat(date);
 
                 this.courseService.create(course).subscribe(course => {
-                    this.alertService.success('Course successfully created', true);
+                    this.alertService.success(this._translate.instant('Kurs erfolgreich erstellt!'), true);
                     this.currentUser.courses.push(course._id);
                     this.userService.update(this.currentUser).subscribe(() => {
                     });
@@ -140,7 +142,7 @@ export class CreateCourseComponent implements OnInit {
                     course.updatedAt = this.changeDateFormat(date);
 
                     this.courseService.update(course).subscribe(() => {
-                        this.alertService.success('Updated Course successfully');
+                        this.alertService.success(this._translate.instant('Kurs erfolgreich aktualisiert!'), true);
                         this.router.navigate(['/course', this.courseId]);
                     });
                 });

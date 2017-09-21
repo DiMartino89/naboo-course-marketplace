@@ -1,6 +1,6 @@
 ﻿<div class="message-container">
     <div class="message-headline main">
-        <div class="col-sm-9 page-headline">Chats</div>
+        <div class="col-sm-9 page-headline">{{ 'Chats' | translate}}</div>
     </div>
 
     <div class="col-sm-12">
@@ -8,7 +8,7 @@
             <div class="message-info">
                 <ul>
                     <li *ngFor="let message of messages; let i = index;" class="message-item">
-                        <a [routerLink]="['/messages/', message]">with {{users[i]}}</a>
+                        <a [routerLink]="['/messages/', message]">{{ 'mit' | translate}} {{users[i]}}</a>
                     </li>
                 </ul>
             </div>

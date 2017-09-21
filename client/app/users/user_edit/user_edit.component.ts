@@ -10,6 +10,7 @@ import {
     AlertService,
     DataService
 } from '../../_services/index';
+import {TranslateService} from "../../translate/translate.service";
 
 declare var $: any;
 
@@ -38,6 +39,7 @@ export class UserEditComponent implements OnInit {
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private cdRef: ChangeDetectorRef,
+                private _translate: TranslateService,
                 private dataService: DataService,
                 private userService: UserService,
                 private categoryService: CategoryService,
@@ -97,7 +99,7 @@ export class UserEditComponent implements OnInit {
                 this.alertService.success('Updated user successfully');
                 this.router.navigate(['/user', this.userId]);
             }, error => {
-                this.alertService.error(error.body);
+                this.alertService.error(this._translate.instant('Nutzerupdate fehlgeschlagen! Bitte versuchen Sie es erneut!'));
             });
         });
     }
@@ -143,9 +145,5 @@ export class UserEditComponent implements OnInit {
     removePicture(file: string, index: number) {
         this.deleteFiles.push(file);
         $('.image-preview' + index).remove();
-    }
-
-    isValid() {
-        return this.editUserForm.valid;
     }
 }

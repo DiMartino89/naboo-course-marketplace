@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Select2OptionData } from 'ng2-select2';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Select2OptionData} from 'ng2-select2';
 
 @Component({
     moduleId: module.id,

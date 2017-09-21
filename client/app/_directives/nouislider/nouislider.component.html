@@ -1,16 +1,19 @@
-<div *ngIf="form" [formGroup]="form" class="form-group" [ngClass]="{'has-danger': (form.controls[minField].touched && !form.controls[minField].valid) || (form.controls[maxField].touched && !form.controls[maxField].valid), 'row': horizontal}">
+<div *ngIf="form" [formGroup]="form" class="form-group"
+     [ngClass]="{'has-danger': (form.controls[minField].touched && !form.controls[minField].valid) || (form.controls[maxField].touched && !form.controls[maxField].valid), 'row': horizontal}">
     <label for="field_{{field}}" class="form-control-label" [ngClass]="{'col-sm-3 col-form-label': horizontal}">
         {{label}}{{required ? '*' : ''}}:
     </label>
 
     <div style="display: block;" [ngClass]="{'col-sm-12': horizontal}">
         <!-- select 2 not connected to form -->
-        <nouislider #sliderRef [connect]="true" [min]="min" [max]="max" [step]="step" id="field_{{field}}" tabindex="{{tabindex}}"
+        <nouislider #sliderRef [connect]="true" [min]="min" [max]="max" [step]="step" id="field_{{field}}"
+                    tabindex="{{tabindex}}"
                     [(ngModel)]="currentValue" [ngModelOptions]="{standalone: true}" [config]="config"
         ></nouislider>
 
         <!-- error text -->
-        <p *ngIf="errorText && ((form.controls[minField].touched && !form.controls[minField].valid) || (form.controls[maxField].touched && !form.controls[maxField].valid))" class="form-control-feedback">
+        <p *ngIf="errorText && ((form.controls[minField].touched && !form.controls[minField].valid) || (form.controls[maxField].touched && !form.controls[maxField].valid))"
+           class="form-control-feedback">
             <small>{{ errorText }}</small>
         </p>
     </div>

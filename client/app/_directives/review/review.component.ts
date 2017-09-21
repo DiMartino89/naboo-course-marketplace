@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import {Component, Input} from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -9,5 +9,6 @@
 export class ReviewComponent {
     @Input() rating: number;
 
-    constructor() { }
+    constructor() {
+    }
 }

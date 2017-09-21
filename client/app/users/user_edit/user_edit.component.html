@@ -1,6 +1,6 @@
 ﻿<div class="edit-user-container" *ngIf="userId == currentUser._id">
     <div class="edit-user-headline main">
-        <div class="col-sm-9 page-headline">Edit your profile</div>
+        <div class="col-sm-9 page-headline">{{'Bearbeite dein Profil' | translate}}</div>
     </div>
 
     <form (ngSubmit)="editUserForm.valid && editUser()">
@@ -8,12 +8,12 @@
             <div class="col-sm-12">
                 <div class="edit-user-headline user-name">
                     <app-input field="name" type="text" [tabindex]="5" [form]="editUserForm" [horizontal]="true"
-                               [label]="'Name'"
+                               [label]="'Name' | translate"
                     ></app-input>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="edit-user-headline">User Avatar</div>
+                <div class="edit-user-headline">{{'Profilbild' | translate}}</div>
                 <div class="col-sm-12 edit-user-info">
                     <div *ngIf="user.avatar" class="avatar-preview" style="position:relative;">
                         <button type="button" (click)="removeAvatar()" class="btn btn-danger btn-s removeImage"><span
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="edit-user-headline">User Titleimage</div>
+                <div class="edit-user-headline">{{'Titelbild' | translate}}</div>
                 <div class="col-sm-12 edit-user-info">
                     <div *ngIf="user.titleImage" class="image-preview" style="position:relative;">
                         <button type="button" (click)="removeTitleImage()"
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="edit-user-headline">User Pictures</div>
+                <div class="edit-user-headline">{{'Weitere Bilder' | translate}}</div>
                 <div class="col-sm-12 edit-user-info">
                     <ul *ngIf="user.pictures" class="user-pictures">
                         <li *ngFor="let picture of user.pictures; let i = index">
@@ -56,16 +56,16 @@
         </div>
         <div class="col-sm-12">
             <div class="col-sm-6">
-                <div class="edit-user-headline">General Info</div>
+                <div class="edit-user-headline">{{'Allgemeine Informationen' | translate}}</div>
                 <div class="col-sm-12 edit-user-info">
                     <app-input field="description" type="textarea" [tabindex]="11" [form]="editUserForm"
                                [horizontal]="true"
-                               [label]="'Description'"
+                               [label]="'Beschreibung' | translate"
                     ></app-input>
                 </div>
             </div>
         </div>
 
-        <app-button [disabled]="!editUserForm.valid" [tabindex]="13">{{ 'Update' | translate}}</app-button>
+        <app-button [disabled]="!editUserForm.valid" [tabindex]="13">{{ 'Aktualisieren' | translate}}</app-button>
     </form>
 </div>

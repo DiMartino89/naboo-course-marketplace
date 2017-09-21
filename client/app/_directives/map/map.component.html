@@ -1,7 +1,25 @@
 ﻿<input *ngIf="search" type="text" #search class="form-control" placeholder="Search" [formControl]="searchControl">
 <agm-map #map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-    <div *ngFor="let course of courses">
-        <agm-marker [latitude]="course.latitude" [longitude]="course.longitude"></agm-marker>
+    <agm-marker [latitude]="latitude" [longitude]="longitude"
+                [iconUrl]="'app/_assets/images/marker_home.png'"></agm-marker>
+    <div *ngFor="let course of courses; let i = index;">
+        <agm-marker [latitude]="course.latitude" [longitude]="course.longitude"
+                    [iconUrl]="'app/_assets/images/marker_course.png'">
+            <agm-info-window [maxWidth]="250">
+                <a [routerLink]="['/course', course._id]">
+                    <img [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>
+                    <span class="course-name">{{course.name}}</span>
+                    <app-review [rating]="course.rating ? course.rating : 0"></app-review>
+                </a>
+                <div class="col-sm-6">
+                    <span>Category:</span>
+                    <span>Adresse:</span>
+                </div>
+                <div class="col-sm-6">
+                    <span>{{course.categories}}</span>
+                    <span>{{addresses[i]}}</span>
+                </div>
+            </agm-info-window>
+        </agm-marker>
     </div>
 </agm-map>

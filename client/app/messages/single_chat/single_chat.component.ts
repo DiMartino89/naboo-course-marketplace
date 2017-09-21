@@ -5,8 +5,8 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-    styleUrls: ['./single_chat.css'],
     moduleId: module.id,
+    styleUrls: ['./single_chat.css'],
     templateUrl: 'single_chat.component.html'
 })
 
@@ -70,18 +70,20 @@ export class SingleChatComponent implements OnInit {
         this.userService.getById(this.userId).subscribe(user => {
             const message = this.messageForm.value;
             message.from = this.currentUser._id;
-            if(user.messages[this.currentUser._id] != null) {
+            if (user.messages[this.currentUser._id] != null) {
                 user.messages[this.currentUser._id].push(message);
             } else {
                 user.messages[this.currentUser._id] = [message];
             }
-            this.userService.update(user).subscribe(() => {});
-            if(this.currentUser.messages[this.userId] != null) {
+            this.userService.update(user).subscribe(() => {
+            });
+            if (this.currentUser.messages[this.userId] != null) {
                 this.currentUser.messages[this.userId].push(message);
             } else {
                 this.currentUser.messages[this.userId] = [message];
             }
-            this.userService.update(this.currentUser).subscribe(() => {});
+            this.userService.update(this.currentUser).subscribe(() => {
+            });
             localStorage.setItem(this.currentUser._id + '_messages', JSON.stringify(this.messagesLength++));
         });
     }

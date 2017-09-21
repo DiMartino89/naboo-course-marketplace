@@ -1,6 +1,6 @@
 ﻿<div class="chat-container">
     <div class="chat-headline main">
-        <div class="col-sm-9 page-headline">Chat with {{user.name}}</div>
+        <div class="col-sm-9 page-headline">{{ 'Chat mit' | translate}} {{user.name}}</div>
     </div>
 
     <div class="col-sm-12">
@@ -30,11 +30,12 @@
                 <form (ngSubmit)="messageForm.valid && sendMessage()">
                     <div class="col-sm-6">
                         <app-input field="text" type="textarea" [tabindex]="2" [form]="messageForm" [horizontal]="true"
-                                   [label]="'Message'"
+                                   [label]="'Nachricht' | translate"
                         ></app-input>
                     </div>
                     <div class="col-sm-12">
-                        <app-button [disabled]="!messageForm.valid" [tabindex]="3">{{ 'Send' | translate}}</app-button>
+                        <app-button [disabled]="!messageForm.valid" [tabindex]="3">{{ 'Senden' | translate}}
+                        </app-button>
                     </div>
                 </form>
             </div>

@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-		<base href="/" />
-        <title>Quodo</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="/app/_assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon" >
+<head>
+    <base href="/"/>
+    <title>Quodo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/app/_assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-		<!-- 1. Load Stylesheets -->
-        <link href="app.css" rel="stylesheet" />
-		<link href="app/_assets/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 1. Load Stylesheets -->
+    <link href="app.css" rel="stylesheet"/>
+    <link href="app/_assets/css/font-awesome.min.css" rel="stylesheet">
 
-        <!-- Polyfill(s) for older browsers -->
-        <script src="node_modules/core-js/client/shim.min.js"></script>
-        <script src="node_modules/zone.js/dist/zone.js"></script>
-        <script src="node_modules/reflect-metadata/Reflect.js"></script>
-        <script src="node_modules/systemjs/dist/system.src.js"></script>
-		
-		<!-- 3. Include Other Sources -->
-		<script src="node_modules/jquery/dist/jquery.js"></script>
-        <script src="node_modules/moment/moment.js"></script>
-        <script src="node_modules/tether/dist/js/tether.js"></script>
-        <script src="node_modules/popper.js/dist/umd/popper.js"></script>
-        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="node_modules/fullcalendar/dist/fullcalendar.js"></script>
-		<script src="node_modules/select2/dist/js/select2.min.js"></script>
-        <script src="app/_assets/js/circles.js"></script>
-		
-        <!-- 4. Configure SystemJS -->
-        <script src="systemjs.config.js"></script>
-        <script>
-            System.import('app').catch(function(err){ console.error(err); });
-        </script>
-    </head>
-    <body>
-        <app></app>
-        <script src="node_modules/aos/dist/aos.js"></script>
-        <script>
-            AOS.init({
-                duration: 1200,
-                delay: 250,
-                easing: 'ease-out-back'
-            });
-        </script>
-    </body>
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <!-- 3. Include Other Sources -->
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/moment/moment.js"></script>
+    <script src="node_modules/tether/dist/js/tether.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="node_modules/select2/dist/js/select2.min.js"></script>
+    <script src="app/_assets/js/circles.js"></script>
+
+    <!-- 4. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) {
+            console.error(err);
+        });
+    </script>
+</head>
+<body>
+<app></app>
+</body>
 </html>

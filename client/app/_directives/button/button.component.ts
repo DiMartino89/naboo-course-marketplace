@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-	moduleId: module.id,
+    moduleId: module.id,
     selector: 'app-button',
     templateUrl: 'button.component.html'
 })

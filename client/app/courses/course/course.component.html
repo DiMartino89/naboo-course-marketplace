@@ -33,17 +33,17 @@
     <div class="col-sm-12">
         <div class="col-sm-6">
             <!--General Info-->
-            <div class="course-headline">General Info</div>
+            <div class="course-headline">{{ 'Allgemeine Informationen' | translate}}</div>
             <div class="col-sm-12 course-info">
                 <p class="description">{{course.description}}</p>
                 <table class="ginfo-table">
                     <tbody>
                     <tr>
-                        <td><p>Category:</p></td>
+                        <td><p>{{ 'Kategorien' | translate}}:</p></td>
                         <td><p *ngFor="let category of course.categories">{{category}}</p></td>
                     </tr>
                     <tr *ngIf="course.link != ''">
-                        <td><p>Link:</p></td>
+                        <td><p>{{ 'Weblink/Website' | translate}}:</p></td>
                         <td><p *ngIf="course.link != ''"><a href="{{course.link}}">{{course.link}}</a></p></td>
                     </tr>
                     </tbody>
@@ -51,32 +51,33 @@
             </div>
 
             <!--Appointments-->
-            <div class="course-headline">Appointments</div>
+            <div class="course-headline">{{ 'Termine' | translate}}</div>
             <div class="col-sm-12 course-info">
                 <calendar [events]="course.appointments" [creation]="false"></calendar>
             </div>
 
             <!--Participants-->
-            <div class="course-headline">Participants</div>
+            <div class="course-headline">{{ 'Teilnahme' | translate}}</div>
             <div class="col-sm-12 course-info">
                 <div class="left-col">
-                    <p class="col-sm-12">Capacity:
+                    <p class="col-sm-12">{{ 'Kapazität' | translate}}:
                         <span>{{course.members ? course.members.length : 0}}/{{course.maxMembers}}</span>
                     </p>
                     <div class="circle" id="circles-4"></div>
                 </div>
                 <div *ngIf="course.owner && currentUser._id != course.owner" class="right-col">
-                    <button class="btn btn-primary" *ngIf="course.members && !course.members.includes(currentUser._id) && course.members.length <= maxMembers && course.signInDeadline <= changeDateFormat(today)"
-                            (click)="bookCourse(currentUser._id)">Book
+                    <button class="btn btn-primary"
+                            *ngIf="course.members && !course.members.includes(currentUser._id) && course.members.length <= maxMembers && course.signInDeadline <= changeDateFormat(today)"
+                            (click)="bookCourse(currentUser._id)">{{ 'Buchen' | translate}}
                         Course
                     </button>
                     <button class="btn btn-primary" *ngIf="course.members && course.members.includes(currentUser._id)"
-                            (click)="cancelCourse(currentUser._id)">Cancel
+                            (click)="cancelCourse(currentUser._id)">{{ 'Stornieren' | translate}}
                         Course
                     </button>
                 </div>
                 <div class="col-sm-12 course-members">
-                    <p class="col-sm-12">Current Members:</p>
+                    <p class="col-sm-12">{{ 'Aktuelle Teilnehmer' | translate}}:</p>
                     <ul>
                         <li *ngFor="let member of courseMembers" class="col-sm-2">
                             <a [routerLink]="['/users', member._id]">
@@ -88,15 +89,19 @@
                         </li>
                     </ul>
                 </div>
-                <p class="col-sm-12 deadline">Sign-in until:
+                <p class="col-sm-12 deadline">{{ 'Einschreibung bis' | translate}}:
                     <span>{{changeDateFormat(course.signInDeadline)}}</span> | Status:
-                    <i *ngIf="changeDateFormat(course.signInDeadline) >= changeDateFormat(today)" class="fa fa-check"></i>
-                    <i *ngIf="changeDateFormat(course.signInDeadline) < changeDateFormat(today)" class="fa fa-times"></i>
+                    <i *ngIf="changeDateFormat(course.signInDeadline) >= changeDateFormat(today)"
+                       class="fa fa-check"></i>
+                    <i *ngIf="changeDateFormat(course.signInDeadline) < changeDateFormat(today)"
+                       class="fa fa-times"></i>
                 </p>
             </div>
 
             <!--Reviews-->
-            <div class="course-headline">Reviews ({{course.reviews ? course.reviews.length : 0}})</div>
+            <div class="course-headline">{{ 'Bewertungen' | translate}} ({{course.reviews ? course.reviews.length :
+                0}})
+            </div>
             <div class="col-sm-12 course-info">
                 <ul *ngIf="course.reviews && course.reviews.length" class="course-rating">
                     <li *ngFor="let review of course.reviews" class="col-sm-12 review-item">
@@ -117,7 +122,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="course-headline">Standort</div>
+            <div class="course-headline">{{ 'Standort' | translate}}</div>
             <div class="col-sm-12 course-info">
                 <app-map [search]="false" [single]="true" [multiple]="false" [lat]="course.latitude"
                          [lng]="course.longitude"></app-map>
@@ -146,13 +151,13 @@
                 <button class="close" (click)="closeReviewModal()">x</button>
                 <form (ngSubmit)="reviewForm.valid && reviewCourse()">
                     <app-input field="rating" type="number" [tabindex]="5" [form]="reviewForm" [horizontal]="true"
-                               [label]="'Rating'"
+                               [label]="'Bewertung' | translate"
                     ></app-input>
                     <app-input field="description" type="textarea" [tabindex]="11" [form]="reviewForm"
                                [horizontal]="true"
-                               [label]="'Description'"
+                               [label]="'Beschreibung' | translate"
                     ></app-input>
-                    <app-button [disabled]="!reviewForm.valid" [tabindex]="13">{{ 'Rate' | translate}}</app-button>
+                    <app-button [disabled]="!reviewForm.valid" [tabindex]="13">{{ 'Speichern' | translate}}</app-button>
                 </form>
             </div>
         </div>

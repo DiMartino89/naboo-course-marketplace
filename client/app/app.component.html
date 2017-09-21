@@ -5,11 +5,13 @@
             {{lang.display}}
         </option>
     </select>
-    <div class="news-panel">
+    <div *ngIf="isLoggedIn()" class="news-panel">
         <ul>
             <li>
                 <a class="news user-news" [routerLink]="['/dashboard']">
-                    <small class="notification">{{currentUser.friendRequests ? currentUser.friendRequests.length : 0}}</small>
+                    <small *ngIf="currentUser.friendRequests && currentUser.friendRequests.length > 0"
+                           class="notification">{{currentUser.friendRequests ? currentUser.friendRequests.length : 0}}
+                    </small>
                     <i class="fa fa-users"></i>
                 </a>
             </li>
@@ -42,44 +44,44 @@
         <li>
             <i class="fa fa-home"></i>
             <a (click)="setActive($event)" [routerLink]="['/']" class="active">
-                <span>Home</span>
+                <span>{{'Home' | translate}}</span>
             </a>
         </li>
         <li>
             <i class="fa fa-tachometer"></i>
             <a (click)="setActive($event)" [routerLink]="['/dashboard']">
-                <span>Dashboard</span>
+                <span>{{'Dashboard' | translate}}</span>
             </a>
         </li>
         <li (click)="showSub('.user-menu', '.one')">
             <i class="fa fa-users"></i>
-            <span>Users</span>
+            <span>{{'Nutzer' | translate}}</span>
             <i class="fa fa-angle-down one"></i>
         </li>
         <ul class="sub-menu user-menu">
             <li>
                 <i class="fa fa-search"></i>
-                <a (click)="setActive($event)" [routerLink]="['/user/search']">Search</a>
+                <a (click)="setActive($event)" [routerLink]="['/user/search']">{{'Suche' | translate}}</a>
             </li>
         </ul>
         <li (click)="showSub('.course-menu', '.two')">
             <i class="fa fa-circle-thin"></i>
-            <span>Courses</span>
+            <span>{{'Kurse' | translate}}</span>
             <i class="fa fa-angle-down two"></i>
         </li>
         <ul class="sub-menu course-menu">
             <li>
                 <i class="fa fa-search"></i>
-                <a (click)="setActive($event)" [routerLink]="['/course/search']">Search</a>
+                <a (click)="setActive($event)" [routerLink]="['/course/search']">{{'Suche' | translate}}</a>
             </li>
             <li>
                 <i class="fa fa-pencil"></i>
-                <a (click)="setActive($event)" [routerLink]="['/course/create']">Create</a>
+                <a (click)="setActive($event)" [routerLink]="['/course/create']">{{'Erstellen' | translate}}</a>
             </li>
         </ul>
         <li>
             <i class="fa fa-envelope-o"></i>
-            <a (click)="setActive($event)" [routerLink]="['/messages']"><span>Messages</span></a>
+            <a (click)="setActive($event)" [routerLink]="['/messages']"><span>{{'Nachrichten' | translate}}</span></a>
         </li>
     </ul>
 </div>

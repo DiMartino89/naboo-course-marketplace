@@ -1,12 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../_services/user/user.service';
-import {AlertService} from '../../_services/alert/alert.service';
-import {FormBuilder} from '@angular/forms';
-import {AppConfig} from '../../app.config';
 import {CourseService} from "../../_services/course/course.service";
 import {Course} from "../../_models/course/course";
 import {AuthenticationService} from "../../_services/authentication/authentication.service";
-import {DataService} from "../../_services/data/data.service";
 import {User} from "../../_models/user/user";
 
 @Component({
@@ -66,7 +62,8 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     private getViewedUsers(currUserId: any) {
         let users = [];
@@ -125,7 +122,7 @@ export class DashboardComponent implements OnInit {
     }
 
     changeDateFormat(dateInput: any) {
-        var date = new Date(dateInput);
+        let date = new Date(dateInput);
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
             '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
     }

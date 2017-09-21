@@ -1,18 +1,19 @@
-﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { AuthenticationService } from '../index';
+﻿import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {AuthenticationService} from '../index';
 
-import { AppConfig } from '../../app.config';
-import { Course } from '../../_models/index';
+import {AppConfig} from '../../app.config';
+import {Course} from '../../_models/index';
 
 @Injectable()
 export class CourseService {
 
     viewedCourses: any;
 
-    constructor(private http: Http, 
-				private config: AppConfig,
-				private authenticationService: AuthenticationService) { }
+    constructor(private http: Http,
+                private config: AppConfig,
+                private authenticationService: AuthenticationService) {
+    }
 
     create(course: Course) {
         return this.http.post(this.config.apiUrl + '/courses/create', course, this.authenticationService.jwt()).map((response: Response) => response.json());
@@ -25,8 +26,8 @@ export class CourseService {
     delete(_id: any) {
         return this.http.delete(this.config.apiUrl + '/courses/' + _id, this.authenticationService.jwt());
     }
-	
-	getAll() {
+
+    getAll() {
         return this.http.get(this.config.apiUrl + '/courses', this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 

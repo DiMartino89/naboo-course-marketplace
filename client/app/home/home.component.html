@@ -3,12 +3,12 @@
         <nav class="col-sm-12">
             <ul class="tablist" role="tablist">
                 <li id="tab1" class="tab active" role="tab" aria-controls="panel1" aria-selected="true"
-                    (click)="sortCourses('createdAt')">Latest
-                    Courses
+                    (click)="sortCourses('createdAt')">
+                    {{'Neueste Kurse' | translate}}
                 </li>
                 <li id="tab2" class="tab" role="tab" aria-controls="panel2" aria-selected="false"
                     (click)="sortCourses('rating')">
-                    Top-Rated Courses
+                    {{'Top Kurse' | translate}}
                 </li>
             </ul>
         </nav>
@@ -23,9 +23,10 @@
                     </div>
                     <div class="col-sm-12">
                         <h2>{{course.name}}</h2>
-                        <small>{{course.createdAt}}</small>
-                        <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
-                        <p>{{course.description | truncate : 10}}</p>
+                        <small style="color: #AAA;">{{course.createdAt}} {{'Uhr' | translate}}</small>
+                        <p>{{'Einschreibung bis' | translate}}: <small style="color: #AAA;">{{changeDateFormat(course.signInDeadline)}} {{'Uhr' |
+                            translate}}</small></p>
+                        <p>{{course.description | truncate : 5}}</p>
                     </div>
                 </li>
             </div>
@@ -43,9 +44,10 @@
                     </div>
                     <div class="col-sm-12">
                         <h2>{{course.name}}</h2>
-                        <small>{{course.createdAt}}</small>
-                        <p>SignIn until: {{changeDateFormat(course.signInDeadline)}}</p>
-                        <p>{{course.description | truncate : 10}}</p>
+                        <small style="color: #AAA;">{{course.createdAt}} {{'Uhr' | translate}}</small>
+                        <p>{{'Einschreibung bis' | translate}}: <small style="color: #AAA;">{{changeDateFormat(course.signInDeadline)}} {{'Uhr' |
+                            translate}}</small></p>
+                        <p>{{course.description | truncate : 5}}</p>
                     </div>
                 </li>
             </div>
@@ -54,7 +56,8 @@
 
     <div class="col-sm-12">
         <div class="panel map">
-            <app-map [multiple]="true" [single]="false" [search]="false" [edit]="false" [courses]="courses"></app-map>
+            <app-map [multiple]="true" [single]="false" [search]="false" [edit]="false" [courses]="courses"
+                     [addresses]="addresses"></app-map>
         </div>
     </div>
 </div>

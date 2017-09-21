@@ -44,19 +44,19 @@
     <div class="col-sm-12">
         <div class="col-sm-6">
             <!--General Info-->
-            <div class="user-headline">General Info</div>
+            <div class="user-headline">{{'Allgemeine Informationen' | translate}}</div>
             <div class="col-sm-12 user-info">
                 <p class="description">{{user.description}}</p>
                 <table class="ginfo-table">
                     <tbody>
                     <tr>
-                        <td><p>Member since:</p></td>
-                        <td><p>{{user.createdAt}}</p></td>
+                        <td><p>{{'Mitglied seit' | translate}}:</p></td>
+                        <td><p>{{user.createdAt}} {{'Uhr' | translate}}</p></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="user-headline">Friends ({{user.friends ? user.friends.length : 0}})</div>
+            <div class="user-headline">{{'Freunde' | translate}} ({{user.friends ? user.friends.length : 0}})</div>
             <div class="col-sm-12 user-info">
                 <ul>
                     <li *ngFor="let friend of user.friends" class="col-sm-2">
@@ -73,7 +73,7 @@
 
         <div class="col-sm-6">
             <!--Courses-->
-            <div class="user-headline">Courses ({{user.courses ? user.courses.length : 0}})</div>
+            <div class="user-headline">{{'Kurse' | translate}} ({{user.courses ? user.courses.length : 0}})</div>
             <div class="col-sm-12 user-info">
                 <ul class="col-sm-12">
                     <li *ngFor="let course of userCourses;" class="col-sm-12 course-item">

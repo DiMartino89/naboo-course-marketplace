@@ -1,123 +1,123 @@
 /* registration */
 .registration-logo {
-	display: table;
-	width: 100%;
-	max-width: 170px;
-	text-align: left;
-	margin: 10px 0;
-	box-sizing: border-box;
+    display: table;
+    width: 100%;
+    max-width: 170px;
+    text-align: left;
+    margin: 10px 0;
+    box-sizing: border-box;
 }
 
 .registration-content {
-	display: table;
-	width: 100%;
-	max-width: 400px;
-	margin: 10px auto;
-	box-sizing: border-box;
+    display: table;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+    box-sizing: border-box;
 }
 
 .container-nav ul {
-	-webkit-margin-before: 0;
-	-webkit-margin-after: 0;
-	-webkit-padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-padding-start: 0;
 }
 
 .container-nav .nav-item {
-	display: inline-block;
-	padding: 10px;
-	float: left;
-	border: 1px solid transparent;
-	background: rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    padding: 10px;
+    float: left;
+    border: 1px solid transparent;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .container-nav .nav-item.active {
-	background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .registration-container {
-	position: relative;
-	display: table;
-	width: 100%;
-	height: auto;
-	padding: 10px 30px;
-	background: rgba(0, 0, 0, 0.5);
-	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
-	box-sizing: border-box;
+    position: relative;
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 10px 30px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 
 .registration-container p {
-	width: 100%;
-	margin: 10px 0;
-	text-align: center;
-	color: #CCC;
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
+    color: #CCC;
 }
 
 .registration-container a {
-	color: #0094FF;
-	text-decoration: none;
-	transition: color 0.25s ease-in;
-	-webkit-transition: color 0.25s ease-in;
+    color: #0094FF;
+    text-decoration: none;
+    transition: color 0.25s ease-in;
+    -webkit-transition: color 0.25s ease-in;
 }
 
 .registration-container a:hover {
-	color: #00BEFF;
-	text-decoration: none;
-	transition: color 0.25s ease-in;
-	-webkit-transition: color 0.25s ease-in;
+    color: #00BEFF;
+    text-decoration: none;
+    transition: color 0.25s ease-in;
+    -webkit-transition: color 0.25s ease-in;
 }
 
 .registration-container input:focus {
-	border: 1px solid #0094FF;
-	transition: border 0.25s ease-in;
-	-webkit-transition: border 0.25s ease-in;
+    border: 1px solid #0094FF;
+    transition: border 0.25s ease-in;
+    -webkit-transition: border 0.25s ease-in;
 }
 
 .registration-container .stay-logged-in {
-	display: table;
-	margin: 10px 0;
-	color: #CCC;
+    display: table;
+    margin: 10px 0;
+    color: #CCC;
 }
 
 .registration-container fieldset {
-	border: none;
+    border: none;
 }
 
 .registration-container fieldset:nth-child(2) {
-	text-align: center;
+    text-align: center;
 }
 
 .registration-container app-button {
-	width: 100%;
-	text-align: center;
+    width: 100%;
+    text-align: center;
 }
 
 .registration-container label {
-	width: 100%;
-	color: #CCC;
-	margin: 5px 0;
-	padding: 5px 0;
-	box-sizing: border-box;
+    width: 100%;
+    color: #CCC;
+    margin: 5px 0;
+    padding: 5px 0;
+    box-sizing: border-box;
 }
 
 .registration-container input {
-	width: 100%;
-	height: 40px;
-	color: #CCC;
-	margin: 10px 0;
-	padding: 5px 10px;
-	border-top: none;
-	border-right: none;
-	border-left: 1px solid #555;
-	border-bottom: 1px solid #555;
-	box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    color: #CCC;
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-top: none;
+    border-right: none;
+    border-left: 1px solid #555;
+    border-bottom: 1px solid #555;
+    box-sizing: border-box;
 }
 
 .registration-container input[type="checkbox"] {
-	display: table;
-	width: 20px;
-	height: 20px;
-	margin: 0 10px 0 0;
-	float: left;
-	outline: 0 none;
-	box-sizing: border-box;
+    display: table;
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 0 0;
+    float: left;
+    outline: 0 none;
+    box-sizing: border-box;
 }

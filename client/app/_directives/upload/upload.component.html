@@ -6,8 +6,8 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Size</th>
+                <th>{{'Name' | translate}}</th>
+                <th>{{'Größe' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,11 +21,11 @@
         <div>
             <button type="button" class="btn btn-success btn-xs"
                     (click)="uploader.uploadAll(); clearInput();" [disabled]="uploader.queue.length == 0">
-                <span class="glyphicon glyphicon-upload"></span> Confirm
+                <span class="glyphicon glyphicon-upload"></span> {{'Bestätigen' | translate}}
             </button>
             <button type="button" class="btn btn-danger btn-s"
                     (click)="uploader.clearQueue(); clearInput();" [disabled]="!uploader.queue.length">
-                <span class="glyphicon glyphicon-trash"></span> Remove
+                <span class="glyphicon glyphicon-trash"></span> {{'Entfernen' | translate}}
             </button>
         </div>
     </div>
@@ -39,9 +39,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Size</th>
-                <th>Actions</th>
+                <th>{{'Name' | translate}}</th>
+                <th>{{'Größe' | translate}}</th>
+                <th>{{'Aktion' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
                 <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
                 <td nowrap>
                     <button type="button" class="btn btn-danger btn-xs"
-                            (click)="item.remove(); clearInput2();" >
+                            (click)="item.remove(); clearInput2();">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </td>
@@ -60,12 +60,13 @@
 
         <div>
             <button type="button" class="btn btn-success btn-xs"
-                    (click)="multipleUploader.uploadAll(); clearInput2();" [disabled]="!multipleUploader.getNotUploadedItems().length">
-                <span class="glyphicon glyphicon-upload"></span> Confirm
+                    (click)="multipleUploader.uploadAll(); clearInput2();"
+                    [disabled]="!multipleUploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> {{'Bestätigen' | translate}}
             </button>
             <button type="button" class="btn btn-danger btn-s"
                     (click)="multipleUploader.clearQueue(); clearInput2();" [disabled]="!multipleUploader.queue.length">
-                <span class="glyphicon glyphicon-trash"></span> Remove All
+                <span class="glyphicon glyphicon-trash"></span> {{'Alle Entfernen' | translate}}
             </button>
         </div>
     </div>

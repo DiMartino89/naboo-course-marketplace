@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { NouisliderComponent as NouisSlider } from 'ng2-nouislider';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {NouisliderComponent as NouisSlider} from 'ng2-nouislider';
 
 @Component({
     moduleId: module.id,

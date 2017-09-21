@@ -1,9 +1,6 @@
-﻿import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute, Params, NavigationStart} from '@angular/router';
+﻿import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService, UserService, AlertService} from '../../_services/index';
-import {ReviewService} from "../../_services/review/review.service";
-import {CategoryService} from "../../_services/category/category.service";
+import {AuthenticationService, UserService} from '../../_services/index';
 import {Select2OptionData} from "ng2-select2";
 import {NouisliderComponent} from 'ng2-nouislider';
 import {User} from "../../_models/user/user";
@@ -25,15 +22,12 @@ export class SearchUserComponent implements OnInit {
     currentUser: any = {};
     users: User[] = [];
 
-    public sliderMax: number;
-
     public categories: Array<Select2OptionData>;
     public options: Select2Options;
     public value: string[];
 
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
-                private categoryService: CategoryService,
                 private authenticationService: AuthenticationService) {
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {

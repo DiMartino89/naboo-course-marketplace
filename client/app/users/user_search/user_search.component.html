@@ -1,18 +1,19 @@
 ﻿<div class="user-search-container">
     <div class="search-headline main">
-        <div class="col-sm-9 page-headline">Search Users</div>
+        <div class="col-sm-9 page-headline">{{ 'Nutzer suchen' | translate}}</div>
     </div>
 
     <div class="col-sm-12">
         <div class="col-sm-6">
-            <div class="search-headline">Filter</div>
+            <div class="search-headline">{{ 'Filter' | translate}}</div>
             <div class="col-sm-12 search-info">
-                <label for="fulltext" class="form-control-label col-sm-6 col-form-label">Fulltext</label>
+                <label for="fulltext" class="form-control-label col-sm-6 col-form-label">{{ 'Volltextsuche' |
+                    translate}}</label>
                 <input id="fulltext" class="form-control ng-pristine ng-valid ng-touched" (keydown)="searchUsers()"/>
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="search-headline">Results</div>
+            <div class="search-headline">{{ 'Ergebnisse' | translate}}</div>
             <div class="col-sm-12 search-info">
                 <ul>
                     <li *ngFor="let user of users" class="col-sm-12 user-item">

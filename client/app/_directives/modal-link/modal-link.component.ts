@@ -1,12 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 declare const $;
 
 @Component({
-	moduleId: module.id,
+    moduleId: module.id,
     selector: 'app-modal-link',
-    templateUrl: 'modal-link.component.html',
-    styleUrls: ['./modal-link.component.scss']
+    templateUrl: 'modal-link.component.html'
 })
 export class ModalLinkComponent implements OnInit {
 

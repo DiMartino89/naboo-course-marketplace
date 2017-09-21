@@ -2,14 +2,13 @@
 import {Router, ActivatedRoute, Params, NavigationStart} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService, UserService, CourseService, AlertService} from '../../_services/index';
-import {ReviewService} from "../../_services/review/review.service";
 
 declare var $: any;
 declare var Circles: any;
 
 @Component({
-    styleUrls: ['./course.css'],
     moduleId: module.id,
+    styleUrls: ['./course.css'],
     templateUrl: 'course.component.html'
 })
 
@@ -73,20 +72,22 @@ export class CourseComponent implements OnInit {
                     if (course.owner !== this.currentUser._id) {
                         this.courseService.addViewedCourse(this.currentUser._id, this.courseId);
                     }
-                    let members = course.members ? ((course.members.length * 100)/course.maxMembers) : 0;
+                    let members = course.members ? ((course.members.length * 100) / course.maxMembers) : 0;
                     Circles.create({
-                        id:           'circles-4',
-                        radius:       60,
-                        value:        members,
-                        maxValue:     100,
-                        width:        10,
-                        text:         function(value){return value + '%';},
-                        colors:       ['#FFF', '#3A87AD'],
-                        duration:     400,
-                        wrpClass:     'circles-wrp',
-                        textClass:    'circles-text',
+                        id: 'circles-4',
+                        radius: 60,
+                        value: members,
+                        maxValue: 100,
+                        width: 10,
+                        text: function (value) {
+                            return value + '%';
+                        },
+                        colors: ['#FFF', '#3A87AD'],
+                        duration: 400,
+                        wrpClass: 'circles-wrp',
+                        textClass: 'circles-text',
                         styleWrapper: true,
-                        styleText:    true
+                        styleText: true
                     });
                 });
 
@@ -138,7 +139,8 @@ export class CourseComponent implements OnInit {
                 review.user = this.currentUser._id;
                 course.rating += (review.rating / (course.reviews.length + 1));
                 course.reviews.push(review);
-                this.courseService.update(course).subscribe(() => {});
+                this.courseService.update(course).subscribe(() => {
+                });
                 this.reviewModal.modal('hide');
             } else {
                 this.alertService.error('You already rated the course!');

@@ -1,6 +1,6 @@
 ﻿<div class="course-create-container">
     <div class="course-headline main">
-        <div class="col-sm-9 page-headline">Create a Course</div>
+        <div class="col-sm-9 page-headline">{{ 'Kurs Erstellen' | translate}}</div>
     </div>
 
     <form (ngSubmit)="createCourseForm.valid && createCourse()">
@@ -8,12 +8,12 @@
             <div class="col-sm-12">
                 <div class="course-headline course-title">
                     <app-input field="name" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                               [label]="'Course-Title'"
+                               [label]="'Kurstitel' | translate"
                     ></app-input>
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="course-headline">Course Titleimage</div>
+                <div class="course-headline">{{ 'Titelbild' | translate}}</div>
                 <div class="col-sm-12 course-info">
                     <div *ngIf="courseId" class="image-preview">
                         <button type="button" (click)="removeTitleImage()"
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="course-headline">Course Pictures</div>
+                <div class="course-headline">{{ 'Weitere Bilder' | translate}}</div>
                 <div class="col-sm-12 course-info">
                     <ul *ngIf="courseId" class="course-pictures">
                         <li *ngFor="let picture of course.pictures; let i = index">
@@ -44,44 +44,44 @@
         </div>
         <div class="col-sm-12">
             <div class="col-sm-6">
-                <div class="course-headline">General Info</div>
+                <div class="course-headline">{{ 'Allgemeine Informationen' | translate}}</div>
                 <div class="col-sm-12 course-info">
                     <app-input field="description" type="textarea" [tabindex]="11" [form]="createCourseForm"
                                [horizontal]="true"
-                               [label]="'Description'"
+                               [label]="'Description' | translate"
                     ></app-input>
                     <div class="select-wrapper">
                         <app-select2 field="categories" [form]="createCourseForm" [tabindex]="2"
-                                     [label]="'Categories' | translate"
-                                     [errorText]="'Bitte Labels auswählen!' | translate"
+                                     [label]="'Kategorien' | translate"
+                                     [errorText]="'Bitte Kategorien auswählen!' | translate"
                                      [data]="categories" [options]="options"
                         ></app-select2>
                     </div>
                     <br>
                     <app-input field="link" type="text" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                               [label]="'Link or Website'" placeholder="http://www.xxx.de"
+                               [label]="'Weblink/Website' | translate" placeholder="http://www.xxx.de"
                     ></app-input>
                     <app-input field="price" type="number" [tabindex]="5" [form]="createCourseForm" [horizontal]="true"
-                               [label]="'Price'"
+                               [label]="'Preis'"
                     ></app-input>
                 </div>
 
                 <!--Appointments-->
-                <div class="course-headline">Appointments</div>
+                <div class="course-headline">{{ 'Termine' | translate}}</div>
                 <div class="col-sm-12 course-info">
                     <calendar [creation]="true"></calendar>
                     <span>Course-Meetings:</span>
                     <div class="eventlist"></div>
                     <app-input field="duration" type="number" [tabindex]="5" [form]="createCourseForm"
-                               [horizontal]="true" [label]="'General Duration'"
+                               [horizontal]="true" [label]="'Generelle Kursdauer'"
                     ></app-input>
                 </div>
 
                 <!--Participants-->
-                <div class="course-headline">Participants</div>
+                <div class="course-headline">{{ 'Teilnahme' | translate}}</div>
                 <div class="col-sm-12 course-info">
                     <app-input field="maxMembers" type="number" [tabindex]="5" [form]="createCourseForm"
-                               [horizontal]="true" [label]="'Max. Members'"
+                               [horizontal]="true" [label]="'Maximale Teilnehmerzahl' | translate"
                     ></app-input>
                     <label class="form-control-label col-sm-6 col-form-label">SignIn Deadline</label>
                     <input type="datetime-local" class="signin_deadline form-control ng-pristine ng-valid ng-touched"
@@ -89,18 +89,19 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="course-headline">Standort</div>
+                <div class="course-headline">{{ 'Standort' | translate}}</div>
                 <div class="col-sm-12 course-info">
                     <app-map *ngIf="!courseId" [search]="true" [single]="true" [multiple]="false"></app-map>
-                    <app-map *ngIf="courseId && course" [search]="true" [single]="true" [multiple]="false" [edit]="true" [lat]="course.latitude"
+                    <app-map *ngIf="courseId && course" [search]="true" [single]="true" [multiple]="false" [edit]="true"
+                             [lat]="course.latitude"
                              [lng]="course.longitude"></app-map>
                 </div>
             </div>
             <div class="col-sm-12">
-                <app-button *ngIf="!courseId" [disabled]="!createCourseForm.valid" [tabindex]="13">{{ 'Create' |
+                <app-button *ngIf="!courseId" [disabled]="!createCourseForm.valid" [tabindex]="13">{{ 'Erstellen' |
                     translate}}
                 </app-button>
-                <app-button *ngIf="courseId" [disabled]="!createCourseForm.valid" [tabindex]="13">{{ 'Update' |
+                <app-button *ngIf="courseId" [disabled]="!createCourseForm.valid" [tabindex]="13">{{ 'Aktualisieren' |
                     translate}}
                 </app-button>
             </div>

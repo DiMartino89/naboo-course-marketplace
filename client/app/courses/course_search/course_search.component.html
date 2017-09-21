@@ -1,26 +1,26 @@
 ﻿<div class="course-search-container">
     <div class="search-headline main">
-        <div class="col-sm-9 page-headline">Search Courses</div>
+        <div class="col-sm-9 page-headline">{{ 'Kurse suchen' | translate}}</div>
     </div>
 
     <div class="col-sm-12">
         <div class="col-sm-6">
-            <div class="search-headline">Filter</div>
+            <div class="search-headline">{{ 'Filter' | translate}}</div>
             <div class="col-sm-12 search-info">
                 <form (ngSubmit)="searchForm.valid && searchCourses()">
                     <app-input field="fulltext" type="text" [tabindex]="5" [form]="searchForm" [horizontal]="true"
-                               [label]="'Fulltext' | translate"
+                               [label]="'Volltextsuche' | translate"
                     ></app-input>
                     <div class="select-wrapper">
                         <app-select2 field="categories" [form]="searchForm" [tabindex]="2"
-                                     [label]="'Categories' | translate"
-                                     [errorText]="'Bitte Labels auswählen!' | translate"
+                                     [label]="'Kategorien' | translate"
+                                     [errorText]="'Bitte Kategorien auswählen!' | translate"
                                      [data]="categories" [options]="options"
                         ></app-select2>
                     </div>
                     <app-nouislider [form]="searchForm" [minField]="'min_price'" [maxField]="'max_price'"
                                     [label]="'Preisspanne (€)' | translate"
-                                    [errorText]="'Bitte gültige Werte auswählen!'"
+                                    [errorText]="'Bitte gültige Werte auswählen!' | translate"
                                     [min]="0" [max]="sliderMax" [step]="5" [tabindex]="5"
                     ></app-nouislider>
                     <app-button [disabled]="!searchForm.valid" [tabindex]="13">{{ 'Filter' | translate}}</app-button>
@@ -28,17 +28,19 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="search-headline">Results</div>
+            <div class="search-headline">{{ 'Ergebnisse' | translate}}</div>
             <div class="col-sm-12 search-info">
                 <div class="filter row">
                     <div class="col-sm-12 col-md-6">
-                        <app-radios field="field" [form]="sortForm" [label]="'Sortieren nach' | translate" [tabindex]="12"
+                        <app-radios field="field" [form]="sortForm" [label]="'Sortieren nach' | translate"
+                                    [tabindex]="12"
                                     [values]="hasDistanceInfo ? ['name', 'createdAt', 'price', 'signInDeadline'] : ['name', 'createdAt', 'price', 'signInDeadline']"
                                     [labels]="hasDistanceInfo ? ['Name' | translate, 'Erstelldatum' | translate, 'Preis' | translate, 'Einschreibungsfrist' | translate] : ['Name' | translate, 'Erstelldatum' | translate, 'Preis' | translate, 'Einschreibungsfrist' | translate]"
                         ></app-radios>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        <app-radios field="order" [form]="sortForm" [label]="'Sortierrichtung' | translate" [tabindex]="15"
+                        <app-radios field="order" [form]="sortForm" [label]="'Sortierrichtung' | translate"
+                                    [tabindex]="15"
                                     [values]="['desc', 'asc']"
                                     [labels]="['absteigend' | translate, 'aufsteigend' | translate]"
                         ></app-radios>
@@ -60,7 +62,7 @@
                             </a>
                             <span>{{course.categories}}</span>
                             <span>{{course.price}} €</span>
-                            <span>{{changeDateFormat(course.signInDeadline)}}</span>
+                            <span>{{changeDateFormat(course.signInDeadline)}} {{ 'Uhr' | translate}}</span>
                         </div>
                     </li>
                 </ul>
