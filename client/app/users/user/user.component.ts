@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
     users: any;
 
     userCourses: any = [];
+	userFriends: any = [];
 
     requester: any;
     receiver: any;
@@ -56,6 +57,11 @@ export class UserComponent implements OnInit {
                     for (let i = 0; i < user.courses.length; i++) {
                         this.courseService.getById(user.courses[i]).subscribe(course => {
                             this.userCourses.push(course);
+                        });
+                    }
+					for (let i = 0; i < user.friends.length; i++) {
+                        this.userService.getById(user.friends[i]).subscribe(friend => {
+                            this.userFriends.push(friend);
                         });
                     }
                     if (user._id != this.currentUser._id) {

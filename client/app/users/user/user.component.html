@@ -58,8 +58,8 @@
             </div>
             <div class="user-headline">{{'Freunde' | translate}} ({{user.friends ? user.friends.length : 0}})</div>
             <div class="col-sm-12 user-info">
-                <ul>
-                    <li *ngFor="let friend of user.friends" class="col-sm-2">
+                <ul class="user-friends">
+                    <li *ngFor="let friend of userFriends" class="col-sm-2">
                         <a [routerLink]="['/users', friend._id]">
                             <div>
                                 <img class="friend-avatar"

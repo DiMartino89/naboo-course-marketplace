@@ -69,7 +69,7 @@ div::-webkit-scrollbar-thumb {
 
 /* General */
 html, body {
-    display: table;
+    display: block;
     width: 100vw;
     min-height: 100vh;
     font-family: 'GlacialIndifferenceRegular', serif;
@@ -135,6 +135,9 @@ ul {
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
     -webkit-padding-start: 0;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	padding-inline-start: 0px;
 }
 
 li {
