@@ -30,6 +30,7 @@
     "angular-ui-bootstrap": "^2.5.0",
     "aos": "^2.2.0",
     "bootstrap": "^4.0.0-beta",
+    "circles": "^0.2.0",
     "core-js": "^2.4.1",
     "fullcalendar": "^3.4.0",
     "jquery": "^3.2.1",
@@ -39,10 +40,12 @@
     "ng2-nouislider": "^1.6.1",
     "ng2-select2": "^1.0.0-beta.10",
     "nouislider": "^10.0.0",
+    "popper.js": "^1.12.5",
     "reflect-metadata": "^0.1.8",
     "rxjs": "^5.4.3",
     "select2": "^4.0.3",
     "systemjs": "0.19.39",
+    "tether": "^1.4.0",
     "zone.js": "^0.6.25"
   },
   "devDependencies": {
