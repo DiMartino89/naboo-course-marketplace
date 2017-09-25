@@ -10,5 +10,8 @@ node_modules/
 client/app/**/*.js
 client/app/**/*.map
 
+# Except assets-JS
+!client/app/_assets/js/**
+
 # File Uploads
 client/uploads/**
