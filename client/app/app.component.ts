@@ -44,6 +44,11 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!this.isLoggedIn() && this.isPage('login') || this.isPage('register')) {
+            $('.content').addClass('log');
+            $('.main-container').addClass('log');
+        }
+
         this.supportedLanguages = [
             {display: 'Deutsch', value: 'de'},
             {display: 'Englisch', value: 'en'}
