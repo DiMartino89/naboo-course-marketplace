@@ -44,11 +44,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.isLoggedIn()) {
-            $('.content').addClass('log');
-            $('.main-container').addClass('log');
-        }
-
         this.supportedLanguages = [
             {display: 'Deutsch', value: 'de'},
             {display: 'Englisch', value: 'en'}
@@ -58,8 +53,8 @@ export class AppComponent implements OnInit {
         this.selectLang(this.currentLanguage);
     }
 
-    showPanel() {
-        $('.user-panel').toggleClass('active');
+    isPage(param: string) {
+        return window.location.href.includes(param);
     }
 
     setActive(event) {
@@ -86,12 +81,12 @@ export class AppComponent implements OnInit {
         this.translatedText = this._translate.instant('hello world');
     }
 
-    private showSub(classname: string, selector: string) {
+    showSub(classname: string, selector: string) {
         $(classname).slideToggle();
         $(selector).toggleClass('active');
     }
 
-    private logout() {
+    logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
         location.reload();

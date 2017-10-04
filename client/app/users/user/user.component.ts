@@ -72,6 +72,14 @@ export class UserComponent implements OnInit {
         this.imageModal = $('#image-modal');
     }
 
+    isLoggedIn() {
+        if (this.authenticationService.userLoggedIn("user_token") != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     changeDateFormat(dateInput: any) {
         let date = new Date(dateInput);
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(

@@ -25,12 +25,23 @@
             </li>
         </ul>
     </div>
+    <div *ngIf="!isLoggedIn() && !isPage('login') && !isPage('register')" class="login-panel">
+        <ul>
+            <li>
+                <a [routerLink]="['/login']">Login</a>
+            </li>
+            /
+            <li>
+                <a [routerLink]="['/register']">Register</a>
+            </li>
+        </ul>
+    </div>
 </div>
-<header *ngIf="isLoggedIn()" class="col-sm-12">
+<header *ngIf="!isPage('login') && !isPage('register')" class="col-sm-12">
     <div class="app-logo">
         <a [routerLink]="['/']"><img class="col-sm-12" [src]="'app/_assets/images/logo2.png'"/></a>
     </div>
-    <div class="app-avatar">
+    <div *ngIf="isLoggedIn()" class="app-avatar">
         <div>
             <a [routerLink]="['/user', currentUser._id]">
                 <img *ngIf="currentUser" class="col-sm-12"
@@ -39,7 +50,7 @@
         </div>
     </div>
 </header>
-<div *ngIf="isLoggedIn()" class="col-sm-2 sidebar">
+<div *ngIf="!isPage('login') && !isPage('register')" class="col-sm-2 sidebar">
     <ul>
         <li>
             <i class="fa fa-home"></i>
@@ -47,7 +58,7 @@
                 <span>{{'Home' | translate}}</span>
             </a>
         </li>
-        <li>
+        <li *ngIf="isLoggedIn()">
             <i class="fa fa-tachometer"></i>
             <a (click)="setActive($event)" [routerLink]="['/dashboard']">
                 <span>{{'Dashboard' | translate}}</span>
@@ -74,12 +85,12 @@
                 <i class="fa fa-search"></i>
                 <a (click)="setActive($event)" [routerLink]="['/course/search']">{{'Suche' | translate}}</a>
             </li>
-            <li>
+            <li *ngIf="isLoggedIn()">
                 <i class="fa fa-pencil"></i>
                 <a (click)="setActive($event)" [routerLink]="['/course/create']">{{'Erstellen' | translate}}</a>
             </li>
         </ul>
-        <li>
+        <li *ngIf="isLoggedIn()">
             <i class="fa fa-envelope-o"></i>
             <a (click)="setActive($event)" [routerLink]="['/messages']"><span>{{'Nachrichten' | translate}}</span></a>
         </li>

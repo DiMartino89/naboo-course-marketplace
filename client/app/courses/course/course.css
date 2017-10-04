@@ -29,6 +29,7 @@
 }
 
 .course-container .edit-panel i {
+    padding: 5px;
     line-height: 34px;
     font-size: 25px;
     cursor: pointer;

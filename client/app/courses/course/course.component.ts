@@ -2,6 +2,7 @@
 import {Router, ActivatedRoute, Params, NavigationStart} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService, UserService, CourseService, AlertService} from '../../_services/index';
+import {TranslateService} from "../../translate/translate.service";
 
 declare var $: any;
 declare var Circles: any;
@@ -34,6 +35,7 @@ export class CourseComponent implements OnInit {
                 private userService: UserService,
                 private courseService: CourseService,
                 private alertService: AlertService,
+                private _translate: TranslateService,
                 private activatedRoute: ActivatedRoute,
                 private authenticationService: AuthenticationService,
                 private router: Router) {
@@ -104,6 +106,14 @@ export class CourseComponent implements OnInit {
         this.today = new Date();
     }
 
+    isLoggedIn() {
+        if (this.authenticationService.userLoggedIn("user_token") != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     bookCourse(userId: any) {
         this.currentUser.bookedCourses.push(this.courseId);
         this.userService.update(this.currentUser).subscribe(() => {
@@ -113,7 +123,7 @@ export class CourseComponent implements OnInit {
                 course => {
                     course.members.push(userId);
                     this.courseService.update(course).subscribe(() => {
-                        this.alertService.success('Course-Booking successful', true);
+                        this.alertService.success('Kurs erfolgreich gebucht!', true);
                     });
                 });
     }
@@ -127,7 +137,7 @@ export class CourseComponent implements OnInit {
                 course => {
                     course.members.slice(userId, 1);
                     this.courseService.update(course).subscribe(() => {
-                        this.alertService.success('Course-Booking successful', true);
+                        this.alertService.success('Kurs erfolgreich storniert!', true);
                     });
                 });
     }
@@ -139,12 +149,21 @@ export class CourseComponent implements OnInit {
                 review.user = this.currentUser._id;
                 course.rating += (review.rating / (course.reviews.length + 1));
                 course.reviews.push(review);
-                this.courseService.update(course).subscribe(() => {
-                });
+                this.courseService.update(course).subscribe(() => {});
                 this.reviewModal.modal('hide');
+                location.reload();
+                this.alertService.success(this._translate.instant('Kurs erfolgreich bewertet!'));
             } else {
-                this.alertService.error('You already rated the course!');
+                this.alertService.error(this._translate.instant('Sie haben den Kurs bereits bewertet!'));
             }
+        });
+    }
+
+    deleteCourse() {
+        this.courseService.delete(this.courseId).subscribe(() => {
+            this.router.navigate(['/dashboard']);
+            location.reload();
+            this.alertService.success(this._translate.instant('Kurs erfolgreich gelöscht!'), true);
         });
     }
 
@@ -152,6 +171,12 @@ export class CourseComponent implements OnInit {
         let date = new Date(dateInput);
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
             '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
+    }
+
+    signInDateFormat(dateInput: any) {
+        let date = new Date(dateInput);
+        return [date.getFullYear(), ('0' + (date.getMonth() + 1)).slice(-2), ('0' + date.getDate()).slice(-2)].join(
+            '-') + 'T' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
     }
 
     openImageModal(image: any) {

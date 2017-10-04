@@ -1,10 +1,11 @@
 ﻿<div class="course-container">
     <div class="course-headline main">
         <div class="col-sm-9 page-headline">{{course.name}}</div>
-        <div class="col-sm-3 edit-panel">
+        <div *ngIf="isLoggedIn()" class="col-sm-3 edit-panel">
             <i *ngIf="currentUser._id != courseOwner._id && course.reviews && !course.reviews.indexOf(currentUser._id)"
                class="fa fa-star-o" (click)="openReviewModal()"></i>
-            <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-pencil-square-o"></i>
+            <a [routerLink]="['/course/edit/', course._id]" ><i *ngIf="currentUser._id == courseOwner._id" class="fa fa-pencil-square-o"></i></a>
+            <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-trash" (click)="deleteCourse()"></i>
         </div>
     </div>
     <div class="col-sm-12">
@@ -91,9 +92,9 @@
                 </div>
                 <p class="col-sm-12 deadline">{{ 'Einschreibung bis' | translate}}:
                     <span>{{changeDateFormat(course.signInDeadline)}}</span> | Status:
-                    <i *ngIf="changeDateFormat(course.signInDeadline) >= changeDateFormat(today)"
+                    <i *ngIf="course.signInDeadline >= signInDateFormat(today)"
                        class="fa fa-check"></i>
-                    <i *ngIf="changeDateFormat(course.signInDeadline) < changeDateFormat(today)"
+                    <i *ngIf="course.signInDeadline < signInDateFormat(today)"
                        class="fa fa-times"></i>
                 </p>
             </div>

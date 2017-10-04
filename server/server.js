@@ -12,7 +12,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
-app.use(expressJwt({secret: config.secret}).unless({path: ['/users/login', '/users/register']}));
+app.use(expressJwt({secret: config.secret}).unless({path: ['/users/login', '/users/register', '/users', /^\/users\/.*/, '/courses', /^\/courses\/.*/]}));
 
 // routes
 app.use('/users', require('./controllers/users.controller'));

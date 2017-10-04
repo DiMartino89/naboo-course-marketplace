@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
                             },
                             error => {
                                 if (error.status == 404) {
-                                    this.alertService.error(this._translate.instant('Email oder Passwort nicht korrekt!!'));
+                                    this.alertService.error(this._translate.instant('Email oder Passwort nicht korrekt!'));
                                 }
                             });
                 },

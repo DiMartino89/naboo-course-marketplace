@@ -30,6 +30,7 @@ export const LANG_EN_TRANS = {
     /* HOME */
     'Neueste Kurse': 'Latest Courses',
     'Top Kurse': 'Top Rated Courses',
+    'Erstellt am':'Created at',
     'Einschreibung bis': 'Sign-In until',
     'Uhr': "o'clock",
 
@@ -72,6 +73,11 @@ export const LANG_EN_TRANS = {
     'Aktuelle Teilnehmer': 'Current Participants',
     'Bewertungen': 'Reviews',
     'Standort': 'Location',
+    'Kurs erfolgreich gebucht!':'Course successfully booked!',
+    'Kurs erfolgreich storniert!':'Course-Booking successfully canceled!',
+    'Kurs erfolgreich gelöscht!':'Course successfully deleted!',
+    'Kurs erfolgreich bewertet!':'Course successfully rated',
+    'Sie haben den Kurs bereits bewertet!':'You already voted for this course!',
 
     /* COURSE-CREATE */
     'Kurs Erstellen': 'Create a Course',

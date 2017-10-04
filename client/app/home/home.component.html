@@ -23,9 +23,10 @@
                     </div>
                     <div class="col-sm-12">
                         <h2>{{course.name}}</h2>
+                        <p>{{'Erstellt am' | translate}}:</p>
                         <small style="color: #AAA;">{{course.createdAt}} {{'Uhr' | translate}}</small>
-                        <p>{{'Einschreibung bis' | translate}}: <small style="color: #AAA;">{{changeDateFormat(course.signInDeadline)}} {{'Uhr' |
-                            translate}}</small></p>
+                        <p>{{'Einschreibung bis' | translate}}:<p>
+                        <small style="color: #AAA;">{{changeDateFormat(course.signInDeadline)}} {{'Uhr' | translate}}</small>
                         <p>{{course.description | truncate : 5}}</p>
                     </div>
                 </li>
@@ -44,9 +45,10 @@
                     </div>
                     <div class="col-sm-12">
                         <h2>{{course.name}}</h2>
+                        <p>{{'Erstellt am' | translate}}:</p>
                         <small style="color: #AAA;">{{course.createdAt}} {{'Uhr' | translate}}</small>
-                        <p>{{'Einschreibung bis' | translate}}: <small style="color: #AAA;">{{changeDateFormat(course.signInDeadline)}} {{'Uhr' |
-                            translate}}</small></p>
+                        <p>{{'Einschreibung bis' | translate}}:</p>
+                        <small style="color: #AAA;">{{changeDateFormat(course.signInDeadline)}} {{'Uhr' | translate}}</small>
                         <p>{{course.description | truncate : 5}}</p>
                     </div>
                 </li>

@@ -1,7 +1,7 @@
 ﻿<div class="user-container">
     <div class="user-headline main">
         <div class="col-sm-9 page-headline">{{user.name}}</div>
-        <div class="col-sm-3 edit-panel">
+        <div *ngIf="isLoggedIn()" class="col-sm-3 edit-panel">
             <a *ngIf="currentUser._id != user._id" [routerLink]="['/messages/', user._id]">
                 <i class="fa fa-envelope-o"></i>
             </a>

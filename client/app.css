@@ -348,6 +348,15 @@ header {
     line-height: 20px;
 }
 
+.login-panel {
+    display: table;
+}
+
+.login-panel li {
+    display: inline-block;
+    padding: 10px;
+}
+
 .sidebar {
     position: fixed;
     display: block;
