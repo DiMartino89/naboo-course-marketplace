@@ -84,7 +84,6 @@
     color: #CCC;
 }
 
-.filter {
+.course-search-container .filter {
     color: #FFF;
-    border-bottom: 1px solid #FFF;
 }
