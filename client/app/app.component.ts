@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
         $(classname).slideToggle();
         $(selector).toggleClass('active');
     }
-	
+
     logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);

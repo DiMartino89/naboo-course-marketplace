@@ -10,43 +10,43 @@ var router = express.Router();
 var DIR = '../client/uploads/';
 
 var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, DIR)
     },
-    filename: function(req, file, cb) {
-        crypto.pseudoRandomBytes(16, function(err, raw) {
+    filename: function (req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
             var type = file.originalname.split('.')[1];
             cb(null, raw.toString('hex') + Date.now() + '.' + type);
         });
     }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({storage: storage});
 
-router.post('/user_avatar', upload.any(), function(req, res, next) {
+router.post('/user_avatar', upload.any(), function (req, res, next) {
     res.end(req.files[0].filename + '$');
 });
 
-router.post('/user_titleImage', upload.any(), function(req, res, next) {
+router.post('/user_titleImage', upload.any(), function (req, res, next) {
     res.end(req.files[0].filename);
 });
 
-router.post('/user_pictures', upload.any(), function(req, res, next) {
+router.post('/user_pictures', upload.any(), function (req, res, next) {
     var images = '';
-    for(var i=0; i < req.files.length; i++) {
+    for (var i = 0; i < req.files.length; i++) {
         images += req.files[i].filename + ',';
     }
     res.end(images);
 });
 
-router.post('/course_titleImage', upload.any(), function(req, res, next) {
+router.post('/course_titleImage', upload.any(), function (req, res, next) {
     console.log(req.files);
     res.end(req.files[0].filename);
 });
 
-router.post('/course_pictures', upload.any(), function(req, res, next) {
+router.post('/course_pictures', upload.any(), function (req, res, next) {
     var images = '';
-    for(var i=0; i < req.files.length; i++) {
+    for (var i = 0; i < req.files.length; i++) {
         images += req.files[i].filename + ',';
     }
     res.end(images);

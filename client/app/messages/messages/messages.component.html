@@ -9,8 +9,9 @@
                 <ul>
                     <li *ngFor="let message of messages; let i = index;" class="message-item">
                         <a [routerLink]="['/messages/', message]">
-							<img *ngIf="currentUser" class="col-sm-3" [src]="chatAvatars[i] ? '/uploads/' + chatAvatars[i] : '/app/_assets/images/default-avatar.png'"/>
-							{{chatNames[i]}}</a>
+                            <img *ngIf="currentUser" class="col-sm-3"
+                                 [src]="chatAvatars[i] ? '/uploads/' + chatAvatars[i] : '/app/_assets/images/default-avatar.png'"/>
+                            {{chatNames[i]}}</a>
                     </li>
                 </ul>
             </div>

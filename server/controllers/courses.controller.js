@@ -15,7 +15,7 @@ module.exports = router;
 function create(req, res) {
     courseService.create(req.body)
         .then(function (course) {
-			if (course) {
+            if (course) {
                 res.send(course);
                 res.sendStatus(200);
             } else {

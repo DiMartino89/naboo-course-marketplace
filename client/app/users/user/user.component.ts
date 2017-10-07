@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
     users: any;
 
     userCourses: any = [];
-	userFriends: any = [];
+    userFriends: any = [];
 
     requester: any;
     receiver: any;
@@ -59,7 +59,7 @@ export class UserComponent implements OnInit {
                             this.userCourses.push(course);
                         });
                     }
-					for (let i = 0; i < user.friends.length; i++) {
+                    for (let i = 0; i < user.friends.length; i++) {
                         this.userService.getById(user.friends[i]).subscribe(friend => {
                             this.userFriends.push(friend);
                         });

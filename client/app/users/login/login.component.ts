@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     this.alertService.error(this._translate.instant('Ein Nutzer mit entsprechenden Login-Daten wurde nicht gefunden!'));
-					$('alert').first().hide();
+                    $('alert').first().hide();
                 });
     }
 }

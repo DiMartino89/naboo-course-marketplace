@@ -25,9 +25,9 @@ export class SingleChatComponent implements OnInit, AfterViewInit {
                 private formBuilder: FormBuilder,
                 private authenticationService: AuthenticationService,
                 private userService: UserService) {
-		this.activatedRoute.params.subscribe((params: Params) => {
-			this.userId = params['id'];
-		});
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.userId = params['id'];
+        });
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
                 this.currentUser = user;
@@ -65,10 +65,10 @@ export class SingleChatComponent implements OnInit, AfterViewInit {
             createdAt: this.changeDateFormat(new Date())
         });
     }
-	
-	ngAfterViewInit() {
-		this.updateScroll();
-	}
+
+    ngAfterViewInit() {
+        this.updateScroll();
+    }
 
     sendMessage() {
         this.userService.getById(this.userId).subscribe(user => {
@@ -79,16 +79,18 @@ export class SingleChatComponent implements OnInit, AfterViewInit {
             } else {
                 user.messages[this.currentUser._id] = [message];
             }
-            this.userService.update(user).subscribe(() => {});
+            this.userService.update(user).subscribe(() => {
+            });
             if (this.currentUser.messages[this.userId] != null) {
                 this.currentUser.messages[this.userId].push(message);
             } else {
                 this.currentUser.messages[this.userId] = [message];
             }
-            this.userService.update(this.currentUser).subscribe(() => {});
+            this.userService.update(this.currentUser).subscribe(() => {
+            });
             localStorage.setItem(this.currentUser._id + '_messages', JSON.stringify(this.messagesLength++));
         });
-		this.updateScroll();
+        this.updateScroll();
     }
 
     changeDateFormat(dateInput: any) {
@@ -96,8 +98,8 @@ export class SingleChatComponent implements OnInit, AfterViewInit {
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
             '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
     }
-	
-	updateScroll() {
-		$(".chat-info").animate({ scrollTop: $(".chat-info")[0].scrollHeight }, 1000);
-	}
+
+    updateScroll() {
+        $(".chat-info").animate({scrollTop: $(".chat-info")[0].scrollHeight}, 1000);
+    }
 }

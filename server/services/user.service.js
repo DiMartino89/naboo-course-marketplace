@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var Q = require('q');
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/quodo", { native_parser: true });
+var db = mongo.db("mongodb://localhost:27017/quodo", {native_parser: true});
 db.bind('users');
 
 var service = {};
@@ -21,15 +21,15 @@ module.exports = service;
 function authenticate(email, password) {
     var deferred = Q.defer();
 
-    db.users.findOne({ email: email }, function (err, user) {
+    db.users.findOne({email: email}, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         if (user && bcrypt.compareSync(password, user.hash)) {
             // authentication successful
-			deferred.resolve({
+            deferred.resolve({
                 _id: user._id,
                 enabled: user.enabled,
-                token: jwt.sign({ sub: user._id }, config.secret)
+                token: jwt.sign({sub: user._id}, config.secret)
             });
         } else {
             // authentication failed
@@ -44,9 +44,9 @@ function create(userParam) {
     var deferred = Q.defer();
 
     // validation
-    db.users.findOne({ email: userParam.email }, function (err, user) {
+    db.users.findOne({email: userParam.email}, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
-		
+
         if (user) {
             // email already exists
             deferred.reject('Email "' + userParam.email + '" is already taken');
@@ -63,10 +63,12 @@ function create(userParam) {
         user.hash = bcrypt.hashSync(userParam.password, 10);
 
         db.users.insert(user, function (err, doc) {
-            if (err) { deferred.reject(err.name + ': ' + err.message); }
-			var id = doc["ops"][0]["_id"];
-			user._id = id;
-			deferred.resolve(_.omit(user, 'hash'));
+            if (err) {
+                deferred.reject(err.name + ': ' + err.message);
+            }
+            var id = doc["ops"][0]["_id"];
+            user._id = id;
+            deferred.resolve(_.omit(user, 'hash'));
         });
     }
 
@@ -75,19 +77,19 @@ function create(userParam) {
 
 function update(_id, userParam) {
     var deferred = Q.defer();
-	if(userParam["_id"]) {
-		delete userParam["_id"];
-	}
-	if(userParam["email"]) {
-		delete userParam["email"];
-	}
-	
-	updateUser();
+    if (userParam["_id"]) {
+        delete userParam["_id"];
+    }
+    if (userParam["email"]) {
+        delete userParam["email"];
+    }
 
-    function updateUser() {		
+    updateUser();
+
+    function updateUser() {
         db.users.update(
-            { _id: mongo.helper.toObjectID(_id) },
-            { $set: userParam },
+            {_id: mongo.helper.toObjectID(_id)},
+            {$set: userParam},
             function (err, doc) {
                 if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -102,7 +104,7 @@ function _delete(_id) {
     var deferred = Q.defer();
 
     db.users.remove(
-        { _id: mongo.helper.toObjectID(_id) },
+        {_id: mongo.helper.toObjectID(_id)},
         function (err) {
             if (err) deferred.reject(err.name + ': ' + err.message);
 

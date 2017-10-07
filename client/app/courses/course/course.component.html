@@ -4,8 +4,11 @@
         <div *ngIf="isLoggedIn()" class="col-sm-3 edit-panel">
             <i *ngIf="currentUser._id != courseOwner._id && course.reviews && course.reviews[currentUser._id] == undefined"
                class="fa fa-star-o" (click)="openReviewModal()" title="Rate this Course"></i>
-            <a [routerLink]="['/course/' + course._id + '/edit']" ><i *ngIf="currentUser._id == courseOwner._id" class="fa fa-pencil-square-o" title="Edit this Course"></i></a>
-            <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-trash" (click)="deleteCourse()" title="Delete this Course"></i>
+            <a [routerLink]="['/course/' + course._id + '/edit']"><i *ngIf="currentUser._id == courseOwner._id"
+                                                                     class="fa fa-pencil-square-o"
+                                                                     title="Edit this Course"></i></a>
+            <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-trash" (click)="deleteCourse()"
+               title="Delete this Course"></i>
         </div>
     </div>
     <div class="col-sm-12">
@@ -100,7 +103,8 @@
             </div>
             <div class="col-sm-12 course-info reviews">
                 <ul *ngIf="reviews && reviews.length" class="course-rating">
-                    <li *ngFor="let review of reviews | orderBy : ['createdAt']; let i=index" class="col-sm-12 review-item">
+                    <li *ngFor="let review of reviews | orderBy : ['createdAt']; let i=index"
+                        class="col-sm-12 review-item">
                         <div class="review-item-head">
                             <a [routerLink]="['/user', review.user]">
                                 <img class="review-avatar"

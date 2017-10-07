@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var Q = require('q');
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/quodo", { native_parser: true });
+var db = mongo.db("mongodb://localhost:27017/quodo", {native_parser: true});
 db.bind('courses');
 
 var service = {};
@@ -24,8 +24,10 @@ function create(courseParam) {
         db.courses.insert(course, function (err, doc) {
             var id = doc["ops"][0]["_id"];
             course._id = id;
-            if (err) { deferred.reject(err.name + ': ' + err.message); }
-			deferred.resolve(_.omit(course, ''));
+            if (err) {
+                deferred.reject(err.name + ': ' + err.message);
+            }
+            deferred.resolve(_.omit(course, ''));
         });
     }
 
@@ -34,16 +36,16 @@ function create(courseParam) {
 
 function update(_id, courseParam) {
     var deferred = Q.defer();
-	if(courseParam["_id"]) {
-		delete courseParam["_id"];
-	}
-	
-	updateCourse();
+    if (courseParam["_id"]) {
+        delete courseParam["_id"];
+    }
 
-    function updateCourse() {		
+    updateCourse();
+
+    function updateCourse() {
         db.courses.update(
-            { _id: mongo.helper.toObjectID(_id) },
-            { $set: courseParam },
+            {_id: mongo.helper.toObjectID(_id)},
+            {$set: courseParam},
             function (err, doc) {
                 if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -58,7 +60,7 @@ function _delete(_id) {
     var deferred = Q.defer();
 
     db.courses.remove(
-        { _id: mongo.helper.toObjectID(_id) },
+        {_id: mongo.helper.toObjectID(_id)},
         function (err) {
             if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -73,7 +75,7 @@ function getAll() {
 
     db.courses.find().toArray(function (err, courses) {
         if (err) deferred.reject(err.name + ': ' + err.message);
-		
+
         courses = _.map(courses, function (course) {
             return _.omit(course, '');
         });

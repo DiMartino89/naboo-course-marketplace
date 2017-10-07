@@ -8,15 +8,18 @@
             <a *ngIf="currentUser._id == user._id" [routerLink]="['/user/' + user._id + '/edit']">
                 <i class="fa fa-pencil-square-o"></i>
             </a>
-            <button class="btn-panel" *ngIf="currentUser._id != user._id && currentUser.friends && user.friendRequests && !user.friendRequests.includes(currentUser._id) && !currentUser.friends.includes(user._id)"
+            <button class="btn-panel"
+                    *ngIf="currentUser._id != user._id && currentUser.friends && user.friendRequests && !user.friendRequests.includes(currentUser._id) && !currentUser.friends.includes(user._id)"
                     (click)="sendFriendRequest(user)">
                 <i class="fa fa-user-plus"></i>
             </button>
-            <button class="btn-panel" *ngIf="currentUser._id != user._id && user.friendRequests && user.friendRequests.includes(currentUser._id)"
+            <button class="btn-panel"
+                    *ngIf="currentUser._id != user._id && user.friendRequests && user.friendRequests.includes(currentUser._id)"
                     (click)="cancelFriendRequest(user)">
                 <i class="fa fa-ban"></i>
             </button>
-            <button class="btn-panel" *ngIf="currentUser._id != user._id && currentUser.friends && currentUser.friends.includes(user._id)"
+            <button class="btn-panel"
+                    *ngIf="currentUser._id != user._id && currentUser.friends && currentUser.friends.includes(user._id)"
                     (click)="removeFriend(user._id)">
                 <i class="fa fa-user-times"></i>
             </button>

@@ -70,10 +70,10 @@
 }
 
 .course-container app-review.single .review-rating {
-	display: table;
+    display: table;
     position: relative;
-	float: right;
-	margin: 28px 0;
+    float: right;
+    margin: 28px 0;
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.1);
     border: 0;
