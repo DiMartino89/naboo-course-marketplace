@@ -62,7 +62,7 @@ export class SearchCourseComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.adjustSliderToOffers();
+        this.adjustSliderToCourses();
     }
 
     searchCourses() {
@@ -140,7 +140,7 @@ export class SearchCourseComponent implements OnInit, AfterViewInit {
         this.sortForm.statusChanges.subscribe(this.sortCourses.bind(this));
     }
 
-    private adjustSliderToOffers() {
+    private adjustSliderToCourses() {
         if (this.courses.length) {
             this.sliderMax = this.courses.reduce((p, c) => p.price > c.price ? p : c).price;
 
