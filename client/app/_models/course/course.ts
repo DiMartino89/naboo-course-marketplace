@@ -13,8 +13,8 @@
     link: string;
     appointments: any;
     duration: number;
-    rating: number;
-    reviews: any[] = [];
+    rating: any;
+    reviews: any = {};
     pictures: string[] = [];
     createdAt: any;
     updatedAt: any;

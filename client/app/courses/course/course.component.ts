@@ -1,7 +1,7 @@
 ﻿import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params, NavigationStart} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService, UserService, CourseService, AlertService} from '../../_services/index';
+import {AuthenticationService, UserService, CourseService, AlertService, DataService} from '../../_services/index';
 import {TranslateService} from "../../translate/translate.service";
 
 declare var $: any;
@@ -22,6 +22,10 @@ export class CourseComponent implements OnInit {
     courseId: string;
 
     courseMembers: any = [];
+	
+	reviews: any = [];
+	reviewersNames: any = [];
+	reviewersAvatars: any = [];
 
     image: any;
     imageModal: any;
@@ -32,6 +36,7 @@ export class CourseComponent implements OnInit {
     today: Date;
 
     constructor(private formBuilder: FormBuilder,
+				private dataService: DataService,
                 private userService: UserService,
                 private courseService: CourseService,
                 private alertService: AlertService,
@@ -44,6 +49,9 @@ export class CourseComponent implements OnInit {
                 this.currentUser = user;
             });
         }
+		this.activatedRoute.params.subscribe((params: Params) => {
+            this.courseId = params['id'];
+        });
 
         router.events.subscribe((evt) => {
             if (evt instanceof NavigationStart && this.imageModal && this.imageModal.is(':visible')) {
@@ -56,10 +64,7 @@ export class CourseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.params.subscribe((params: Params) => {
-            this.courseId = params['id'];
-        });
-        this.courseService.getById(this.courseId)
+		this.courseService.getById(this.courseId)
             .subscribe(
                 course => {
                     this.course = course;
@@ -71,6 +76,14 @@ export class CourseComponent implements OnInit {
                             this.courseMembers.push(user);
                         });
                     }
+					Object.keys(course.reviews).forEach((key) => {	
+						this.userService.getById(key).subscribe(user => {
+							this.reviewersNames.push(user.name);
+							this.reviewersAvatars.push(user.avatar);
+						});
+						this.reviews.push(course.reviews[key][0]);
+					});
+					this.sortReviews('createdAt');
                     if (course.owner !== this.currentUser._id) {
                         this.courseService.addViewedCourse(this.currentUser._id, this.courseId);
                     }
@@ -92,7 +105,7 @@ export class CourseComponent implements OnInit {
                         styleText: true
                     });
                 });
-
+				
         this.reviewForm = this.formBuilder.group({
             rating: [0, Validators.required],
             description: ['', [Validators.required, Validators.maxLength(500)]],
@@ -113,7 +126,21 @@ export class CourseComponent implements OnInit {
             return false;
         }
     }
+	
+	sortReviews(kind: string) {
+        const direction = 'desc';
 
+        this.reviews = this.reviews.sort((a, b) => {
+            if (a[kind] > b[kind] && direction === 'desc') {
+                return -1;
+            } else if (a[kind] < b[kind] && direction === 'desc') {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    }
+	
     bookCourse(userId: any) {
         this.currentUser.bookedCourses.push(this.courseId);
         this.userService.update(this.currentUser).subscribe(() => {
@@ -123,6 +150,7 @@ export class CourseComponent implements OnInit {
                 course => {
                     course.members.push(userId);
                     this.courseService.update(course).subscribe(() => {
+						location.reload();
                         this.alertService.success('Kurs erfolgreich gebucht!', true);
                     });
                 });
@@ -143,19 +171,16 @@ export class CourseComponent implements OnInit {
     }
 
     reviewCourse() {
-        this.courseService.getById(this.courseId).subscribe(course => {
-            if (!course.reviews.includes(this.currentUser._id)) {
+        this.courseService.getById(this.courseId).subscribe(course => {      
                 const review = this.reviewForm.value;
                 review.user = this.currentUser._id;
-                course.rating += (review.rating / (course.reviews.length + 1));
-                course.reviews.push(review);
+                course.rating += review.rating;
+				course.rating = course.rating / (Object.keys(course.reviews).length + 1);
+                course.reviews[this.currentUser._id] = [review];
                 this.courseService.update(course).subscribe(() => {});
                 this.reviewModal.modal('hide');
                 location.reload();
                 this.alertService.success(this._translate.instant('Kurs erfolgreich bewertet!'));
-            } else {
-                this.alertService.error(this._translate.instant('Sie haben den Kurs bereits bewertet!'));
-            }
         });
     }
 

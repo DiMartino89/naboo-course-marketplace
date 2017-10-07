@@ -27,7 +27,7 @@
             <div class="image-wrapper">
                 <img [src]="user.titleImage ? '/uploads/' + user.titleImage : '/app/_assets/images/default-titleImage.png'"
                      style="width:100%;height:auto;"/>
-                <a [routerLink]="['/user', user ? user._id : 0]" class="user">
+                <a href="/user/{{user._id}}" class="user">
                     <img *ngIf="user" class="user-avatar oval"
                          [src]="user.avatar ? '/uploads/' + user.avatar : '/app/_assets/images/default-avatar.png'"/>
                 </a>
@@ -60,7 +60,7 @@
             <div class="col-sm-12 user-info">
                 <ul class="user-friends">
                     <li *ngFor="let friend of userFriends" class="col-sm-2">
-                        <a [routerLink]="['/users', friend._id]">
+                        <a href="/user/{{friend._id}}">
                             <div>
                                 <img class="friend-avatar"
                                      [src]="friend.avatar ? '/uploads/' + friend.avatar : '/app/_assets/images/default-avatar.png'"/>
@@ -78,7 +78,7 @@
                 <ul class="col-sm-12">
                     <li *ngFor="let course of userCourses;" class="col-sm-12 course-item">
                         <div class="col-sm-4">
-                            <a [routerLink]="['/course', course._id]">
+                            <a href="/course/{{course._id}}">
                                 <div>
                                     <img class="course-image"
                                          [src]="course.titleImage ? '/uploads/' + course.titleImage : '/app/_assets/images/default-titleImage.png'"/>

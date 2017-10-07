@@ -44,11 +44,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.isLoggedIn() && this.isPage('login') || this.isPage('register')) {
-            $('.content').addClass('log');
-            $('.main-container').addClass('log');
-        }
-
         this.supportedLanguages = [
             {display: 'Deutsch', value: 'de'},
             {display: 'Englisch', value: 'en'}
@@ -90,12 +85,9 @@ export class AppComponent implements OnInit {
         $(classname).slideToggle();
         $(selector).toggleClass('active');
     }
-
+	
     logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
-        location.reload();
-        this.alertService.success('Erfolgreich ausgeloggt!', true);
-        this.isLoggedIn();
     }
 }

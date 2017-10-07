@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {AuthenticationService} from "../../_services/authentication/authentication.service";
 import {UserService} from "../../_services/user/user.service";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -10,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
     templateUrl: 'single_chat.component.html'
 })
 
-export class SingleChatComponent implements OnInit {
+export class SingleChatComponent implements OnInit, AfterViewInit {
     currentUser: any = {};
     userId: any;
     user: any = {};
@@ -25,11 +25,14 @@ export class SingleChatComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private authenticationService: AuthenticationService,
                 private userService: UserService) {
+		this.activatedRoute.params.subscribe((params: Params) => {
+			this.userId = params['id'];
+		});
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
                 this.currentUser = user;
                 Object.keys(user.messages).forEach((key) => {
-                    if (user.messages[key] && this.userId) {
+                    if (key === this.userId) {
                         this.messages = user.messages[key];
                     }
                 });
@@ -50,9 +53,6 @@ export class SingleChatComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.params.subscribe((params: Params) => {
-            this.userId = params['id'];
-        });
         this.userService.getById(this.userId)
             .subscribe(
                 user => {
@@ -65,6 +65,10 @@ export class SingleChatComponent implements OnInit {
             createdAt: this.changeDateFormat(new Date())
         });
     }
+	
+	ngAfterViewInit() {
+		this.updateScroll();
+	}
 
     sendMessage() {
         this.userService.getById(this.userId).subscribe(user => {
@@ -75,17 +79,16 @@ export class SingleChatComponent implements OnInit {
             } else {
                 user.messages[this.currentUser._id] = [message];
             }
-            this.userService.update(user).subscribe(() => {
-            });
+            this.userService.update(user).subscribe(() => {});
             if (this.currentUser.messages[this.userId] != null) {
                 this.currentUser.messages[this.userId].push(message);
             } else {
                 this.currentUser.messages[this.userId] = [message];
             }
-            this.userService.update(this.currentUser).subscribe(() => {
-            });
+            this.userService.update(this.currentUser).subscribe(() => {});
             localStorage.setItem(this.currentUser._id + '_messages', JSON.stringify(this.messagesLength++));
         });
+		this.updateScroll();
     }
 
     changeDateFormat(dateInput: any) {
@@ -93,4 +96,8 @@ export class SingleChatComponent implements OnInit {
         return [('0' + date.getDate()).slice(-2), ('0' + (date.getMonth() + 1)).slice(-2), date.getFullYear()].join(
             '.') + ' ' + [('0' + date.getHours()).slice(-2), ('0' + date.getMinutes()).slice(-2)].join(':');
     }
+	
+	updateScroll() {
+		$(".chat-info").animate({ scrollTop: $(".chat-info")[0].scrollHeight }, 1000);
+	}
 }

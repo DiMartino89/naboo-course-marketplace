@@ -1,36 +1,39 @@
-﻿<div class="registration-logo">
-    <a [routerLink]="['/']"><img class="col-sm-12" [src]="'app/_assets/images/logo2.png'"/></a>
-</div>
-<div class="registration-content">
-    <div class="container-nav">
-        <ul>
-            <li class="nav-item"><a [routerLink]="['/login']">{{'Einloggen' | translate}}</a></li>
-            <li class="nav-item active"><a [routerLink]="['/register']">{{'Registrieren' | translate}}</a></li>
-        </ul>
-    </div>
-    <div class="registration-container">
-        <form (ngSubmit)="registrationForm.valid && register()">
-            <fieldset>
-                <app-input field="email" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
-                           [label]="'Email' | translate" [errorText]="'Bitte geben Sie Ihre Email an!' | translate"
-                ></app-input>
-                <app-input field="email_repeat" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
-                           [label]="'Email bestätigen' | translate"
-                           [errorText]="'Bitte geben Sie Ihre Email erneut ein!' | translate"
-                ></app-input>
-                <app-input field="name" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
-                           [label]="'Nutzername' | translate"
-                           [errorText]="'Bitte geben Sie einen Nutzernamen an!' | translate"
-                ></app-input>
-                <app-input field="password" type="password" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
-                           [label]="'Passwort' | translate" [showForgotPasswordLink]="false"
-                           [errorText]="'Bitte geben Sie ein Passwort ein!' | translate"
-                ></app-input>
-            </fieldset>
-            <fieldset>
-                <app-button [disabled]="!registrationForm.valid" [tabindex]="13">{{ 'Registrieren' | translate}}
-                </app-button>
-            </fieldset>
-        </form>
-    </div>
+﻿<div class="login-wrapper">
+	<div class="registration-logo">
+		<a [routerLink]="['/']"><img class="col-sm-12" [src]="'app/_assets/images/logo2.png'"/></a>
+	</div>
+	<div class="registration-content">
+		<div class="container-nav">
+			<ul>
+				<li class="nav-item"><a [routerLink]="['/login']">{{'Einloggen' | translate}}</a></li>
+				<li class="nav-item active"><a [routerLink]="['/register']">{{'Registrieren' | translate}}</a></li>
+			</ul>
+		</div>
+		<div class="registration-container">
+			<form (ngSubmit)="registrationForm.valid && register()">
+				<fieldset>
+					<app-input field="email" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
+							   [label]="'Email' | translate" [errorText]="'Bitte geben Sie Ihre Email an!' | translate"
+					></app-input>
+					<app-input field="email_repeat" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
+							   [label]="'Email bestätigen' | translate"
+							   [errorText]="'Bitte geben Sie Ihre Email erneut ein!' | translate"
+					></app-input>
+					<app-input field="name" type="text" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
+							   [label]="'Nutzername' | translate"
+							   [errorText]="'Bitte geben Sie einen Nutzernamen an!' | translate"
+					></app-input>
+					<app-input field="password" type="password" [tabindex]="5" [form]="registrationForm" [horizontal]="true"
+							   [label]="'Passwort' | translate" [showForgotPasswordLink]="false"
+							   [errorText]="'Bitte geben Sie ein Passwort ein!' | translate"
+					></app-input>
+				</fieldset>
+				<fieldset>
+					<app-button [disabled]="!registrationForm.valid" [tabindex]="13">{{ 'Registrieren' | translate}}
+					</app-button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<alert></alert>
 </div>

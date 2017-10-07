@@ -97,30 +97,6 @@
     margin: 0 auto 25px;
 }
 
-.course-create-container .select2-container {
-    width: 100% !important;
-    height: 32px !important;
-    margin: 5px 0;
-}
-
-.course-create-container app-select2 div {
-    display: block !important;
-}
-
-.course-create-container .select2-results__option {
-    color: #222;
-}
-
-.course-create-container .select2-selection__choice {
-    color: #0C1724;
-}
-
-.course-create-container .select2-container--default.select2-container--focus .select2-selection--multiple {
-    border: 1px solid #CCC !important;
-    outline: 0;
-    border-radius: 5px !important;
-}
-
 .course-create-container .eventlist {
     width: 100%;
 }

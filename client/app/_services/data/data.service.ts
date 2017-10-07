@@ -8,6 +8,7 @@ export class DataService {
     public latitude: number;
     public longitude: number;
     public events: string[];
+	public reviewers: any[];
 
     constructor() {
     }

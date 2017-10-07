@@ -1,6 +1,6 @@
 ﻿import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService, UserService, CourseService} from '../../_services/index';
+import {AuthenticationService, UserService, CourseService, CategoryService} from '../../_services/index';
 import {Select2OptionData} from "ng2-select2";
 import {NouisliderComponent} from 'ng2-nouislider';
 import {Course} from "../../_models/course/course";
@@ -30,6 +30,7 @@ export class SearchCourseComponent implements OnInit, AfterViewInit {
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
                 private courseService: CourseService,
+				private categoryService: CategoryService,
                 private authenticationService: AuthenticationService) {
         if (this.authenticationService.userLoggedIn("user_token") != null) {
             this.userService.getById(JSON.parse(this.authenticationService.getUserParam("user_id"))).subscribe(user => {
@@ -51,6 +52,8 @@ export class SearchCourseComponent implements OnInit, AfterViewInit {
         this.setupSort();
 
         this.searchCourses();
+		
+		this.categories = this.categoryService.getCategoriesList();
 
         this.options = {
             multiple: true,

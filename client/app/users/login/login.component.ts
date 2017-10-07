@@ -37,9 +37,8 @@ export class LoginComponent implements OnInit {
                     location.reload();
                 },
                 error => {
-                    if (error.status == 404) {
-                        this.alertService.error(this._translate.instant('Email oder Passwort nicht korrekt!'));
-                    }
+                    this.alertService.error(this._translate.instant('Ein Nutzer mit entsprechenden Login-Daten wurde nicht gefunden!'));
+					$('alert').first().hide();
                 });
     }
 }

@@ -26,6 +26,8 @@ export const LANG_EN_TRANS = {
     'Eingeloggt bleiben': 'Stay Logged-In',
     'Die angegebene Email besitzt ein falsches Format!': 'Email is not valid!',
     'Das Passwort benötigt mindestens 8 Zeichen!': 'Password needs at minimum 8 letters!',
+	'Erfolgreich eingeloggt!':'Sucessfully logged in!',
+	'Ein Nutzer mit entsprechenden Login-Daten wurde nicht gefunden!':'A user with this login-data was not found!',
 
     /* HOME */
     'Neueste Kurse': 'Latest Courses',

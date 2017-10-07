@@ -64,7 +64,7 @@ export class UserComponent implements OnInit {
                             this.userFriends.push(friend);
                         });
                     }
-                    if (user._id != this.currentUser._id) {
+                    if (this.isLoggedIn() && user._id != this.currentUser._id) {
                         this.userService.addViewedUser(this.currentUser._id, user._id);
                     }
                 });

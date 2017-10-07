@@ -1,4 +1,13 @@
 /* registration */
+.registration-wrapper {
+	position: fixed;
+    display: table;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
 .registration-logo {
     display: table;
     width: 100%;

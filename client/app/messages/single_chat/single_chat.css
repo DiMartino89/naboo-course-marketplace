@@ -14,14 +14,23 @@
 }
 
 .chat-container .chat-info {
-    display: table;
-    max-height: 500px;
+    display: block;
+	height: auto;
+    max-height: 260px;
     padding: 20px;
     margin-bottom: 20px;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
     overflow-y: auto;
+}
+
+.chat-container .chat-info ul {
+	display: table;
+}
+
+.chat-container .chat-info small {
+	color: #AAA;
 }
 
 .chat-container .outbox {
@@ -93,3 +102,41 @@
     border: 22px solid;
     border-color: #111C27 transparent transparent transparent;
 }
+
+.chat-container .message-wrapper {
+	display: table;
+	position: fixed;
+	width: calc(100vw - 16.6%);
+	bottom: 0;
+	right: 0;
+	padding: 0 48px;
+	float: right;
+}
+
+.chat-container .chat-message {
+    display: table;
+    position: relative;
+	width: 100%;
+    max-height: 200px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #203858;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.chat-container .chat-message label {
+	padding: 2px 0;
+	margin: 0;
+}
+
+.chat-container .chat-message textarea {
+	min-height: 40px;
+	height: 40px;
+}
+
+.chat-container .chat-message app-button {
+	vertical-align: bottom;
+}
+

@@ -9,26 +9,11 @@ import {AlertService} from '../../_services/index';
 })
 
 export class AlertComponent implements OnInit {
-    @Input() text: string;
-    @Input() type: string;
-    @Input() headline: string;
+    message: any;
 
-    @Input() service = false;
-
-    constructor(private alertService: AlertService) {
-    }
+    constructor(private alertService: AlertService) { }
 
     ngOnInit() {
-        if (this.service === true) {
-            this.alertService.getMessage().subscribe((message) => {
-                if (message) {
-                    this.text = message.text;
-                    this.type = message.type;
-                    this.headline = null;
-
-                    $('.alerts').get(0).scrollIntoView();
-                }
-            });
-        }
+        this.alertService.getMessage().subscribe(message => { this.message = message; });
     }
 }

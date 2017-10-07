@@ -60,10 +60,9 @@ export class RegisterComponent implements OnInit {
                                 location.reload();
                                 localStorage.setItem(this.authenticationService.getUserParam('user_id') + '_messages', JSON.stringify(0));
                             },
-                            error => {
-                                if (error.status == 404) {
-                                    this.alertService.error(this._translate.instant('Email oder Passwort nicht korrekt!'));
-                                }
+                            error => {                               
+                                this.alertService.error(this._translate.instant('Email oder Passwort nicht korrekt!'));
+								$('alert').first().hide();
                             });
                 },
                 error => {

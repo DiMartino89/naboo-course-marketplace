@@ -2,10 +2,10 @@
     <div class="course-headline main">
         <div class="col-sm-9 page-headline">{{course.name}}</div>
         <div *ngIf="isLoggedIn()" class="col-sm-3 edit-panel">
-            <i *ngIf="currentUser._id != courseOwner._id && course.reviews && !course.reviews.indexOf(currentUser._id)"
-               class="fa fa-star-o" (click)="openReviewModal()"></i>
-            <a [routerLink]="['/course/edit/', course._id]" ><i *ngIf="currentUser._id == courseOwner._id" class="fa fa-pencil-square-o"></i></a>
-            <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-trash" (click)="deleteCourse()"></i>
+            <i *ngIf="currentUser._id != courseOwner._id && course.reviews && course.reviews[currentUser._id] == undefined"
+               class="fa fa-star-o" (click)="openReviewModal()" title="Rate this Course"></i>
+            <a [routerLink]="['/course/' + course._id + '/edit']" ><i *ngIf="currentUser._id == courseOwner._id" class="fa fa-pencil-square-o" title="Edit this Course"></i></a>
+            <i *ngIf="currentUser._id == courseOwner._id" class="fa fa-trash" (click)="deleteCourse()" title="Delete this Course"></i>
         </div>
     </div>
     <div class="col-sm-12">
@@ -18,9 +18,7 @@
                     <img *ngIf="course.owner" class="user-avatar oval"
                          [src]="courseOwner.avatar ? '/uploads/' + courseOwner.avatar : '/app/_assets/images/default-avatar.png'"/>
                 </a>
-                <app-review *ngIf="course.owner != currentUser._id" [rating]="course.rating"
-                            (click)="openReviewModal()"></app-review>
-                <app-review class="own" *ngIf="course.owner == currentUser._id" [rating]="course.rating"></app-review>
+                <app-review [rating]="course.rating"></app-review>
             </div>
         </div>
         <div class="col-sm-6">
@@ -68,13 +66,11 @@
                 </div>
                 <div *ngIf="course.owner && currentUser._id != course.owner" class="right-col">
                     <button class="btn btn-primary"
-                            *ngIf="course.members && !course.members.includes(currentUser._id) && course.members.length <= maxMembers && course.signInDeadline <= changeDateFormat(today)"
+                            *ngIf="course.members && !course.members.includes(currentUser._id) && course.members.length <= course.maxMembers && course.signInDeadline >= signInDateFormat(today)"
                             (click)="bookCourse(currentUser._id)">{{ 'Buchen' | translate}}
-                        Course
                     </button>
                     <button class="btn btn-primary" *ngIf="course.members && course.members.includes(currentUser._id)"
                             (click)="cancelCourse(currentUser._id)">{{ 'Stornieren' | translate}}
-                        Course
                     </button>
                 </div>
                 <div class="col-sm-12 course-members">
@@ -100,20 +96,19 @@
             </div>
 
             <!--Reviews-->
-            <div class="course-headline">{{ 'Bewertungen' | translate}} ({{course.reviews ? course.reviews.length :
-                0}})
+            <div class="course-headline">{{ 'Bewertungen' | translate}} ({{reviews.length}})
             </div>
-            <div class="col-sm-12 course-info">
-                <ul *ngIf="course.reviews && course.reviews.length" class="course-rating">
-                    <li *ngFor="let review of course.reviews" class="col-sm-12 review-item">
+            <div class="col-sm-12 course-info reviews">
+                <ul *ngIf="reviews && reviews.length" class="course-rating">
+                    <li *ngFor="let review of reviews | orderBy : ['createdAt']; let i=index" class="col-sm-12 review-item">
                         <div class="review-item-head">
-                            <a [routerLink]="['/user', review.user._id]">
+                            <a [routerLink]="['/user', review.user]">
                                 <img class="review-avatar"
-                                     [src]="review.user.avatar ? '/uploads/' + review.user.avatar : '/app/_assets/images/default-avatar.png'"/>
-                            </a>{{review.user.name}} (
+                                     [src]="reviewersAvatars[i] ? '/uploads/' + reviewersAvatars[i] : '/app/_assets/images/default-avatar.png'"/>
+                            </a>{{reviewersNames[i]}} (
                             <small>{{review.createdAt}}</small>
                             )
-                            <app-review class="own single" [rating]="review.rating"></app-review>
+                            <app-review class="single" [rating]="review.rating"></app-review>
                         </div>
                         <div class="review-description">
                             <p>{{review.description}}</p>
