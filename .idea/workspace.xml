@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18df0cda-f929-418a-b6da-f50cb7915f19" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/courses/course_search/course_search.component.ts" afterPath="$PROJECT_DIR$/client/app/courses/course_search/course_search.component.ts" />
-    </list>
+    <list default="true" id="18df0cda-f929-418a-b6da-f50cb7915f19" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -39,9 +37,11 @@
       <find>news-pa</find>
       <find>.filter</find>
       <find>offer</find>
+      <find>ventmap</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Martin24989\Desktop\quodo-course-marketplace\client</dir>
+      <dir>C:\Users\Martin24989\Desktop\quodo-course-marketplace\server</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -296,12 +296,12 @@
       <workItem from="1505848851597" duration="16321000" />
       <workItem from="1505950850064" duration="280000" />
       <workItem from="1507068891789" duration="9552000" />
-      <workItem from="1507413847014" duration="943000" />
+      <workItem from="1507413847014" duration="1020000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="493408000" />
+    <option name="totallyTimeSpent" value="493485000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />

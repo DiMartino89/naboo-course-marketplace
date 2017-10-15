@@ -1,5 +1,5 @@
 ﻿{
-  "connectionString": "mongodb://localhost:27017/quodo",
+  "connectionString": "mongodb://localhost:27017/naboo",
   "apiUrl": "http://localhost:3001",
-  "secret": "Quodo24989"
+  "secret": "Naboo24989"
 }

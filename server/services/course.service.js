@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var Q = require('q');
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/quodo", {native_parser: true});
+var db = mongo.db("mongodb://localhost:27017/naboo", {native_parser: true});
 db.bind('courses');
 
 var service = {};
