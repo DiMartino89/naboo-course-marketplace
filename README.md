@@ -1,19 +1,31 @@
-# File-upload-Angular2-Nodejs
-File upload with angular 2 and node.js
+# Naboo-Course-Marketplace
 
-##Quick Setup
+The plattform-prototype for creative and talented people!
 
-- `git clone https://github.com/rahil471/File-upload-Angular2-Nodejs.git file-upload`
-- Navigate into the node app `cd file-upload/node-app`
-- Install Dependencies `npm install`
-- Install gulp globally `npm install gulp -g`
-- To start the node server `gulp`
-- Open a new terminal window.
-- Navigate into `/angular2-app/`
-- Install all dependencies `npm install`
-- In some cases you might have to isntall `lite-server` globally `npm i lite-server -g`
-- Run the Angular 2 app using `npm start`
+# Quick Setup
 
-Once both applicatons are running you should be able to upload the files.
-- <a href="https://code.ciphertrick.com/2016/10/24/file-upload-with-angular2-nodejs/">Tutorial.</a><br>
-- <a href="https://www.youtube.com/watch?v=nUL_zNh7TE0&feature=youtu.be">Demo.</a>
+MongoDB Setup (verwendete Version 3.2):
+
+Schritt 1: Installation https://www.mongodb.com/de 
+•	Standard-Pfad: C:\ProgramFiles\MongoDB\Server\3.2\.
+Schritt 2: Data-Directory erstellen
+•	Command Prompt öffnen und md \data\db ausführen
+Schritt 3: MongoDB starten
+•	cd C:\ProgramFiles\MongoDB\Server\3.2\bin\mongod.exe
+Das Setup ist unter folgendem Link nochmal genauer beschrieben:  https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+
+NodeJS Setup (verwendete Version 7.5.0)
+
+Schritt 1: Installation  https://nodejs.org/de/download/ 
+•	Nach der Installation Versionskontrolle durchführen: node –v & npm –v
+Das Setup ist unter folgendem Link nochmal genauer beschrieben: http://blog.teamtreehouse.com/install-node-js-npm-windows 
+
+Naboo Setup
+
+Schritt 1: Klonen der Github-Repository 
+$ git clone https://github.com/DiMartino89/naboo-course-
+marketplace.git 
+Schritt 2: Concurrently-Modul für Anwendungs-Start im root-Verzeichnis installieren
+•	$ npm install concurrently
+Schritt 3: Anwendung aus dem root-Verzeichnis starten
+$ npm start
