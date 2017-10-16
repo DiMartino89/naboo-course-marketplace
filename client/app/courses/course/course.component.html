@@ -69,7 +69,7 @@
                 </div>
                 <div *ngIf="course.owner && currentUser._id != course.owner" class="right-col">
                     <button class="btn btn-primary"
-                            *ngIf="course.members && !course.members.includes(currentUser._id) && course.members.length <= course.maxMembers && course.signInDeadline >= signInDateFormat(today)"
+                            *ngIf="isLoggedIn() && course.members && !course.members.includes(currentUser._id) && course.members.length <= course.maxMembers && course.signInDeadline >= signInDateFormat(today)"
                             (click)="bookCourse(currentUser._id)">{{ 'Buchen' | translate}}
                     </button>
                     <button class="btn btn-primary" *ngIf="course.members && course.members.includes(currentUser._id)"
